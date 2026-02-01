@@ -51,5 +51,8 @@ git worktree remove ../<branch>
 2) Run required tests/linters/builds and fix failures.
 3) Commit changes on your branch.
 4) Push the branch and open a PR with clear summary + testing/docs notes.
-5) Do not merge; another agent merges the PR.
-6) Update `br` status to done/closed when appropriate.
+5) Review the PR before starting new cards; if incomplete, iterate until done.
+6) When lint/tests and review pass, you may merge to main.
+7) Always rebase before merging; coordinate so only one agent merges at a time.
+8) During rebase, resolve conflicts carefully so no updates are lost; if unsure, ask the user.
+9) Update `br` status to done/closed when appropriate.

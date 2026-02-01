@@ -15,9 +15,12 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 6) Recommended: set `AGENT_NAME` and use the repo root path as the Mail `project_key`.
 
 `br` never runs git. After `br sync --flush-only`, commit `.beads/` changes.
+`br` data lives in the main project folder. Create epics/tasks/subtasks there so all agents share the same `.beads/` and always include the epic/task/subtask ids in updates.
 
 ## 2) Worktrees for new epics/tasks
 When starting a new epic or task, create a worktree one folder up.
+Keep `br` tracking in the main project folder (the repo root that contains `.beads/`).
+If unclear, ask the owner. Example: repo `asx`, worktree `../asx-add-new-ux`, `br` stays in `../asx`.
 
 1) Update main first:
 ```bash

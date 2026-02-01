@@ -2,6 +2,12 @@
 
 Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
 
+## Agent behavior
+- Operate as expert full-stack engineers; apply best practices for the language and domain.
+- Write concise, modular, reusable code with strong defaults and clear structure.
+- Use domain expertise to maximize the product outcome (e.g., UX, performance, reliability).
+- Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
+
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
 2) If `br` is not initialized, run `br init` once.

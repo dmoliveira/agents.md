@@ -5,9 +5,9 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
 2) If `br` is not initialized, run `br init` once.
-3) Run `br ready` and pick one issue (or confirm the human-assigned one).
+3) Run `br ready`, pick one issue, and check the `br-<id>` Mail thread before starting or reviewing.
 4) `br update <id> --status in_progress` when you start.
-4) Use the br issue id everywhere:
+5) Use the br issue id everywhere:
    - Mail `thread_id`: `br-<id>`
    - Subject prefix: `[br-<id>]`
    - File reservation reason: `br-<id>`
@@ -15,11 +15,20 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 6) Recommended: set `AGENT_NAME` and use the repo root path as the Mail `project_key`.
 
 `br` never runs git. After `br sync --flush-only`, commit `.beads/` changes.
-`br` data lives in the main project folder. Create epics/tasks/subtasks there so all agents share the same `.beads/` and always include the epic/task/subtask ids in updates.
+`br` data lives in the main project folder. Create epics/tasks/subtasks there so all agents share the same `.beads/` and include epic/task/subtask ids in updates.
+
+## Quick commands
+```bash
+br ready
+br show <id>
+br update <id> --status in_progress
+br close <id>
+br sync --flush-only
+```
 
 ## 2) Worktrees for new epics/tasks
 When starting a new epic or task, create a worktree one folder up.
-Keep `br` tracking in the main project folder (the repo root that contains `.beads/`).
+Run `br` in the main project folder (the repo root that contains `.beads/`).
 If unclear, ask the owner. Example: repo `asx`, worktree `../asx-add-new-ux`, `br` stays in `../asx`.
 
 1) Update main first:
@@ -44,6 +53,7 @@ git worktree remove ../<branch>
 - Check/ack messages: `fetch_inbox`, `acknowledge_message`.
 - Release when done: `release_file_reservations(project_key, agent_name, paths=["path/**"])`.
 - Multi-agent flow: one agent may create epics/tasks/subtasks, others execute, and another reviews. Always check `br` status and the Mail thread before you start or review.
+- Sub-agents: use only for clean splits; each sub-agent registers/reserves and reports in the same `br-<id>` thread. Primary agent integrates/lands changes.
 
 ## 4) Python tooling
 - Use `uv` for environments and deps.

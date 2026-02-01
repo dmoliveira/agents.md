@@ -69,6 +69,7 @@ git worktree remove ../<branch>
 ## 5) Project conventions (when missing)
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
 - Prefer Makefiles for scripts; provide `make help` with command names and short descriptions.
+- For web apps, install and use Playwright to simulate the browser and debug UX visually.
 
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.

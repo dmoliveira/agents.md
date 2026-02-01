@@ -60,7 +60,11 @@ git worktree remove ../<branch>
 - Use `uv` for environments and deps.
 - Use `ruff` for formatting and fixes: `ruff format`, `ruff check --fix`.
 
-## 5) Finish (per task)
+## 5) Project conventions (when missing)
+- Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
+- Prefer Makefiles for scripts; provide `make help` with command names and short descriptions.
+
+## 6) Finish (per task)
 1) Update docs and tests to match the change.
 2) Run required tests/linters/builds and fix failures.
 3) Commit changes on your branch.

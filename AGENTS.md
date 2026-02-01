@@ -55,4 +55,5 @@ git worktree remove ../<branch>
 6) When lint/tests and review pass, you may merge to main.
 7) Always rebase before merging; coordinate so only one agent merges at a time.
 8) During rebase, resolve conflicts carefully so no updates are lost; if unsure, ask the user.
-9) Update `br` status to done/closed when appropriate.
+9) After merge, create a version tag and release notes with an executive summary and a clear changelog (Adds, Changes, Removals, Fixes).
+10) Update `br` status to done/closed when appropriate.

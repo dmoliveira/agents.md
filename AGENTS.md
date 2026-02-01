@@ -28,6 +28,7 @@ br sync --flush-only
 
 ## 2) Worktrees for new epics/tasks
 When starting a new epic or task, create a worktree one folder up.
+Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).
 Run `br` in the main project folder (the repo root that contains `.beads/`).
 If unclear, ask the owner. Example: repo `asx`, worktree `../asx-add-new-ux`, `br` stays in `../asx`.
 

@@ -20,7 +20,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
    - Optional: include `br-<id>` in commit messages
 6) Recommended: set `AGENT_NAME` and use the repo root path as the Mail `project_key`.
 
-`br` never runs git. After `br sync --flush-only`, commit `.beads/` changes.
+`br` never runs git. Keep `.beads/` local (gitignored) and do not commit it.
 `br` data lives in the current worktree. Create epics/tasks/subtasks in the worktree you are using so each branch keeps its own `.beads/` context, and include epic/task/subtask ids in updates.
 
 ## Quick commands

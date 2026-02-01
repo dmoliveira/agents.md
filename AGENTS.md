@@ -40,6 +40,7 @@ git worktree remove ../<branch>
 - Post updates in the `br-<id>` thread: `send_message(..., thread_id="br-<id>", subject="[br-<id>] Start: <title>")`.
 - Check/ack messages: `fetch_inbox`, `acknowledge_message`.
 - Release when done: `release_file_reservations(project_key, agent_name, paths=["path/**"])`.
+- Multi-agent flow: one agent may create epics/tasks/subtasks, others execute, and another reviews. Always check `br` status and the Mail thread before you start or review.
 
 ## 4) Python tooling
 - Use `uv` for environments and deps.

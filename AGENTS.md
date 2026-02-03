@@ -7,6 +7,8 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Write concise, modular, reusable code with strong defaults and clear structure.
 - Use domain expertise to maximize the product outcome (e.g., UX, performance, reliability).
 - Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
+- If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
+- Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.

@@ -74,6 +74,9 @@ git worktree remove ../<branch>
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
+- Add security/static checks to pre-commit when possible:
+  - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
+  - Rust: `clippy` + `cargo audit` (Semgrep optional).
 
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.

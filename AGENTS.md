@@ -72,6 +72,8 @@ git worktree remove ../<branch>
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
 - Prefer Makefiles for scripts; provide `make help` with command names and short descriptions.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
+- Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
+- If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
 
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.

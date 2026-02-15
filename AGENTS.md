@@ -46,6 +46,12 @@ Use this flow for each request/feature/fix:
 6) Delete the worktree and branch.
 7) Return to `main` and `git pull --rebase`.
 
+### Parallel execution (OpenCode runs)
+When work can be done in parallel, start a separate OpenCode run per task.
+Each run must use its own worktree/branch and one `br` issue (`br-<id>`), and coordinate via the matching Mail thread.
+Use subagents only for clean, independent splits; each subagent must register, reserve files, and report in the same `br-<id>` thread.
+Do not run multiple agents against the same files without explicit file reservations.
+
 When starting a new epic or task, create a worktree one folder up.
 Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).
 Run `br` in the worktree you are using (the repo root that contains that branch's `.beads/`).

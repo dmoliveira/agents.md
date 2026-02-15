@@ -46,11 +46,32 @@ Use this flow for each request/feature/fix:
 6) Delete the worktree and branch.
 7) Return to `main` and `git pull --rebase`.
 
-### Parallel execution (OpenCode runs)
-When work can be done in parallel, start a separate OpenCode run per task.
-Each run must use its own worktree/branch and one `br` issue (`br-<id>`), and coordinate via the matching Mail thread.
-Use subagents only for clean, independent splits; each subagent must register, reserve files, and report in the same `br-<id>` thread.
-Do not run multiple agents against the same files without explicit file reservations.
+### Parallel execution (AI runs)
+Use one AI run per epic/task, each with its own worktree+branch and `br` issue (`br-<id>`). Prefer OpenCode; Codex/Claude Code are allowed if they follow the same rules.
+
+Task packet (required): epic id, task/subtask ids, scope, acceptance criteria, required checks, constraints, and done definition.
+
+Worker run lifecycle:
+1) Implement in its worktree with small incremental commits.
+2) Validate required checks/criteria.
+3) Open PR, post PR URL in `br-<id>`, then stop.
+
+Coordinator loop (between tasks):
+1) Check open PRs; start review/fix runs until criteria pass.
+2) Merge PRs with required approvals/checks.
+3) Delete merged worktree/branch.
+4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
+
+Use subagents only for clean independent splits; never overlap files without explicit reservations.
+
+```bash
+# Preferred (OpenCode)
+opencode run --agent build --dir ../<branch> "<task-packet>"
+
+# Also valid (Codex / Claude Code)
+codex "<task-packet>"
+claude "<task-packet>"
+```
 
 When starting a new epic or task, create a worktree one folder up.
 Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).

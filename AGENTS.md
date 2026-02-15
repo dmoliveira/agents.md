@@ -85,6 +85,8 @@ git worktree remove ../<branch>
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
+- If hook config is missing, add baseline commit hooks that run formatter, linter, and relevant test command(s), then install hooks before committing.
+- If commit hooks are not installed locally, install them (`pre-commit install`) and run them once across files (`pre-commit run --all-files`) before the first commit in a task.
 - Add security/static checks to pre-commit when possible:
   - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
   - Rust: `clippy` + `cargo audit` (Semgrep optional).

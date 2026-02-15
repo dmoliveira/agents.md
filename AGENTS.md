@@ -9,6 +9,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
 - If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
+- If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
@@ -35,6 +36,16 @@ br sync --flush-only
 ```
 
 ## 2) Worktrees for new epics/tasks
+### wt flow
+Use this flow for each request/feature/fix:
+1) Create a dedicated worktree and branch.
+2) Implement in that worktree with small incremental commits.
+3) Run at least 5 review/fix/improve passes before opening a PR.
+4) Open PR, address review feedback, and re-run checks.
+5) Merge when approved.
+6) Delete the worktree and branch.
+7) Return to `main` and `git pull --rebase`.
+
 When starting a new epic or task, create a worktree one folder up.
 Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).
 Run `br` in the worktree you are using (the repo root that contains that branch's `.beads/`).

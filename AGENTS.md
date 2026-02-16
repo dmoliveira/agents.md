@@ -40,11 +40,15 @@ br sync --flush-only
 Use this flow for each request/feature/fix:
 1) Create a dedicated worktree and branch.
 2) Implement in that worktree with small incremental commits.
-3) Run at least 5 review/fix/improve passes before opening a PR.
+3) Run risk-based review/fix/improve passes before opening a PR:
+   - Low risk (docs/tests/small scoped edit): 1 pass.
+   - Medium risk (typical feature/refactor): 2 passes.
+   - High risk (runtime/security/migration): 3-5 passes.
 4) Open PR, address review feedback, and re-run checks.
 5) Merge when approved.
 6) Delete the worktree and branch.
 7) Return to `main` and `git pull --rebase`.
+8) Stop review cycling once required checks are green and latest review has no blocker findings.
 
 ### Parallel execution (AI runs)
 Use one AI run per epic/task, each with its own worktree+branch and `br` issue (`br-<id>`). Prefer OpenCode; Codex/Claude Code are allowed if they follow the same rules.
@@ -63,6 +67,7 @@ Coordinator loop (between tasks):
 4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
 
 Use subagents only for clean independent splits; never overlap files without explicit reservations.
+Limit concurrent subagents to 2 and avoid duplicate role passes on unchanged diffs.
 
 ```bash
 # Preferred (OpenCode)

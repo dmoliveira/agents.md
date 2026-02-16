@@ -44,6 +44,7 @@ Use this flow for each request/feature/fix:
    - Low risk (docs/tests/small scoped edit): 1 pass.
    - Medium risk (typical feature/refactor): 2 passes.
    - High risk (runtime/security/migration): 3-5 passes.
+   - Passes may be self-review + verifier/reviewer; do not default every pass to reviewer subagents.
 4) Open PR, address review feedback, and re-run checks.
 5) Merge when approved.
 6) Delete the worktree and branch.
@@ -68,6 +69,17 @@ Coordinator loop (between tasks):
 
 Use subagents only for clean independent splits; never overlap files without explicit reservations.
 Limit concurrent subagents to 2 and avoid duplicate role passes on unchanged diffs.
+
+### Build-mode efficiency (default)
+When running the `build` agent for normal delivery work:
+- Prefer direct implementation and verification before spawning reviewer subagents.
+- Reviewer budget by risk:
+  - Low risk: 0 reviewer passes (self-check + verifier is enough).
+  - Medium risk: max 1 reviewer pass (final gate).
+  - High risk: max 2 reviewer passes unless diff materially changed after the latest pass.
+- Never run repeated reviewer passes on unchanged diffs.
+- For PR merge operations, use `gh pr checks` + `gh pr view --json ...` first; only trigger reviewer if checks fail or code changed.
+- Parallelize independent discovery/diagnostics/verification, but keep at most one reviewer and one verifier active at the same time.
 
 ```bash
 # Preferred (OpenCode)

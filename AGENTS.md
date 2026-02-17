@@ -18,6 +18,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If Nerd Font glyphs are unavailable, use plain fallback: `[AI] Ops Note:`.
 - Keep it nerdy and concise; avoid long rationale dumps.
 - Guard against repeats: if the same intent was clarified recently, do not post another near-identical note.
+- Post at most one `Thinking` + `Ops Note` pair per command batch.
 - Re-post notes only when the plan changes, a new command batch starts, or enough context has changed.
 
 Quick format:

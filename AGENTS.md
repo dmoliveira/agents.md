@@ -81,6 +81,14 @@ When running the `build` agent for normal delivery work:
 - For PR merge operations, use `gh pr checks` + `gh pr view --json ...` first; only trigger reviewer if checks fail or code changed.
 - Parallelize independent discovery/diagnostics/verification, but keep at most one reviewer and one verifier active at the same time.
 
+### Memory-aware orchestration (default)
+Use these rules to avoid session/process pressure regressions during long delivery loops:
+- Check pressure before spawning extra passes: if `continue_process_count >= 3`, do not add new reviewer/verifier runs unless a blocker requires it.
+- Keep reviewer usage minimal under pressure: one reviewer pass per changed diff; no repeat reviewer pass when code is unchanged.
+- Prefer finishing active WT cards over opening new concurrent continuation sessions; avoid stacking parallel long-running sessions on the same repo.
+- Time-box long sessions: every 90-120 minutes, checkpoint progress (tests/PR status), then compact or start a fresh session with a short handoff summary.
+- Escalate only when needed: reserve additional subagents for blocker triage, failing checks, or materially changed diffs.
+
 ```bash
 # Preferred (OpenCode)
 opencode run --agent build --dir ../<branch> "<task-packet>"

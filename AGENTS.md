@@ -11,30 +11,6 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 
-### Decision notes (non-blocking, user-facing command runs)
-- Notes are optional; execution continuity comes first.
-- If used, keep one short `Thinking:` line (3-8 words) and one `󰚩 Ops Note:` line with `what + why` in 1 short sentence.
-- Emit notes only in turns that also run a command batch; never send note-only responses.
-- If no command batch follows immediately, skip notes and continue work.
-- If useful, add one tiny stat in parentheses (tests run, files touched, elapsed time).
-- If Nerd Font glyphs are unavailable, use plain fallback: `[AI] Ops Note:`.
-- Guard against repeats: if the same intent was clarified recently, do not post another near-identical note.
-- Post at most one `Thinking` + `Ops Note` pair per command batch.
-- Re-post notes only when the plan changes, a new command batch starts, or enough context has changed.
-
-Quick format:
-```text
-Thinking: <short plan>
-󰚩 Ops Note: <what + why> (<optional stat>)
-# fallback: [AI] Ops Note: <what + why> (<optional stat>)
-```
-
-Example:
-```text
-Thinking: Running full gateway validation
-󰚩 Ops Note: Running core + integration tests to confirm the hook change is safe (109 tests baseline).
-```
-
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
 2) If `br` is not initialized, run `br init` once.

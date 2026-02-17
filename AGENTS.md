@@ -89,6 +89,11 @@ Use these rules to avoid session/process pressure regressions during long delive
 - Time-box long sessions: every 90-120 minutes, checkpoint progress (tests/PR status), then compact or start a fresh session with a short handoff summary.
 - Escalate only when needed: reserve additional subagents for blocker triage, failing checks, or materially changed diffs.
 
+Pressure mode matrix (deterministic defaults):
+- `low` (`continue_process_count < 3`): normal flow; at most one reviewer and one verifier concurrently.
+- `medium` (`continue_process_count` in `3..4`): keep one active subagent total; skip non-essential reviewer/verifier passes unless checks fail.
+- `high` (`continue_process_count >= 5`): no new reviewer/verifier subagents unless a blocker/severity issue exists; finish in-flight WT task before opening another continuation session.
+
 ```bash
 # Preferred (OpenCode)
 opencode run --agent build --dir ../<branch> "<task-packet>"

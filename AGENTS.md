@@ -13,20 +13,22 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 
 ### Decision notes (for user-facing command runs)
 - Before non-trivial command batches, print a short `Thinking:` line (3-8 words) with the immediate plan.
-- Then print one `Ops Note:` line with `what + why`; keep it to 1 sentence and simple wording.
+- Then print one AI note line using a Nerd Font icon: `󰚩 Ops Note:` followed by `what + why` in 1 short sentence.
 - If useful, add one tiny stat in parentheses (tests run, files touched, elapsed time).
+- If Nerd Font glyphs are unavailable, use plain fallback: `[AI] Ops Note:`.
 - Keep it nerdy and concise; avoid long rationale dumps.
 
 Quick format:
 ```text
 Thinking: <short plan>
-Ops Note: <what + why> (<optional stat>)
+󰚩 Ops Note: <what + why> (<optional stat>)
+# fallback: [AI] Ops Note: <what + why> (<optional stat>)
 ```
 
 Example:
 ```text
 Thinking: Running full gateway validation
-Ops Note: Running core + integration tests to confirm the hook change is safe (109 tests baseline).
+󰚩 Ops Note: Running core + integration tests to confirm the hook change is safe (109 tests baseline).
 ```
 
 ## 1) Start (every session)

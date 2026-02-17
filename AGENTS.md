@@ -17,6 +17,12 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If useful, add one tiny stat in parentheses (tests run, files touched, elapsed time).
 - Keep it nerdy and concise; avoid long rationale dumps.
 
+Quick format:
+```text
+Thinking: <short plan>
+Ops Note: <what + why> (<optional stat>)
+```
+
 Example:
 ```text
 Thinking: Running full gateway validation

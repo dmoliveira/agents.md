@@ -61,22 +61,21 @@ This flow is required for any feature, improvement, or bug fix:
 1) Create a dedicated worktree and branch.
 2) Implement in that worktree with small incremental commits.
 3) Commit small, focused advances as each logical slice lands (avoid one large batch commit).
-4) Run risk-based review/fix/improve passes before opening a PR:
+4) Run risk-based review/fix/improve passes before merging:
    - Low risk (docs/tests/small scoped edit): 1 pass.
    - Medium risk (typical feature/refactor): 2 passes.
    - High risk (runtime/security/migration): 3-5 passes.
    - Passes may be self-review + verifier/reviewer; do not default every pass to reviewer subagents.
-5) Open PR, address review feedback, and re-run checks.
-6) Merge when approved.
-7) Delete the worktree and branch.
-8) Return to `main` and `git pull --rebase`.
-9) Stop review cycling once required checks are green and latest review has no blocker findings.
+5) Merge when approved.
+6) Delete the local worktree and branch.
+7) Return to `main` and `git pull --rebase`.
+8) Stop review cycling once required checks are green and latest review has no blocker findings.
 
 WT execution checklist (use in every run):
 - Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`; never implement delivery work directly on `main`.
 - Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
-- Delivery: implement in small commits, commit each logical advance, run required checks, open PR, post PR URL in `br-<id>`.
-- Closure: merge when checks/approvals pass, delete remote branch + local worktree, return to `main`, `git pull --rebase`, close `br` issue.
+- Delivery: implement in small commits, commit each logical advance, run required checks, and iterate review/fix/improve until ready to merge.
+- Closure: merge, delete local worktree + branch, return to `main`, `git pull --rebase`, then close the `br` issue.
 
 WT e2e command flow (reference):
 ```bash
@@ -84,11 +83,10 @@ git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
 # implement + small commits
-git push -u origin <branch>
-gh pr create
+git checkout main
+git merge --no-ff <branch>
 # after merge
 git worktree remove ../<branch>
-git checkout main
 git pull --rebase
 ```
 

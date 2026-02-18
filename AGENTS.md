@@ -13,6 +13,15 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 - Print `<CONTINUE-LOOP>` as the final line only when at least one task is still pending after the current cycle.
 
+- For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back.
+- Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.
+- Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast.
+- If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
+- For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
+
+- When rebasing or syncing with latest `main`, preserve user-authored local changes in touched files while integrating upstream updates.
+- Keep implementations lean and semantically structured; add comments/docstrings only when they materially improve clarity.
+
 ## Orchestration quickplay
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
@@ -63,7 +72,7 @@ This flow is required for any feature, improvement, or bug fix:
 9) Stop review cycling once required checks are green and latest review has no blocker findings.
 
 WT execution checklist (use in every run):
-- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`.
+- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`; never implement delivery work directly on `main`.
 - Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
 - Delivery: implement in small commits, commit each logical advance, run required checks, open PR, post PR URL in `br-<id>`.
 - Closure: merge when checks/approvals pass, delete remote branch + local worktree, return to `main`, `git pull --rebase`, close `br` issue.
@@ -148,7 +157,7 @@ git pull --rebase
 ```bash
 git worktree add ../<branch> -b <branch>
 ```
-3) Work inside `../<branch>`.
+3) Work inside `../<branch>` (do not land delivery edits on `main`).
 4) When finished, remove the worktree:
 ```bash
 git worktree remove ../<branch>
@@ -169,15 +178,22 @@ git worktree remove ../<branch>
 
 ## 5) Project conventions (when missing)
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
-- Prefer Makefiles for scripts; provide `make help` with command names and short descriptions.
+- Prefer Makefiles for scripts; provide `make help` with project name/version and concise command descriptions.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
 - If hook config is missing, add baseline commit hooks that run formatter, linter, and relevant test command(s), then install hooks before committing.
 - If commit hooks are not installed locally, install them (`pre-commit install`) and run them once across files (`pre-commit run --all-files`) before the first commit in a task.
+- For YAML config examples, include concise comments and explicit option choices when multiple safe defaults exist.
 - Add security/static checks to pre-commit when possible:
   - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
   - Rust: `clippy` + `cargo audit` (Semgrep optional).
+
+## Documentation conventions
+- Keep delivery documentation under `docs/`.
+- Write planning and rollout docs under `docs/plan/`.
+- Write feature/API/behavior specs under `docs/specs/`.
+- Prefer short docs that are updated in the same change as code, with clear headings and scoped acceptance criteria.
 
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.

@@ -72,7 +72,7 @@ This flow is required for any feature, improvement, or bug fix:
 9) Stop review cycling once required checks are green and latest review has no blocker findings.
 
 WT execution checklist (use in every run):
-- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`.
+- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`; never implement delivery work directly on `main`.
 - Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
 - Delivery: implement in small commits, commit each logical advance, run required checks, open PR, post PR URL in `br-<id>`.
 - Closure: merge when checks/approvals pass, delete remote branch + local worktree, return to `main`, `git pull --rebase`, close `br` issue.
@@ -157,7 +157,7 @@ git pull --rebase
 ```bash
 git worktree add ../<branch> -b <branch>
 ```
-3) Work inside `../<branch>`.
+3) Work inside `../<branch>` (do not land delivery edits on `main`).
 4) When finished, remove the worktree:
 ```bash
 git worktree remove ../<branch>

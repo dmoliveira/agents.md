@@ -23,6 +23,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Keep implementations lean and semantically structured; add comments/docstrings only when they materially improve clarity.
 
 ## Orchestration quickplay
+- Default mode: use a short local WT flow (implement -> review/fix/improve -> merge locally), then delete the local worktree branch and sync local `main`.
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).

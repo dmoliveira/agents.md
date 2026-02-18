@@ -24,7 +24,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 
 ## Orchestration quickplay
 - Default mode: use a short WT flow (implement -> review/fix/improve -> open PR -> merge), then delete the local worktree branch and sync local `main`.
-- Open a PR for delivery changes and merge to `main` only through the PR.
+- Open a PR for delivery changes and merge to `main` only through the PR for control and auditability.
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).

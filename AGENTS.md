@@ -1,6 +1,7 @@
 # Agent Instructions
 
 Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
+Use `br` only for issue tracking in this repo (`bd` is not used here).
 
 ## Agent behavior
 - Operate as expert full-stack engineers; apply best practices for the language and domain.
@@ -17,6 +18,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back.
 - Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.
 - Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast.
+- For independent repeated commands, prefer `parallel` over shell `for` loops; use `xargs -P` or sequential execution only when needed.
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
 - For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
 
@@ -26,6 +28,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 ## Orchestration quickplay
 - Default mode: use a short WT flow (implement -> review/fix/improve -> open PR -> merge), then delete the local worktree branch and sync local `main`.
 - Open a PR for delivery changes and merge to `main` only through the PR for control and auditability.
+- For local productivity shortcuts, use `docs/tooling-quick-ref.md` (primary source: `../my_utils`, fallback: `../utils-scripts`).
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).
@@ -199,6 +202,7 @@ git worktree remove ../<branch>
 - Keep delivery documentation under `docs/`.
 - Write planning and rollout docs under `docs/plan/`.
 - Write feature/API/behavior specs under `docs/specs/`.
+- Keep tooling quick references under `docs/` (current: `docs/tooling-quick-ref.md`).
 - Prefer short docs that are updated in the same change as code, with clear headings and scoped acceptance criteria.
 
 ## 6) Finish (per task)

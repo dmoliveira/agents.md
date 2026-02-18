@@ -18,6 +18,7 @@ Use this as a fast productivity map for local utility tools.
 - Prefer `parallel` for independent repeated commands instead of `for` loops.
 - Base pattern: `parallel --jobs <n> --halt soon,fail=1 '<cmd {1}>' ::: <arg1> <arg2> <arg3>`
 - Use when commands are independent and order does not matter.
+- Do not use for ordered/stateful steps, commands with shared mutable state, or cases requiring strict serial logs.
 - Fallback when `parallel` is unavailable: `xargs -P <n>`; use sequential execution when steps are dependent.
 
 ### Parallel quick recipes

@@ -24,6 +24,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 
 ## Orchestration quickplay
 - Default mode: use a short local WT flow (implement -> review/fix/improve -> merge locally), then delete the local worktree branch and sync local `main`.
+- Open a PR only when explicitly requested by the owner or when branch-policy/checks require it.
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).
@@ -98,11 +99,11 @@ Task packet (required): epic id, task/subtask ids, scope, acceptance criteria, r
 Worker run lifecycle:
 1) Implement in its worktree with small incremental commits.
 2) Validate required checks/criteria.
-3) Open PR, post PR URL in `br-<id>`, then stop.
+3) Merge via local WT flow, post merge summary in `br-<id>`, then stop.
 
 Coordinator loop (between tasks):
-1) Check open PRs; start review/fix runs until criteria pass.
-2) Merge PRs with required approvals/checks.
+1) Check active worktree branches; start review/fix runs until criteria pass.
+2) Merge approved branches via local WT flow.
 3) Delete merged worktree/branch.
 4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
 
@@ -198,11 +199,9 @@ git worktree remove ../<branch>
 1) Update docs and tests to match the change.
 2) Run required tests/linters/builds and fix failures.
 3) Commit changes on your branch.
-4) Push the branch and open a PR with clear summary + testing/docs notes.
-5) For meaningful changes in git projects, keep commit and push as separate steps.
-6) Review the PR before starting new cards; if incomplete, iterate until done.
-7) When lint/tests and review pass, you may merge to main.
-8) Always rebase before merging; coordinate so only one agent merges at a time.
-9) During rebase, resolve conflicts carefully so no updates are lost; if unsure, ask the user.
-10) After merge, create a version tag and release notes with an executive summary and a clear changelog (Adds, Changes, Removals, Fixes).
-11) Update `br` status to done/closed when appropriate.
+4) Run review/fix/improve passes until the change is ready to merge.
+5) Merge to `main` via local WT flow, then `git pull --rebase`.
+6) Delete the local worktree and merged branch.
+7) During rebase/merge conflict resolution, preserve user-authored updates in touched files.
+8) After merge, create a version tag and release notes with an executive summary and a clear changelog (Adds, Changes, Removals, Fixes).
+9) Update `br` status to done/closed when appropriate.

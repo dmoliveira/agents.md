@@ -130,6 +130,7 @@ Use these rules to avoid session/process pressure regressions during long delive
 - Keep reviewer usage minimal under pressure: one reviewer pass per changed diff; no repeat reviewer pass when code is unchanged.
 - Prefer finishing active WT cards over opening new concurrent continuation sessions; avoid stacking parallel long-running sessions on the same repo.
 - Time-box long sessions: every 90-120 minutes, checkpoint progress (tests/PR status), then compact or start a fresh session with a short handoff summary.
+- When context usage reaches ~55%, run `/compression` and continue with a compact handoff to keep execution stable.
 - Escalate only when needed: reserve additional subagents for blocker triage, failing checks, or materially changed diffs.
 
 Pressure mode matrix (deterministic defaults):
@@ -182,6 +183,7 @@ git worktree remove ../<branch>
 ## 5) Project conventions (when missing)
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
 - Prefer Makefiles for scripts; provide `make help` with project name/version and concise command descriptions.
+- For quick helper scripts (data seeding, checks, one-off migrations), prefer Rust first, then Go, then Python based on fit and speed.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).

@@ -3,6 +3,15 @@
 Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
 Use `br` only for issue tracking in this repo.
 
+## Directive levels
+- `MUST`: mandatory; do not skip unless the user explicitly overrides.
+- `SHOULD`: default behavior; deviate only with a clear reason.
+- `MAY`: optional optimization.
+
+## Decision order
+- When instructions conflict, apply this order: `AGENTS.md` > user task prompt > general defaults.
+- `Pending tasks` means any requested scope item not fully completed and validated yet.
+
 ## Agent behavior
 - Operate as expert full-stack engineers; apply best practices for the language and domain.
 - Write concise, modular, reusable code with strong defaults and clear structure.

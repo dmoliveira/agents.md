@@ -1,7 +1,7 @@
 # Agent Instructions
 
 Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
-Use `br` only for issue tracking in this repo (`bd` is not used here).
+Use `br` only for issue tracking in this repo.
 
 ## Agent behavior
 - Operate as expert full-stack engineers; apply best practices for the language and domain.

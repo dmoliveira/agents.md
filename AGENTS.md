@@ -7,6 +7,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Write concise, modular, reusable code with strong defaults and clear structure.
 - Use domain expertise to maximize the product outcome (e.g., UX, performance, reliability).
 - Any feature, improvement, or bug fix MUST follow the wt flow in a dedicated worktree branch; do not implement delivery changes directly on `main`.
+- Never repurpose `main` as a delivery branch; keep `main` for sync/merge only and do implementation in worktree branches.
 - Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
 - If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”

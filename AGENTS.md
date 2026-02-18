@@ -21,6 +21,7 @@ Use `br` only for issue tracking in this repo.
 - Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.
 - Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast.
 - For independent repeated commands, prefer `parallel` over shell `for` loops; use `xargs -P` or sequential execution only when needed.
+- Non-interactive checklist: avoid editors/pagers/REPLs, always pass non-interactive flags (`--yes`, `--no-edit`, `--non-interactive`) when available, and use explicit commit messages.
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
 - For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
 
@@ -229,4 +230,3 @@ git worktree remove ../<branch>
 Examples:
 - Pending: "Updated API retries and fixed tests; awaiting production API key for live validation. Next: run final smoke once key is provided." + final line `<CONTINUE-LOOP>`.
 - Complete: "Added retry/backoff support, validated with `pytest -q` and `ruff check .`, and merged PR #123." Then list 1-3 concise next-step suggestions.
-

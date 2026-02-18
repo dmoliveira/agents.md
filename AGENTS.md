@@ -138,6 +138,12 @@ When running the `build` agent for normal delivery work:
 - For PR merge operations, use `gh pr checks` + `gh pr view --json ...` first; only trigger reviewer if checks fail or code changed.
 - Parallelize independent discovery/diagnostics/verification, but keep at most one reviewer and one verifier active at the same time.
 
+### Validation matrix (by change type)
+- Docs-only (`md`, comments, wording): run `git diff --check`; skip heavy checks unless behavior changed.
+- Low-risk code (small, scoped): run targeted lint/test for touched area + one smoke path.
+- High-risk/runtime/security/migration: run full required lint/test/build suite and add reviewer/verifier pass.
+- Never repeat heavyweight checks on unchanged diffs.
+
 ### Memory-aware orchestration (default)
 Use these rules to avoid session/process pressure regressions during long delivery loops:
 - Check pressure before spawning extra passes: if `continue_process_count >= 3`, do not add new reviewer/verifier runs unless a blocker requires it.

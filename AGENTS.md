@@ -11,6 +11,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
+- Print `<CONTINUE-LOOP>` as the final line only when at least one task is still pending after the current cycle.
 
 ## Orchestration quickplay
 - Start in `build` for small, clear, single-scope changes.

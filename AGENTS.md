@@ -19,6 +19,9 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
 - For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
 
+- When rebasing or syncing with latest `main`, preserve user-authored local changes in touched files while integrating upstream updates.
+- Keep implementations lean and semantically structured; add comments/docstrings only when they materially improve clarity.
+
 ## Orchestration quickplay
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
@@ -175,12 +178,13 @@ git worktree remove ../<branch>
 
 ## 5) Project conventions (when missing)
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
-- Prefer Makefiles for scripts; provide `make help` with command names and short descriptions.
+- Prefer Makefiles for scripts; provide `make help` with project name/version and concise command descriptions.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
 - If hook config is missing, add baseline commit hooks that run formatter, linter, and relevant test command(s), then install hooks before committing.
 - If commit hooks are not installed locally, install them (`pre-commit install`) and run them once across files (`pre-commit run --all-files`) before the first commit in a task.
+- For YAML config examples, include concise comments and explicit option choices when multiple safe defaults exist.
 - Add security/static checks to pre-commit when possible:
   - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
   - Rust: `clippy` + `cargo audit` (Semgrep optional).

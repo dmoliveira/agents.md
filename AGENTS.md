@@ -219,3 +219,5 @@ git worktree remove ../<branch>
 9) During rebase/merge conflict resolution, preserve user-authored updates in touched files.
 10) After completing an epic, create a version tag and release notes with an executive summary and a clear changelog (Adds, Changes, Removals, Fixes).
 11) Update `br` status to done/closed when appropriate.
+12) If additional requested tasks remain after this cycle, end with `<CONTINUE-LOOP>` on the final line.
+13) If no pending tasks remain, end with concise next-step suggestions (do not hand off with only a question).

@@ -152,25 +152,7 @@ codex "<task-packet>"
 claude "<task-packet>"
 ```
 
-When starting a new epic or task, create a worktree one folder up.
-Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).
-Run `br` in the worktree you are using (the repo root that contains that branch's `.beads/`).
-If unclear, ask the owner. Example: repo `asx`, worktree `../asx-add-new-ux`, `br` runs in `../asx-add-new-ux`.
-
-1) Update main first:
-```bash
-git checkout main
-git pull --rebase
-```
-2) Create the worktree and branch (same name):
-```bash
-git worktree add ../<branch> -b <branch>
-```
-3) Work inside `../<branch>` (do not land delivery edits on `main`).
-4) When finished, remove the worktree:
-```bash
-git worktree remove ../<branch>
-```
+When starting a new epic or task, follow the `wt flow` and `WT e2e command flow` above; keep branch names repo-prefixed (for example, `asx-add-new-ux`) and run `br` in that worktree.
 
 ## 3) Agent Mail coordination
 - Register an agent for this repo `project_key` (once per repo): `ensure_project`, then `register_agent`.

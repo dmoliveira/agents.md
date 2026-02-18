@@ -14,6 +14,8 @@ Use `br` only for issue tracking in this repo.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 - Print `<CONTINUE-LOOP>` as the final line only when at least one task is still pending after the current cycle.
+- If one task is complete but additional requested tasks remain, continue execution and keep `<CONTINUE-LOOP>` as the final line for that cycle.
+- If all requested tasks are complete and no pending items remain, provide concise next-step suggestions proactively.
 
 - For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back.
 - Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.

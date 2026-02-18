@@ -80,11 +80,9 @@ This flow is required for any feature, improvement, or bug fix:
 8) Return to `main` and `git pull --rebase`.
 9) Stop review cycling once required checks are green and latest review has no blocker findings.
 
-WT execution checklist (use in every run):
-- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`; never implement delivery work directly on `main`.
-- Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
-- Delivery: implement in small commits, commit each logical advance, run required checks, open PR, and iterate review/fix/improve until ready to merge.
-- Closure: merge PR, delete local worktree + branch, return to `main`, `git pull --rebase`, then close the `br` issue.
+WT execution checklist (canonical):
+- Use `wt flow` steps 1-9 above as the single source of truth for implementation, review, PR, merge, and cleanup.
+- Keep the `br-<id>` thread updated through start, progress, and completion.
 
 WT e2e command flow (reference):
 ```bash
@@ -154,25 +152,7 @@ codex "<task-packet>"
 claude "<task-packet>"
 ```
 
-When starting a new epic or task, create a worktree one folder up.
-Name the worktree/branch with a repo prefix for easy identification (e.g., `asx-add-new-ux`).
-Run `br` in the worktree you are using (the repo root that contains that branch's `.beads/`).
-If unclear, ask the owner. Example: repo `asx`, worktree `../asx-add-new-ux`, `br` runs in `../asx-add-new-ux`.
-
-1) Update main first:
-```bash
-git checkout main
-git pull --rebase
-```
-2) Create the worktree and branch (same name):
-```bash
-git worktree add ../<branch> -b <branch>
-```
-3) Work inside `../<branch>` (do not land delivery edits on `main`).
-4) When finished, remove the worktree:
-```bash
-git worktree remove ../<branch>
-```
+When starting a new epic or task, follow the `wt flow` and `WT e2e command flow` above; keep branch names repo-prefixed (for example, `asx-add-new-ux`) and run `br` in that worktree.
 
 ## 3) Agent Mail coordination
 - Register an agent for this repo `project_key` (once per repo): `ensure_project`, then `register_agent`.

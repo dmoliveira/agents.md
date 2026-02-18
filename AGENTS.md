@@ -17,7 +17,7 @@ Use `br` only for issue tracking in this repo.
 - Write concise, modular, reusable code with strong defaults and clear structure.
 - Use domain expertise to maximize the product outcome (e.g., UX, performance, reliability).
 - Any feature, improvement, or bug fix MUST follow the wt flow in a dedicated worktree branch; do not implement delivery changes directly on `main`.
-- Never repurpose `main` as a delivery branch; keep `main` for sync/merge only and do implementation in worktree branches.
+- Never repurpose `main` as a delivery branch; keep `main` for sync/merge only and do implementation in worktree branches (MUST).
 - Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
 - If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
@@ -26,22 +26,22 @@ Use `br` only for issue tracking in this repo.
 - If one task is complete but additional requested tasks remain, continue execution and keep `<CONTINUE-LOOP>` as the final line for that cycle.
 - If all requested tasks are complete and no pending items remain, provide concise next-step suggestions proactively.
 
-- For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back.
+- For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back (SHOULD).
 - Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.
-- Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast.
+- Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast (SHOULD).
 - For independent repeated commands, prefer `parallel` over shell `for` loops; use `xargs -P` or sequential execution only when needed.
 - Non-interactive checklist: avoid editors/pagers/REPLs, always pass non-interactive flags (`--yes`, `--no-edit`, `--non-interactive`) when available, and use explicit commit messages.
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
-- For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
+- For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes (SHOULD).
 
 - When rebasing or syncing with latest `main`, preserve user-authored local changes in touched files while integrating upstream updates.
 - Keep implementations lean and semantically structured; add comments/docstrings only when they materially improve clarity.
 
 ## Orchestration quickplay
 - Default mode: use a short WT flow (implement -> review/fix/improve -> open PR -> merge), then delete the local worktree branch and sync local `main`.
-- Open a PR for delivery changes and merge to `main` only through the PR for control and auditability.
+- Open a PR for delivery changes and merge to `main` only through the PR for control and auditability (MUST).
 - For local productivity shortcuts, use `docs/tooling-quick-ref.md` (primary source: `../my_utils`, fallback: `../utils-scripts`).
-- Start in `build` for small, clear, single-scope changes.
+- Start in `build` for small, clear, single-scope changes (SHOULD).
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).
 - Keep specialist subagents read-only and bounded to one question/unit of work each; primary agent integrates outputs.

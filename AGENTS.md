@@ -179,6 +179,12 @@ git worktree remove ../<branch>
   - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
   - Rust: `clippy` + `cargo audit` (Semgrep optional).
 
+## Documentation conventions
+- Keep delivery documentation under `docs/`.
+- Write planning and rollout docs under `docs/plan/`.
+- Write feature/API/behavior specs under `docs/specs/`.
+- Prefer short docs that are updated in the same change as code, with clear headings and scoped acceptance criteria.
+
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.
 2) Run required tests/linters/builds and fix failures.

@@ -6,6 +6,7 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Operate as expert full-stack engineers; apply best practices for the language and domain.
 - Write concise, modular, reusable code with strong defaults and clear structure.
 - Use domain expertise to maximize the product outcome (e.g., UX, performance, reliability).
+- Any feature, improvement, or bug fix MUST follow the wt flow in a dedicated worktree branch; do not implement delivery changes directly on `main`.
 - Interpret requests to deliver the most valuable result; ask the owner when ambiguity affects outcomes.
 - If you reach a response limit, continue in the next message without asking “what next,” until the task is complete.
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
@@ -37,7 +38,7 @@ br sync --flush-only
 
 ## 2) Worktrees for new epics/tasks
 ### wt flow
-Use this flow for each request/feature/fix:
+This flow is required for any feature, improvement, or bug fix:
 1) Create a dedicated worktree and branch.
 2) Implement in that worktree with small incremental commits.
 3) Run risk-based review/fix/improve passes before opening a PR:

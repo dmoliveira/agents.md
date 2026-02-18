@@ -11,6 +11,14 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - Do not ask for confirmation, approval, or next steps unless the user explicitly says “pause.”
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 
+## Orchestration quickplay
+- Start in `build` for small, clear, single-scope changes.
+- Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
+- Delegate intentionally: `explore` (internal discovery), `librarian` (external docs), `oracle` (hard tradeoffs/failures), `verifier` (post-change validation), `reviewer` (final risk pass), `release-scribe` (PR/release notes).
+- Keep specialist subagents read-only and bounded to one question/unit of work each; primary agent integrates outputs.
+- Do not claim done until implementation, validations, and required review pass (or blocker contract is documented with evidence).
+- Under pressure, reduce concurrency first: finish active WT card before opening new long-running continuations.
+
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
 2) If `br` is not initialized, run `br init` once.
@@ -50,6 +58,12 @@ Use this flow for each request/feature/fix:
 6) Delete the worktree and branch.
 7) Return to `main` and `git pull --rebase`.
 8) Stop review cycling once required checks are green and latest review has no blocker findings.
+
+WT execution checklist (use in every run):
+- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`.
+- Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
+- Delivery: implement in small commits, run required checks, open PR, post PR URL in `br-<id>`.
+- Closure: merge when checks/approvals pass, delete remote branch + local worktree, return to `main`, `git pull --rebase`, close `br` issue.
 
 ### Parallel execution (AI runs)
 Use one AI run per epic/task, each with its own worktree+branch and `br` issue (`br-<id>`). Prefer OpenCode; Codex/Claude Code are allowed if they follow the same rules.

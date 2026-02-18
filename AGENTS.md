@@ -68,7 +68,7 @@ This flow is required for any feature, improvement, or bug fix:
    - High risk (runtime/security/migration): 3-5 passes.
    - Passes may be self-review + verifier/reviewer; do not default every pass to reviewer subagents.
 5) Open PR, address review feedback, and re-run checks.
-6) Merge when approved.
+6) Merge when approved; if you are the repository owner, self-merge once checks pass (no extra approval required).
 7) Delete the local worktree and branch.
 8) Return to `main` and `git pull --rebase`.
 9) Stop review cycling once required checks are green and latest review has no blocker findings.
@@ -102,11 +102,13 @@ Worker run lifecycle:
 2) Validate required checks/criteria.
 3) Open PR, post PR URL in `br-<id>`, then stop.
 
-Coordinator loop (between tasks):
+Coordinator loop (between tasks, only when `ox` is running):
 1) Check open PRs; start review/fix runs until criteria pass.
 2) Merge PRs with required approvals/checks.
 3) Delete merged worktree/branch.
 4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
+
+If `ox` is not running, the active agent is the coordinator: run the same loop end-to-end before stopping.
 
 Use subagents only for clean independent splits; never overlap files without explicit reservations.
 Limit concurrent subagents to 2 and avoid duplicate role passes on unchanged diffs.
@@ -128,6 +130,7 @@ Use these rules to avoid session/process pressure regressions during long delive
 - Keep reviewer usage minimal under pressure: one reviewer pass per changed diff; no repeat reviewer pass when code is unchanged.
 - Prefer finishing active WT cards over opening new concurrent continuation sessions; avoid stacking parallel long-running sessions on the same repo.
 - Time-box long sessions: every 90-120 minutes, checkpoint progress (tests/PR status), then compact or start a fresh session with a short handoff summary.
+- When context usage reaches ~55%, run `/compression` and continue with a compact handoff to keep execution stable.
 - Escalate only when needed: reserve additional subagents for blocker triage, failing checks, or materially changed diffs.
 
 Pressure mode matrix (deterministic defaults):
@@ -180,6 +183,7 @@ git worktree remove ../<branch>
 ## 5) Project conventions (when missing)
 - Create a near-real-time log file per run, overwritten each execution, named `<repo>-<type>.log` (e.g., `asx-web.log`).
 - Prefer Makefiles for scripts; provide `make help` with project name/version and concise command descriptions.
+- For quick helper scripts (data seeding, checks, one-off migrations), prefer Rust first, then Go, then Python based on fit and speed.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
 - Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
 - If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).

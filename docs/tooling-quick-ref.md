@@ -24,6 +24,7 @@ Use this as a fast productivity map for local utility tools.
 - Run checks in multiple dirs: `parallel --jobs 3 --halt soon,fail=1 'make -C {} test' ::: pkg-a pkg-b pkg-c`
 - Run same command on many files: `parallel --jobs 4 --halt soon,fail=1 'ruff check {}' ::: $(fd -e py)`
 - Matrix args (paired lists): `parallel --jobs 4 --halt soon,fail=1 'pytest -q {1} --maxfail={2}' ::: tests/a tests/b :::+ 1 2`
+- Dry-run first (safe preview): `parallel --dry-run --jobs 4 'ruff check {}' ::: $(fd -e py)`
 
 ## Notes
 - Keep commands non-interactive and CI-safe.

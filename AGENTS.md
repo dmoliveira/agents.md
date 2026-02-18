@@ -80,11 +80,9 @@ This flow is required for any feature, improvement, or bug fix:
 8) Return to `main` and `git pull --rebase`.
 9) Stop review cycling once required checks are green and latest review has no blocker findings.
 
-WT execution checklist (use in every run):
-- Preflight: `git checkout main && git pull --rebase`, then `git worktree add ../<branch> -b <branch>`; never implement delivery work directly on `main`.
-- Tracking: run `br init` (if needed), `br ready`, `br update <id> --status in_progress`, and keep `br-<id>` in updates/threads.
-- Delivery: implement in small commits, commit each logical advance, run required checks, open PR, and iterate review/fix/improve until ready to merge.
-- Closure: merge PR, delete local worktree + branch, return to `main`, `git pull --rebase`, then close the `br` issue.
+WT execution checklist (canonical):
+- Use `wt flow` steps 1-9 above as the single source of truth for implementation, review, PR, merge, and cleanup.
+- Keep the `br-<id>` thread updated through start, progress, and completion.
 
 WT e2e command flow (reference):
 ```bash

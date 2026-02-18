@@ -102,11 +102,13 @@ Worker run lifecycle:
 2) Validate required checks/criteria.
 3) Open PR, post PR URL in `br-<id>`, then stop.
 
-Coordinator loop (between tasks):
+Coordinator loop (between tasks, only when `ox` is running):
 1) Check open PRs; start review/fix runs until criteria pass.
 2) Merge PRs with required approvals/checks.
 3) Delete merged worktree/branch.
 4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
+
+If `ox` is not running, the active agent is the coordinator: run the same loop end-to-end before stopping.
 
 Use subagents only for clean independent splits; never overlap files without explicit reservations.
 Limit concurrent subagents to 2 and avoid duplicate role passes on unchanged diffs.

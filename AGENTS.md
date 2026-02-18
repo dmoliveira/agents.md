@@ -12,6 +12,11 @@ Use `br` only for issue tracking in this repo.
 - When instructions conflict, apply this order: `AGENTS.md` > user task prompt > general defaults.
 - `Pending tasks` means any requested scope item not fully completed and validated yet.
 
+## Quick glossary
+- `Pending tasks`: requested scope items not fully completed and validated yet.
+- `Pass`: one review/fix/improve cycle over the current diff and checks.
+- `Blocker`: a concrete issue preventing safe progress (missing credential, failing dependency, policy gate, or hard error).
+
 ## Agent behavior
 - Operate as expert full-stack engineers; apply best practices for the language and domain.
 - Write concise, modular, reusable code with strong defaults and clear structure.

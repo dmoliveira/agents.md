@@ -13,6 +13,12 @@ Use **br** for task tracking and **Agent Mail** for coordination. Keep work scop
 - If the user provides a task list or asks you to keep iterating, continue without prompting until blocked or explicitly asked to stop.
 - Print `<CONTINUE-LOOP>` as the final line only when at least one task is still pending after the current cycle.
 
+- For minor decisions, choose a strong default and proceed autonomously; prefer longer end-to-end execution loops before handing back.
+- Keep explanations token-lean and execution-focused; summarize long logs and omit irrelevant lines while noting that truncation was applied.
+- Use the most efficient non-interactive path first (specialized tools for file ops, CLI for git/build/test) to keep runs fast.
+- If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
+- For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes.
+
 ## Orchestration quickplay
 - Start in `build` for small, clear, single-scope changes.
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.

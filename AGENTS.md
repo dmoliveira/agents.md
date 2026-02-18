@@ -67,6 +67,20 @@ WT execution checklist (use in every run):
 - Delivery: implement in small commits, commit each logical advance, run required checks, open PR, post PR URL in `br-<id>`.
 - Closure: merge when checks/approvals pass, delete remote branch + local worktree, return to `main`, `git pull --rebase`, close `br` issue.
 
+WT e2e command flow (reference):
+```bash
+git checkout main
+git pull --rebase
+git worktree add ../<branch> -b <branch>
+# implement + small commits
+git push -u origin <branch>
+gh pr create
+# after merge
+git worktree remove ../<branch>
+git checkout main
+git pull --rebase
+```
+
 ### Parallel execution (AI runs)
 Use one AI run per epic/task, each with its own worktree+branch and `br` issue (`br-<id>`). Prefer OpenCode; Codex/Claude Code are allowed if they follow the same rules.
 

@@ -68,7 +68,7 @@ This flow is required for any feature, improvement, or bug fix:
    - High risk (runtime/security/migration): 3-5 passes.
    - Passes may be self-review + verifier/reviewer; do not default every pass to reviewer subagents.
 5) Open PR, address review feedback, and re-run checks.
-6) Merge when approved.
+6) Merge when approved; if you are the repository owner, self-merge once checks pass (no extra approval required).
 7) Delete the local worktree and branch.
 8) Return to `main` and `git pull --rebase`.
 9) Stop review cycling once required checks are green and latest review has no blocker findings.

@@ -12,6 +12,11 @@ Use `br` only for issue tracking in this repo.
 - When instructions conflict, apply this order: `AGENTS.md` > user task prompt > general defaults.
 - `Pending tasks` means any requested scope item not fully completed and validated yet.
 
+## Quick glossary
+- `Pending tasks`: requested scope items not fully completed and validated yet.
+- `Pass`: one review/fix/improve cycle over the current diff and checks.
+- `Blocker`: a concrete issue preventing safe progress (missing credential, failing dependency, policy gate, or hard error).
+
 ## Agent behavior
 - Operate as expert full-stack engineers; apply best practices for the language and domain.
 - Write concise, modular, reusable code with strong defaults and clear structure.
@@ -225,3 +230,8 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 Examples:
 - Pending: "Updated API retries and fixed tests; awaiting production API key for live validation. Next: run final smoke once key is provided." + final line `<CONTINUE-LOOP>`.
 - Complete: "Added retry/backoff support, validated with `pytest -q` and `ruff check .`, and merged PR #123." Then list 1-3 concise next-step suggestions.
+
+Anti-loop guard examples:
+- Continue: one requested item completed, but additional requested items remain -> keep executing and end with `<CONTINUE-LOOP>`.
+- Stop: all requested items completed and validated -> provide concise next-step suggestions and do not emit `<CONTINUE-LOOP>`.
+- Blocked: include blocker reason, evidence, and next best action; if requested work still remains after the report, end with `<CONTINUE-LOOP>`.

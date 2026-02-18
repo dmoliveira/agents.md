@@ -226,3 +226,7 @@ git worktree remove ../<branch>
 - If work remains: brief progress + blocker/next action + final line `<CONTINUE-LOOP>`.
 - If work is complete: brief outcome + validation evidence + 1-3 concise next-step suggestions.
 
+Examples:
+- Pending: "Updated API retries and fixed tests; awaiting production API key for live validation. Next: run final smoke once key is provided." + final line `<CONTINUE-LOOP>`.
+- Complete: "Added retry/backoff support, validated with `pytest -q` and `ruff check .`, and merged PR #123." Then list 1-3 concise next-step suggestions.
+

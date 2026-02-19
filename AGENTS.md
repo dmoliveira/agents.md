@@ -235,3 +235,8 @@ Anti-loop guard examples:
 - Continue: one requested item completed, but additional requested items remain -> keep executing and end with `<CONTINUE-LOOP>`.
 - Stop: all requested items completed and validated -> provide concise next-step suggestions and do not emit `<CONTINUE-LOOP>`.
 - Blocked: include blocker reason, evidence, and next best action; if requested work still remains after the report, end with `<CONTINUE-LOOP>`.
+
+Blocker contract template:
+- `BLOCKER:` <exact reason>
+- `EVIDENCE:` <file/command/error>
+- `NEXT:` <best next action>

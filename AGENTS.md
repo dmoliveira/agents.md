@@ -3,6 +3,13 @@
 Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
 Use `br` only for issue tracking in this repo.
 
+## Quickstart
+- Follow `## 1) Start (every session)` and pick one `br` issue.
+- Use `## 2) Worktrees for new epics/tasks` for all delivery work (never land changes on `main`).
+- Use `## 6) Finish (per task)` for commit, PR, merge, cleanup, and sync steps.
+- Use `## 7) Final response pattern` for `<CONTINUE-LOOP>` and completion suggestions.
+- Use `docs/tooling-quick-ref.md` and `docs/orchestration-advanced.md` for fast commands and advanced controls.
+
 ## Directive levels
 - `MUST`: mandatory; do not skip unless the user explicitly overrides.
 - `SHOULD`: default behavior; deviate only with a clear reason.

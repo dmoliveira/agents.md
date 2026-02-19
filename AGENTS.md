@@ -230,6 +230,7 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 Examples:
 - Pending: "Updated API retries and fixed tests; awaiting production API key for live validation. Next: run final smoke once key is provided." + final line `<CONTINUE-LOOP>`.
 - Complete: "Added retry/backoff support, validated with `pytest -q` and `ruff check .`, and merged PR #123." Then list 1-3 concise next-step suggestions.
+- Complete (docs-only fast path): "Updated docs for WT flow clarity, validated with `git diff --check`, and merged PR #123." Then list 1-2 concise next-step suggestions.
 
 Anti-loop guard examples:
 - Continue: one requested item completed, but additional requested items remain -> keep executing and end with `<CONTINUE-LOOP>`.

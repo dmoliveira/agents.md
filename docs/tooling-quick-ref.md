@@ -27,6 +27,11 @@ Use this as a fast productivity map for local utility tools.
 - Matrix args (paired lists): `parallel --jobs 4 --halt soon,fail=1 'pytest -q {1} --maxfail={2}' ::: tests/a tests/b :::+ 1 2`
 - Dry-run first (safe preview): `parallel --dry-run --jobs 4 'ruff check {}' ::: $(fd -e py)`
 
+## Learning loop (if `my_opencode` exists)
+- Use mistake ledger reporting to detect repeated failure patterns: `npm run mistake:report -- --mode digest --json`.
+- Use `/learn` to capture and publish reusable guidance: `/learn capture --json`, `/learn search --status published --json`.
+- For high-risk learn entries, follow approval gates before publish (see `instructions/knowledge_capture_policy_contract.md` in `my_opencode`).
+
 ## Notes
 - Keep commands non-interactive and CI-safe.
 - Prefer existing repo conventions over generic defaults when they conflict.

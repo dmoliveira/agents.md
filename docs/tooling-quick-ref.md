@@ -31,6 +31,7 @@ Use this as a fast productivity map for local utility tools.
 - Use mistake ledger reporting to detect repeated failure patterns: `npm run mistake:report -- --mode digest --json`.
 - Use `/learn` to capture and publish reusable guidance: `/learn capture --json`, `/learn search --status published --json`.
 - For high-risk learn entries, follow approval gates before publish (see `instructions/knowledge_capture_policy_contract.md` in `my_opencode`).
+- Example mapping: mistake log (what/impact/fix/prevention) -> `/learn capture --json` draft -> `/learn review ...` -> `/learn publish ...` when confidence and approvals pass.
 
 ## Notes
 - Keep commands non-interactive and CI-safe.

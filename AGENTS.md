@@ -111,66 +111,9 @@ git worktree remove ../<branch>
 git pull --rebase
 ```
 
-### Parallel execution (AI runs)
-Use one AI run per epic/task, each with its own worktree+branch and `br` issue (`br-<id>`). Prefer OpenCode; Codex/Claude Code are allowed if they follow the same rules.
-
-Task packet (required): epic id, task/subtask ids, scope, acceptance criteria, required checks, constraints, and done definition.
-
-Worker run lifecycle:
-1) Implement in its worktree with small incremental commits.
-2) Validate required checks/criteria.
-3) Open PR, post PR URL in `br-<id>`, then stop.
-
-Coordinator loop (between tasks, only when `ox` is running):
-1) Check open PRs; start review/fix runs until criteria pass.
-2) Merge PRs with required approvals/checks.
-3) Delete merged worktree/branch.
-4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
-
-If `ox` is not running, the active agent is the coordinator: run the same loop end-to-end before stopping.
-
-Use subagents only for clean independent splits; never overlap files without explicit reservations.
-Limit concurrent subagents to 2 and avoid duplicate role passes on unchanged diffs.
-
-### Build-mode efficiency (default)
-When running the `build` agent for normal delivery work:
-- Prefer direct implementation and verification before spawning reviewer subagents.
-- Reviewer budget by risk:
-  - Low risk: 0 reviewer passes (self-check + verifier is enough).
-  - Medium risk: max 1 reviewer pass (final gate).
-  - High risk: max 2 reviewer passes unless diff materially changed after the latest pass.
-- Never run repeated reviewer passes on unchanged diffs.
-- For PR merge operations, use `gh pr checks` + `gh pr view --json ...` first; only trigger reviewer if checks fail or code changed.
-- Parallelize independent discovery/diagnostics/verification, but keep at most one reviewer and one verifier active at the same time.
-
-### Validation matrix (by change type)
-- Docs-only (`md`, comments, wording): run `git diff --check`; skip heavy checks unless behavior changed.
-- Low-risk code (small, scoped): run targeted lint/test for touched area + one smoke path.
-- High-risk/runtime/security/migration: run full required lint/test/build suite and add reviewer/verifier pass.
-- Never repeat heavyweight checks on unchanged diffs.
-
-### Memory-aware orchestration (default)
-Use these rules to avoid session/process pressure regressions during long delivery loops:
-- Check pressure before spawning extra passes: if `continue_process_count >= 3`, do not add new reviewer/verifier runs unless a blocker requires it.
-- Keep reviewer usage minimal under pressure: one reviewer pass per changed diff; no repeat reviewer pass when code is unchanged.
-- Prefer finishing active WT cards over opening new concurrent continuation sessions; avoid stacking parallel long-running sessions on the same repo.
-- Time-box long sessions: every 90-120 minutes, checkpoint progress (tests/PR status), then compact or start a fresh session with a short handoff summary.
-- When context usage reaches ~55%, run `/compression` and continue with a compact handoff to keep execution stable.
-- Escalate only when needed: reserve additional subagents for blocker triage, failing checks, or materially changed diffs.
-
-Pressure mode matrix (deterministic defaults):
-- `low` (`continue_process_count < 3`): normal flow; at most one reviewer and one verifier concurrently.
-- `medium` (`continue_process_count` in `3..4`): keep one active subagent total; skip non-essential reviewer/verifier passes unless checks fail.
-- `high` (`continue_process_count >= 5`): no new reviewer/verifier subagents unless a blocker/severity issue exists; finish in-flight WT task before opening another continuation session.
-
-```bash
-# Preferred (OpenCode)
-opencode run --agent build --dir ../<branch> "<task-packet>"
-
-# Also valid (Codex / Claude Code)
-codex "<task-packet>"
-claude "<task-packet>"
-```
+### Advanced orchestration
+- For multi-agent execution, reviewer/verifier budgets, validation matrix, and memory-pressure playbooks, see `docs/orchestration-advanced.md`.
+- Use advanced controls when scope, risk, or process pressure requires them; otherwise follow `Orchestration quickplay` and `wt flow`.
 
 When starting a new epic or task, follow the `wt flow` and `WT e2e command flow` above; keep branch names repo-prefixed (for example, `asx-add-new-ux`) and run `br` in that worktree.
 
@@ -206,6 +149,7 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 - Write planning and rollout docs under `docs/plan/`.
 - Write feature/API/behavior specs under `docs/specs/`.
 - Keep tooling quick references under `docs/` (current: `docs/tooling-quick-ref.md`).
+- Keep advanced orchestration guidance under `docs/` (current: `docs/orchestration-advanced.md`).
 - Prefer short docs that are updated in the same change as code, with clear headings and scoped acceptance criteria.
 
 ## 6) Finish (per task)

@@ -44,6 +44,7 @@ Use `br` only for issue tracking in this repo.
 - For independent repeated commands, prefer `parallel` over shell `for` loops; use `xargs -P` or sequential execution only when needed.
 - Non-interactive checklist: avoid editors/pagers/REPLs, always pass non-interactive flags (`--yes`, `--no-edit`, `--non-interactive`) when available, and use explicit commit messages.
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
+- When available, use `my_opencode` mistake/learning tooling to avoid repeated failures (`plugin/gateway-core/docs/mistake-ledger-report.md`, `/learn capture|review|publish|search|doctor`).
 - For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes (SHOULD).
 
 - When rebasing or syncing with latest `main`, preserve user-authored local changes in touched files while integrating upstream updates.

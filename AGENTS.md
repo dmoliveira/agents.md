@@ -45,6 +45,7 @@ Use `br` only for issue tracking in this repo.
 - Non-interactive checklist: avoid editors/pagers/REPLs, always pass non-interactive flags (`--yes`, `--no-edit`, `--non-interactive`) when available, and use explicit commit messages.
 - If a mistake happens, report it in chat with a short mistake log (what happened, impact, fix, prevention).
 - When available, use `my_opencode` mistake/learning tooling to avoid repeated failures (`plugin/gateway-core/docs/mistake-ledger-report.md`, `/learn capture|review|publish|search|doctor`).
+- Suggested monthly cadence: review `mistake:report --mode digest --json` trends and convert stable lessons into `/learn` entries.
 - For easy, low-risk tasks, prioritize fast iteration and avoid heavyweight validation or extra subagent passes (SHOULD).
 
 - When rebasing or syncing with latest `main`, preserve user-authored local changes in touched files while integrating upstream updates.

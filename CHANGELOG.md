@@ -26,3 +26,4 @@ All notable changes to this project are documented in this file.
 - Added `.github/workflows/wiki-probe.yml` and `make wiki-probe-dispatch` for repeatable wiki remote readiness probing.
 - Added fallback sync route to `dmoliveira/agents-md-wiki-fallback` with `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.
 - Added `.github/workflows/wiki-fallback-sync.yml` and `make wiki-fallback-dispatch` for automated fallback repository sync.
+- Fixed fallback sync workflow to skip dry-run/apply steps cleanly when `FALLBACK_REPO_TOKEN` is not configured.

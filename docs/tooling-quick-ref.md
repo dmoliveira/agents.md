@@ -13,7 +13,7 @@ Use this as a fast productivity map for local utility tools.
 - `rg` + `fd` (code search): `fd -e md`, `rg -n "pattern" -g "*.md"`
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
-  - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`.
+  - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-publish-checklist`.
 
 ## Parallel execution default
 - Prefer `parallel` for independent repeated commands instead of `for` loops.

@@ -2,7 +2,7 @@ PROJECT_NAME := agents.md
 PROJECT_VERSION := 0.1.0
 REPO ?= dmoliveira/agents.md
 
-.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-status wiki-mirror-status wiki-sync-check
+.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-publish-checklist
 
 help:
 	@printf "%s v%s\n" "$(PROJECT_NAME)" "$(PROJECT_VERSION)"
@@ -14,6 +14,7 @@ help:
 	@printf "  %-24s %s\n" "wiki-status" "Check wiki/pages status and wiki git provisioning"
 	@printf "  %-24s %s\n" "wiki-mirror-status" "Check fallback wiki mirror docs presence"
 	@printf "  %-24s %s\n" "wiki-sync-check" "Validate wiki snippet and mirror consistency"
+	@printf "  %-24s %s\n" "wiki-publish-checklist" "Print fallback publish checklist and run preflight"
 
 preflight:
 	gh auth status >/dev/null
@@ -48,3 +49,11 @@ wiki-mirror-status:
 
 wiki-sync-check:
 	python scripts/wiki_sync_check.py
+
+wiki-publish-checklist:
+	@printf "wiki publish checklist:\n"
+	@printf "  1) docs/wiki-home-mirror.md\n"
+	@printf "  2) docs/wiki-home-snippet.md\n"
+	@printf "  3) docs/wiki-bootstrap-runbook.md\n"
+	@printf "  4) docs/wiki-publish-alternatives.md\n"
+	$(MAKE) preflight

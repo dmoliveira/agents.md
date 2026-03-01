@@ -22,3 +22,4 @@ All notable changes to this project are documented in this file.
 - Added `make preflight`, `wiki-mirror-status`, `docs/wiki-home-mirror.md`, and `docs/operations-loop-runbook.md` for long-loop operations with wiki fallback.
 - Added `scripts/wiki_sync_check.py` and `make wiki-sync-check` to keep wiki snippet and mirror content aligned.
 - Added `docs/wiki-publish-alternatives.md` and `make wiki-publish-checklist` for approved fallback wiki publication workflows.
+- Added `scripts/wiki_sync.py` plus `make wiki-sync-dry-run` and `make wiki-sync-apply` for controlled wiki push once remote is provisioned.

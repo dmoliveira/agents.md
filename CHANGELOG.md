@@ -17,3 +17,4 @@ All notable changes to this project are documented in this file.
 - `README.md` badges now include a Docs Quality Checks workflow badge.
 - `docs/wiki-home-snippet.md` now includes a wiki bootstrap note for `Repository not found` cases.
 - `README.md` tool links now keep `br` guidance internal to avoid stale external references.
+- Added `docs/wiki-bootstrap-runbook.md` for first-time wiki provisioning and enabled manual dispatch for docs link checks.

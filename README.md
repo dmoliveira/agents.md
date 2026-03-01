@@ -60,6 +60,7 @@ For full command detail, use:
 - `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki consistency checks, publish checklist runs, and wiki sync dry-run/apply.
 
 For ongoing readiness checks, run `make wiki-probe-dispatch` to trigger the scheduled wiki probe workflow on demand.
+For publishable fallback sync, use `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

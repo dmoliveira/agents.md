@@ -21,10 +21,13 @@ def run(
     )
 
 
-def wiki_remote_available(repo: str) -> bool:
-    probe = run(
-        ["git", "ls-remote", f"https://github.com/{repo}.wiki.git", "HEAD"], check=False
-    )
+def remote_url(repo: str, target: str) -> str:
+    suffix = ".wiki.git" if target == "wiki" else ".git"
+    return f"https://github.com/{repo}{suffix}"
+
+
+def remote_available(repo: str, target: str) -> bool:
+    probe = run(["git", "ls-remote", remote_url(repo, target), "HEAD"], check=False)
     return probe.returncode == 0
 
 
@@ -41,7 +44,7 @@ def commit_if_needed(tmp_dir: Path, message: str) -> bool:
     return True
 
 
-def sync(repo: str, apply: bool) -> int:
+def sync(repo: str, apply: bool, target: str) -> int:
     root = Path(__file__).resolve().parents[1]
     mirror_path = root / "docs" / "wiki-home-mirror.md"
     if not mirror_path.exists():
@@ -49,22 +52,23 @@ def sync(repo: str, apply: bool) -> int:
         return 1
 
     content = mirror_path.read_text(encoding="utf-8")
-    available = wiki_remote_available(repo)
+    available = remote_available(repo, target)
     mode = "apply" if apply else "dry-run"
     print(f"wiki-sync: mode={mode}")
     print(f"wiki-sync: repo={repo}")
+    print(f"wiki-sync: target={target}")
     print(f"wiki-sync: remote_ready={str(available).lower()}")
 
     if not available:
         print(
-            "wiki-sync: wiki remote unavailable; keep using docs/wiki-home-mirror.md fallback"
+            "wiki-sync: remote unavailable; keep using docs/wiki-home-mirror.md fallback"
         )
         return 0 if not apply else 1
 
     with tempfile.TemporaryDirectory(prefix="agents-wiki-sync-") as tmp:
         tmp_dir = Path(tmp)
         clone = run(
-            ["git", "clone", f"https://github.com/{repo}.wiki.git", str(tmp_dir)],
+            ["git", "clone", remote_url(repo, target), str(tmp_dir)],
             check=False,
         )
         if clone.returncode != 0:
@@ -94,7 +98,7 @@ def sync(repo: str, apply: bool) -> int:
             print("wiki-sync: push failed")
             print(push.stderr.strip())
             return 1
-        print("wiki-sync: pushed Home.md to wiki remote")
+        print("wiki-sync: pushed Home.md to target remote")
     return 0
 
 
@@ -108,14 +112,20 @@ def parse_args() -> argparse.Namespace:
         help="GitHub repository slug owner/name",
     )
     parser.add_argument(
-        "--apply", action="store_true", help="Apply changes to wiki remote"
+        "--target",
+        choices=["wiki", "repo"],
+        default="wiki",
+        help="Sync destination type: wiki remote or standard git repository",
+    )
+    parser.add_argument(
+        "--apply", action="store_true", help="Apply changes to target remote"
     )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    return sync(args.repo, apply=args.apply)
+    return sync(args.repo, apply=args.apply, target=args.target)
 
 
 if __name__ == "__main__":

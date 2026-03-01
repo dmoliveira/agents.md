@@ -3,7 +3,7 @@ PROJECT_VERSION := 0.1.0
 REPO ?= dmoliveira/agents.md
 WIKI_FALLBACK_REPO ?= dmoliveira/agents-md-wiki-fallback
 
-.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-fallback-sync-dry-run wiki-fallback-sync-apply wiki-publish-checklist
+.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-fallback-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-fallback-sync-dry-run wiki-fallback-sync-apply wiki-publish-checklist
 
 help:
 	@printf "%s v%s\n" "$(PROJECT_NAME)" "$(PROJECT_VERSION)"
@@ -13,6 +13,7 @@ help:
 	@printf "  %-24s %s\n" "docs-checks-dispatch" "Trigger docs link checks workflow"
 	@printf "  %-24s %s\n" "pages-dispatch" "Trigger docs Pages deploy workflow"
 	@printf "  %-24s %s\n" "wiki-probe-dispatch" "Trigger wiki remote probe workflow"
+	@printf "  %-24s %s\n" "wiki-fallback-dispatch" "Trigger fallback repository sync workflow"
 	@printf "  %-24s %s\n" "wiki-status" "Check wiki/pages status and wiki git provisioning"
 	@printf "  %-24s %s\n" "wiki-mirror-status" "Check fallback wiki mirror docs presence"
 	@printf "  %-24s %s\n" "wiki-sync-check" "Validate wiki snippet and mirror consistency"
@@ -39,6 +40,9 @@ pages-dispatch:
 
 wiki-probe-dispatch:
 	gh workflow run wiki-probe.yml --repo "$(REPO)"
+
+wiki-fallback-dispatch:
+	gh workflow run wiki-fallback-sync.yml --repo "$(REPO)"
 
 wiki-status:
 	gh api repos/$(REPO) --jq '{has_wiki: .has_wiki, has_pages: .has_pages, default_branch: .default_branch}'

@@ -1,0 +1,38 @@
+name: Wiki Fallback Sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - docs/wiki-home-mirror.md
+      - scripts/wiki_sync.py
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate token presence
+        env:
+          WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
+        run: |
+          if [ -z "$WIKI_SYNC_TOKEN" ]; then
+            echo "FALLBACK_REPO_TOKEN secret missing; skipping sync"
+            exit 0
+          fi
+
+      - name: Dry run fallback sync
+        env:
+          WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
+        run: python scripts/wiki_sync.py --repo dmoliveira/agents-md-wiki-fallback --target repo --token-env WIKI_SYNC_TOKEN
+
+      - name: Apply fallback sync
+        env:
+          WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
+        run: python scripts/wiki_sync.py --repo dmoliveira/agents-md-wiki-fallback --target repo --token-env WIKI_SYNC_TOKEN --apply

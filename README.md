@@ -43,6 +43,7 @@ This playbook focuses on practical controls for multi-agent execution:
 For full command detail, use:
 - `docs/tooling-quick-ref.md`
 - `docs/orchestration-advanced.md`
+- `make help` for operator shortcuts
 
 ## What is in this repo 📚
 
@@ -52,6 +53,7 @@ For full command detail, use:
 - `docs/support-the-project.md`: donation and sustainability options.
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
 - `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
+- `Makefile`: non-interactive operator shortcuts for docs workflows and wiki status checks.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

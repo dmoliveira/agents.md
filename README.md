@@ -56,7 +56,7 @@ For full command detail, use:
 - `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
 - `docs/wiki-home-mirror.md`: fallback in-repo mirror of Wiki Home content.
 - `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
-- `Makefile`: non-interactive operator shortcuts for docs workflows and wiki status checks.
+- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, and wiki sync consistency checks.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

@@ -18,3 +18,13 @@ Key behavior:
 - Keep commits small and focused.
 - End cycles with `<CONTINUE-LOOP>` when tasks remain.
 ```
+
+## Bootstrap note
+
+If cloning the wiki repository fails with `Repository not found`:
+
+1. Confirm wiki is enabled in repository settings (`has_wiki=true`).
+2. Create the first wiki page manually in GitHub UI (for example, `Home`).
+3. Retry clone/push with `https://github.com/<owner>/<repo>.wiki.git`.
+
+Some repositories do not provision the wiki git remote until the first page exists.

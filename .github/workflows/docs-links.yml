@@ -22,6 +22,5 @@ jobs:
             --verbose
             --no-progress
             --accept 200,204,206,301,302,303,307,308,429
-            --exclude-mail
             --exclude-path docs/site
             "**/*.md"

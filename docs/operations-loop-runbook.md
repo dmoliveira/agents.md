@@ -39,6 +39,13 @@ make wiki-sync-dry-run
 make wiki-sync-apply
 ```
 
+If provisioning continues to fail but publication is required, run:
+
+```bash
+make wiki-fallback-sync-dry-run
+make wiki-fallback-sync-apply
+```
+
 To monitor readiness between cycles, trigger:
 
 ```bash

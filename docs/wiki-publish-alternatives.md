@@ -15,6 +15,14 @@ Use this guide when GitHub Wiki git remote provisioning is blocked and you still
 - Link stakeholders to the mirror file from PR descriptions and release notes.
 - Keep updates small and validated via `make preflight`.
 
+## Alternative path C: Dedicated fallback repository mirror
+
+- Fallback repo: `https://github.com/dmoliveira/agents-md-wiki-fallback`
+- Preview sync: `make wiki-fallback-sync-dry-run`
+- Apply sync: `make wiki-fallback-sync-apply`
+
+This route provides a publishable remote even when `<repo>.wiki.git` is still unavailable.
+
 ## Alternative path B: GitHub Pages docs
 
 - Publish updates through repository docs and GitHub Pages.

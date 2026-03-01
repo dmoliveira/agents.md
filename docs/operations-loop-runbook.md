@@ -32,6 +32,13 @@ If `wiki-status` reports "not ready":
 - Use `docs/wiki-publish-alternatives.md` for approved fallback publication paths.
 - After provisioning, sync mirror content into GitHub Wiki Home page.
 
+After provisioning, run:
+
+```bash
+make wiki-sync-dry-run
+make wiki-sync-apply
+```
+
 ## Continuation discipline
 
 - Use short progress messages per cycle.

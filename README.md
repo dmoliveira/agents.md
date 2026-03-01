@@ -57,7 +57,7 @@ For full command detail, use:
 - `docs/wiki-home-mirror.md`: fallback in-repo mirror of Wiki Home content.
 - `docs/wiki-publish-alternatives.md`: fallback publication paths when wiki git is unavailable.
 - `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
-- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki sync checks, and publish checklist runs.
+- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki consistency checks, publish checklist runs, and wiki sync dry-run/apply.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

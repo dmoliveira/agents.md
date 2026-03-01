@@ -7,6 +7,7 @@ Use this guide when GitHub Wiki git remote provisioning is blocked and you still
 1. Publish/update GitHub Wiki Home page.
 2. Keep `docs/wiki-home-snippet.md` and `docs/wiki-home-mirror.md` consistent.
 3. Validate with `make wiki-sync-check`.
+4. Run `make wiki-sync-dry-run`, then `make wiki-sync-apply`.
 
 ## Alternative path A: In-repo mirror (recommended fallback)
 

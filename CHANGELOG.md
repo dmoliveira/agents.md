@@ -9,7 +9,9 @@ All notable changes to this project are documented in this file.
 - Support documentation at `docs/support-the-project.md` and a reusable Wiki block at `docs/wiki-home-snippet.md`.
 - MIT license at `LICENSE`.
 - GitHub Pages deployment workflow at `.github/workflows/pages.yml`.
+- Docs quality workflow at `.github/workflows/docs-links.yml`.
 - Static docs landing page at `docs/site/index.html`.
 
 ### Changed
 - `README.md` badges now include a Docs Site Deploy workflow badge.
+- `README.md` badges now include a Docs Quality Checks workflow badge.

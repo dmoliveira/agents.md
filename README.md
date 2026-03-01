@@ -51,6 +51,7 @@ For full command detail, use:
 - `docs/orchestration-advanced.md`: high-pressure and high-risk orchestration controls.
 - `docs/support-the-project.md`: donation and sustainability options.
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
+- `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

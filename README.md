@@ -3,6 +3,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/dmoliveira/agents.md)](https://github.com/dmoliveira/agents.md/commits/main)
 [![Open Issues](https://img.shields.io/github/issues/dmoliveira/agents.md)](https://github.com/dmoliveira/agents.md/issues)
 [![Stars](https://img.shields.io/github/stars/dmoliveira/agents.md?style=social)](https://github.com/dmoliveira/agents.md/stargazers)
+[![Docs Quality Checks](https://github.com/dmoliveira/agents.md/actions/workflows/docs-links.yml/badge.svg)](https://github.com/dmoliveira/agents.md/actions/workflows/docs-links.yml)
 [![Docs Site Deploy](https://github.com/dmoliveira/agents.md/actions/workflows/pages.yml/badge.svg)](https://github.com/dmoliveira/agents.md/actions/workflows/pages.yml)
 [![Docs](https://img.shields.io/badge/docs-in_repo-0a7ea4)](docs/)
 [![Wiki](https://img.shields.io/badge/wiki-github-1f6feb)](https://github.com/dmoliveira/agents.md/wiki)

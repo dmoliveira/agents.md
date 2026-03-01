@@ -59,6 +59,8 @@ For full command detail, use:
 - `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
 - `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki consistency checks, publish checklist runs, and wiki sync dry-run/apply.
 
+For ongoing readiness checks, run `make wiki-probe-dispatch` to trigger the scheduled wiki probe workflow on demand.
+
 ## Workflow highlights (wt flow e2e) 🔁
 
 - create a dedicated worktree and branch for each feature/bug/task,

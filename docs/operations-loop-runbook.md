@@ -39,6 +39,12 @@ make wiki-sync-dry-run
 make wiki-sync-apply
 ```
 
+To monitor readiness between cycles, trigger:
+
+```bash
+make wiki-probe-dispatch
+```
+
 ## Continuation discipline
 
 - Use short progress messages per cycle.

@@ -21,6 +21,8 @@ make preflight
 
 This validates authentication, workflow availability, wiki readiness, and fallback wiki mirror presence.
 
+It also runs wiki consistency checks to ensure snippet and mirror content stay aligned.
+
 ## If wiki git remote is blocked
 
 If `wiki-status` reports "not ready":

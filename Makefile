@@ -2,7 +2,7 @@ PROJECT_NAME := agents.md
 PROJECT_VERSION := 0.1.0
 REPO ?= dmoliveira/agents.md
 
-.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-publish-checklist
+.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-publish-checklist
 
 help:
 	@printf "%s v%s\n" "$(PROJECT_NAME)" "$(PROJECT_VERSION)"
@@ -11,6 +11,7 @@ help:
 	@printf "  %-24s %s\n" "preflight" "Validate auth, workflows, and wiki readiness"
 	@printf "  %-24s %s\n" "docs-checks-dispatch" "Trigger docs link checks workflow"
 	@printf "  %-24s %s\n" "pages-dispatch" "Trigger docs Pages deploy workflow"
+	@printf "  %-24s %s\n" "wiki-probe-dispatch" "Trigger wiki remote probe workflow"
 	@printf "  %-24s %s\n" "wiki-status" "Check wiki/pages status and wiki git provisioning"
 	@printf "  %-24s %s\n" "wiki-mirror-status" "Check fallback wiki mirror docs presence"
 	@printf "  %-24s %s\n" "wiki-sync-check" "Validate wiki snippet and mirror consistency"
@@ -32,6 +33,9 @@ docs-checks-dispatch:
 
 pages-dispatch:
 	gh workflow run pages.yml --repo "$(REPO)"
+
+wiki-probe-dispatch:
+	gh workflow run wiki-probe.yml --repo "$(REPO)"
 
 wiki-status:
 	gh api repos/$(REPO) --jq '{has_wiki: .has_wiki, has_pages: .has_pages, default_branch: .default_branch}'

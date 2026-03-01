@@ -19,3 +19,4 @@ All notable changes to this project are documented in this file.
 - `README.md` tool links now keep `br` guidance internal to avoid stale external references.
 - Added `docs/wiki-bootstrap-runbook.md` for first-time wiki provisioning and enabled manual dispatch for docs link checks.
 - Added `Makefile` with `make help`, docs workflow dispatch targets, and wiki provisioning status checks.
+- Added `make preflight`, `wiki-mirror-status`, `docs/wiki-home-mirror.md`, and `docs/operations-loop-runbook.md` for long-loop operations with wiki fallback.

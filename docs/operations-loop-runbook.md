@@ -29,6 +29,7 @@ If `wiki-status` reports "not ready":
 
 - Keep content updated in `docs/wiki-home-mirror.md`.
 - Follow `docs/wiki-bootstrap-runbook.md` for one-time manual provisioning.
+- Use `docs/wiki-publish-alternatives.md` for approved fallback publication paths.
 - After provisioning, sync mirror content into GitHub Wiki Home page.
 
 ## Continuation discipline

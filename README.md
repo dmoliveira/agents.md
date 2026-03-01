@@ -55,8 +55,9 @@ For full command detail, use:
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
 - `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
 - `docs/wiki-home-mirror.md`: fallback in-repo mirror of Wiki Home content.
+- `docs/wiki-publish-alternatives.md`: fallback publication paths when wiki git is unavailable.
 - `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
-- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, and wiki sync consistency checks.
+- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki sync checks, and publish checklist runs.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

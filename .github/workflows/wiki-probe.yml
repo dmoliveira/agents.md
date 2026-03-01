@@ -1,0 +1,19 @@
+name: Wiki Remote Probe
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Probe wiki remote readiness
+        run: python scripts/wiki_sync.py --repo dmoliveira/agents.md

@@ -15,3 +15,4 @@ All notable changes to this project are documented in this file.
 ### Changed
 - `README.md` badges now include a Docs Site Deploy workflow badge.
 - `README.md` badges now include a Docs Quality Checks workflow badge.
+- `docs/wiki-home-snippet.md` now includes a wiki bootstrap note for `Repository not found` cases.

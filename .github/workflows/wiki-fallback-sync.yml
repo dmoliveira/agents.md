@@ -19,20 +19,25 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate token presence
+        id: token_check
         env:
           WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
         run: |
           if [ -z "$WIKI_SYNC_TOKEN" ]; then
             echo "FALLBACK_REPO_TOKEN secret missing; skipping sync"
-            exit 0
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Dry run fallback sync
+        if: steps.token_check.outputs.has_token == 'true'
         env:
           WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
         run: python scripts/wiki_sync.py --repo dmoliveira/agents-md-wiki-fallback --target repo --token-env WIKI_SYNC_TOKEN
 
       - name: Apply fallback sync
+        if: steps.token_check.outputs.has_token == 'true'
         env:
           WIKI_SYNC_TOKEN: ${{ secrets.FALLBACK_REPO_TOKEN }}
         run: python scripts/wiki_sync.py --repo dmoliveira/agents-md-wiki-fallback --target repo --token-env WIKI_SYNC_TOKEN --apply

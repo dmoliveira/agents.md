@@ -21,3 +21,4 @@ All notable changes to this project are documented in this file.
 - Added `Makefile` with `make help`, docs workflow dispatch targets, and wiki provisioning status checks.
 - Added `make preflight`, `wiki-mirror-status`, `docs/wiki-home-mirror.md`, and `docs/operations-loop-runbook.md` for long-loop operations with wiki fallback.
 - Added `scripts/wiki_sync_check.py` and `make wiki-sync-check` to keep wiki snippet and mirror content aligned.
+- Added `docs/wiki-publish-alternatives.md` and `make wiki-publish-checklist` for approved fallback wiki publication workflows.

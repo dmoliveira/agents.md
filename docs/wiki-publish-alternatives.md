@@ -20,6 +20,7 @@ Use this guide when GitHub Wiki git remote provisioning is blocked and you still
 - Fallback repo: `https://github.com/dmoliveira/agents-md-wiki-fallback`
 - Preview sync: `make wiki-fallback-sync-dry-run`
 - Apply sync: `make wiki-fallback-sync-apply`
+- Trigger workflow: `make wiki-fallback-dispatch` (requires `FALLBACK_REPO_TOKEN` secret in `dmoliveira/agents.md`)
 
 This route provides a publishable remote even when `<repo>.wiki.git` is still unavailable.
 

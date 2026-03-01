@@ -61,6 +61,7 @@ For full command detail, use:
 
 For ongoing readiness checks, run `make wiki-probe-dispatch` to trigger the scheduled wiki probe workflow on demand.
 For publishable fallback sync, use `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.
+For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make wiki-fallback-dispatch`.
 
 ## Workflow highlights (wt flow e2e) 🔁
 

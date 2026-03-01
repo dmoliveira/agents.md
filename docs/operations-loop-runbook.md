@@ -46,6 +46,12 @@ make wiki-fallback-sync-dry-run
 make wiki-fallback-sync-apply
 ```
 
+For CI automation, set repository secret `FALLBACK_REPO_TOKEN` and trigger:
+
+```bash
+make wiki-fallback-dispatch
+```
+
 To monitor readiness between cycles, trigger:
 
 ```bash

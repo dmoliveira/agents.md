@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -21,13 +22,18 @@ def run(
     )
 
 
-def remote_url(repo: str, target: str) -> str:
+def remote_url(repo: str, target: str, token: str | None = None) -> str:
     suffix = ".wiki.git" if target == "wiki" else ".git"
+    if token:
+        return f"https://x-access-token:{token}@github.com/{repo}{suffix}"
     return f"https://github.com/{repo}{suffix}"
 
 
-def remote_available(repo: str, target: str) -> bool:
-    probe = run(["git", "ls-remote", remote_url(repo, target), "HEAD"], check=False)
+def remote_available(repo: str, target: str, token: str | None = None) -> bool:
+    probe = run(
+        ["git", "ls-remote", remote_url(repo, target, token=token), "HEAD"],
+        check=False,
+    )
     return probe.returncode == 0
 
 
@@ -44,7 +50,7 @@ def commit_if_needed(tmp_dir: Path, message: str) -> bool:
     return True
 
 
-def sync(repo: str, apply: bool, target: str) -> int:
+def sync(repo: str, apply: bool, target: str, token: str | None = None) -> int:
     root = Path(__file__).resolve().parents[1]
     mirror_path = root / "docs" / "wiki-home-mirror.md"
     if not mirror_path.exists():
@@ -52,7 +58,7 @@ def sync(repo: str, apply: bool, target: str) -> int:
         return 1
 
     content = mirror_path.read_text(encoding="utf-8")
-    available = remote_available(repo, target)
+    available = remote_available(repo, target, token=token)
     mode = "apply" if apply else "dry-run"
     print(f"wiki-sync: mode={mode}")
     print(f"wiki-sync: repo={repo}")
@@ -68,7 +74,7 @@ def sync(repo: str, apply: bool, target: str) -> int:
     with tempfile.TemporaryDirectory(prefix="agents-wiki-sync-") as tmp:
         tmp_dir = Path(tmp)
         clone = run(
-            ["git", "clone", remote_url(repo, target), str(tmp_dir)],
+            ["git", "clone", remote_url(repo, target, token=token), str(tmp_dir)],
             check=False,
         )
         if clone.returncode != 0:
@@ -120,12 +126,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--apply", action="store_true", help="Apply changes to target remote"
     )
+    parser.add_argument(
+        "--token-env",
+        default="",
+        help="Environment variable that stores a GitHub token for authenticated remote access",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    return sync(args.repo, apply=args.apply, target=args.target)
+    token = os.getenv(args.token_env) if args.token_env else None
+    return sync(args.repo, apply=args.apply, target=args.target, token=token)
 
 
 if __name__ == "__main__":

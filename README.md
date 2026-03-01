@@ -44,6 +44,7 @@ For full command detail, use:
 - `docs/tooling-quick-ref.md`
 - `docs/orchestration-advanced.md`
 - `make help` for operator shortcuts
+- `make preflight` before long execution loops
 
 ## What is in this repo 📚
 
@@ -53,6 +54,8 @@ For full command detail, use:
 - `docs/support-the-project.md`: donation and sustainability options.
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
 - `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
+- `docs/wiki-home-mirror.md`: fallback in-repo mirror of Wiki Home content.
+- `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
 - `Makefile`: non-interactive operator shortcuts for docs workflows and wiki status checks.
 
 ## Workflow highlights (wt flow e2e) 🔁

@@ -92,13 +92,14 @@ This keeps execution cycles explicit and prevents accidental early handoff.
 - GNU `parallel`: parallelized independent command execution.
 
 Useful links:
-- Beads (`br`): https://github.com/automazeio/beads
 - GitHub CLI (`gh`): https://cli.github.com/
 - uv: https://docs.astral.sh/uv/
 - Ruff: https://docs.astral.sh/ruff/
 - ripgrep (`rg`): https://github.com/BurntSushi/ripgrep
 - fd: https://github.com/sharkdp/fd
 - GNU parallel: https://www.gnu.org/software/parallel/
+
+`br` command usage is documented in `AGENTS.md` and `docs/tooling-quick-ref.md`.
 
 ## Docs, Wiki, and GitHub Pages 🌐
 

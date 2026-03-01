@@ -24,3 +24,4 @@ All notable changes to this project are documented in this file.
 - Added `docs/wiki-publish-alternatives.md` and `make wiki-publish-checklist` for approved fallback wiki publication workflows.
 - Added `scripts/wiki_sync.py` plus `make wiki-sync-dry-run` and `make wiki-sync-apply` for controlled wiki push once remote is provisioned.
 - Added `.github/workflows/wiki-probe.yml` and `make wiki-probe-dispatch` for repeatable wiki remote readiness probing.
+- Added fallback sync route to `dmoliveira/agents-md-wiki-fallback` with `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.

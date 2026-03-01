@@ -1,8 +1,9 @@
 PROJECT_NAME := agents.md
 PROJECT_VERSION := 0.1.0
 REPO ?= dmoliveira/agents.md
+WIKI_FALLBACK_REPO ?= dmoliveira/agents-md-wiki-fallback
 
-.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-publish-checklist
+.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-fallback-sync-dry-run wiki-fallback-sync-apply wiki-publish-checklist
 
 help:
 	@printf "%s v%s\n" "$(PROJECT_NAME)" "$(PROJECT_VERSION)"
@@ -17,6 +18,8 @@ help:
 	@printf "  %-24s %s\n" "wiki-sync-check" "Validate wiki snippet and mirror consistency"
 	@printf "  %-24s %s\n" "wiki-sync-dry-run" "Preview wiki sync from mirror content"
 	@printf "  %-24s %s\n" "wiki-sync-apply" "Push mirror content to wiki Home when ready"
+	@printf "  %-24s %s\n" "wiki-fallback-sync-dry-run" "Preview sync to fallback wiki repository"
+	@printf "  %-24s %s\n" "wiki-fallback-sync-apply" "Push mirror content to fallback wiki repository"
 	@printf "  %-24s %s\n" "wiki-publish-checklist" "Print fallback publish checklist and run preflight"
 
 preflight:
@@ -57,10 +60,16 @@ wiki-sync-check:
 	python scripts/wiki_sync_check.py
 
 wiki-sync-dry-run:
-	python scripts/wiki_sync.py --repo "$(REPO)"
+	python scripts/wiki_sync.py --repo "$(REPO)" --target wiki
 
 wiki-sync-apply:
-	python scripts/wiki_sync.py --repo "$(REPO)" --apply
+	python scripts/wiki_sync.py --repo "$(REPO)" --target wiki --apply
+
+wiki-fallback-sync-dry-run:
+	python scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo
+
+wiki-fallback-sync-apply:
+	python scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo --apply
 
 wiki-publish-checklist:
 	@printf "wiki publish checklist:\n"

@@ -2,7 +2,7 @@
 
 Use this guide when work is multi-module, high-risk, or running under process pressure.
 
-Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt flow`); use this page only when advanced controls are needed.
+Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt flow`); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
 
 ## Parallel execution (AI runs)
 - Use one AI run per epic/task, each with its own worktree branch and a tracked GitHub issue.
@@ -32,15 +32,8 @@ If `ox` is not running, the active agent is the coordinator and should run this 
 - Keep concurrency to at most one reviewer and one verifier at a time.
 
 ## Validation matrix
-- Docs-only (`md`, comments, wording): run `git diff --check`; skip heavy checks unless behavior changed.
-- Low-risk code (small, scoped): run targeted lint/test for touched area + one smoke path.
-- High-risk/runtime/security/migration: run full required lint/test/build suite and include reviewer/verifier pass.
-- Never repeat heavyweight checks on unchanged diffs.
-
-Key gate policy:
-- Pre-PR gate (required): run the selected validation set once on the full current diff.
-- Pre-merge gate (conditional): re-run only when code changed after review or CI reports failures.
-- During implementation: optional quick smoke checks only when needed to unblock risky debugging.
+- Follow `docs/validation-policy.md` for the base gate policy and task-type defaults.
+- Add reviewer/verifier passes when scope or risk exceeds the base policy.
 
 ## Memory-aware orchestration
 - If `continue_process_count >= 3`, avoid new reviewer/verifier runs unless a blocker requires it.

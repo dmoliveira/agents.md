@@ -42,6 +42,8 @@ This playbook focuses on practical controls for multi-agent execution:
 
 For full command detail, use:
 - `docs/tooling-quick-ref.md`
+- `docs/github-cli.md`
+- `docs/validation-policy.md`
 - `docs/orchestration-advanced.md`
 - `make help` for operator shortcuts
 - `make preflight` before long execution loops
@@ -49,6 +51,8 @@ For full command detail, use:
 ## What is in this repo 📚
 
 - `AGENTS.md`: source-of-truth operating contract.
+- `docs/github-cli.md`: automation-safe `gh` patterns and API fallback examples.
+- `docs/validation-policy.md`: key-gate validation policy and risk-based review budget.
 - `docs/tooling-quick-ref.md`: quick commands for `gh`, search, `uv`, and parallel execution.
 - `docs/orchestration-advanced.md`: high-pressure and high-risk orchestration controls.
 - `docs/support-the-project.md`: donation and sustainability options.
@@ -79,7 +83,7 @@ git pull --rebase
 git worktree add ../<branch> -b <branch>
 # implement + validate, then one focused commit
 git push -u origin <branch>
-gh pr create
+# create PR (prefer `gh api`; see docs/github-cli.md)
 # after merge
 git worktree remove ../<branch>
 git pull --rebase
@@ -110,7 +114,7 @@ Useful links:
 - fd: https://github.com/sharkdp/fd
 - GNU parallel: https://www.gnu.org/software/parallel/
 
-Native issue and PR command usage is documented in `AGENTS.md` and `docs/tooling-quick-ref.md`.
+Native issue and PR command usage is documented in `AGENTS.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
 
 ## Docs, Wiki, and GitHub Pages 🌐
 

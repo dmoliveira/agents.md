@@ -7,6 +7,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Use `wt flow` for all delivery work; never land feature changes directly on `main`.
 - Keep issue/PR status updated through start, progress, and completion.
 - Use `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, and `docs/orchestration-advanced.md` as supporting references.
+- For optional external operator help, use the curated references listed in `docs/tooling-quick-ref.md` instead of loading broad external repo context.
 
 ## Directive levels
 - `MUST`: mandatory unless the user explicitly overrides.

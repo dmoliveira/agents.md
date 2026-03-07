@@ -7,9 +7,25 @@ Detailed references:
 - `docs/validation-policy.md` for key-gate validation defaults
 
 ## Tool source paths
-- Primary: `../my_utils`
-- Fallback: `../utils-scripts`
+- Primary external tooling repo: `/Users/cauhirsch/Codes/Projects/utils-scripts`
+- OpenCode config/agent repo: `/Users/cauhirsch/Codes/Projects/my_opencode`
 - If neither exists, continue with repo-native commands and existing project tooling.
+
+## Optional external references
+- Use these only when local docs are insufficient; do not preload broad external repo context by default.
+- `utils-scripts`
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/workflow-matrix.md` for shortest-path CLI/operator flows
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/TERMINAL_PLAYBOOK.md` for terminal-first work patterns on macOS/Linux
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/cheatsheets/gh.md` for practical GitHub CLI usage
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/cheatsheets/rg.md` for fast search patterns
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/cheatsheets/uv.md` for Python env/test flows
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/cheatsheets/make.md` for repo task runner usage
+  - `/Users/cauhirsch/Codes/Projects/utils-scripts/docs/cheatsheets/parallel.md` for safe parallel command patterns
+- `my_opencode`
+  - `/Users/cauhirsch/Codes/Projects/my_opencode/docs/agents-cheatsheet.md` for agent-selection reminders
+  - `/Users/cauhirsch/Codes/Projects/my_opencode/docs/agent-tool-restrictions.md` for maintainer checks on agent boundaries
+  - `/Users/cauhirsch/Codes/Projects/my_opencode/docs/quickstart.md` for lightweight runtime health commands
+- Avoid using `/Users/cauhirsch/Codes/Projects/utils-scripts/AGENTS.md` as a reference here because its coordination model differs from this repo.
 
 ## High-value tools
 - `gh` (task flow): `gh issue list --state open --limit 20`, `gh issue view <id>`, `gh issue comment <id> --body "status update"`, `gh issue close <id>`

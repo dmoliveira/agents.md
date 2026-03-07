@@ -5,11 +5,11 @@ Use this runbook for long-running agent cycles where changes are shipped continu
 ## Loop sequence
 
 1. Start from `main`, sync, then create a dedicated worktree branch.
-2. Pick one `br` issue and move it to `in_progress`.
+2. Pick one GitHub issue and move it to `in_progress` using labels/status/projects.
 3. Implement one scoped slice and commit small.
 4. Run lightweight validations relevant to the diff.
 5. Open PR, watch checks, merge, and clean up worktree.
-6. Sync local `main`, close `br` issue, and continue to next slice.
+6. Sync local `main`, close the issue, and continue to next slice.
 
 ## Fast preflight
 

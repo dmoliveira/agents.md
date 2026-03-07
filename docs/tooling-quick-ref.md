@@ -8,7 +8,7 @@ Use this as a fast productivity map for local utility tools.
 - If neither exists, continue with repo-native commands and existing project tooling.
 
 ## High-value tools
-- `br` (task flow): `br ready`, `br show <id>`, `br update <id> --status in_progress`, `br close <id>`
+- `gh` (task flow): `gh issue list --state open --limit 20`, `gh issue view <id>`, `gh issue comment <id> --body "status update"`, `gh issue close <id>`
 - `gh` (PR flow): `gh pr status`, `gh pr create --fill`, `gh pr checks --watch`, `gh pr merge <id> --merge --delete-branch`
 - `rg` + `fd` (code search): `fd -e md`, `rg -n "pattern" -g "*.md"`
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`

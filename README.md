@@ -18,7 +18,7 @@ Practical guidance for running AI agents in parallel with a consistent, auditabl
 This repository centers on a production-style `AGENTS.md` contract so agents can:
 - pick one issue at a time,
 - execute in dedicated worktrees,
-- deliver small commits and PRs,
+- deliver focused commits and PRs,
 - validate before merge,
 - and keep communication systematic with explicit end-of-cycle signals like `<CONTINUE-LOOP>`.
 
@@ -29,7 +29,7 @@ Most teams do not fail from lack of AI capability; they fail from coordination d
 This playbook focuses on practical controls for multi-agent execution:
 - predictable task ownership with native issue IDs,
 - e2e worktree flow (`wt flow`) for safe branch isolation,
-- risk-based review/fix/improve passes,
+- key-gate validation (pre-PR required, pre-merge conditional),
 - concise final-response patterns that make pending work obvious.
 
 ## Start in 5 minutes ⏱️
@@ -66,7 +66,7 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 ## Workflow highlights (wt flow e2e) 🔁
 
 - create a dedicated worktree and branch for each feature/bug/task,
-- implement with small, logical commits,
+- iterate quickly, then commit once per validated slice,
 - run review/fix/improve passes according to risk,
 - open PR, validate checks, merge,
 - cleanup worktree, sync `main`, close the corresponding issue.
@@ -77,7 +77,7 @@ Reference flow:
 git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
-# implement + small commits
+# implement + validate, then one focused commit
 git push -u origin <branch>
 gh pr create
 # after merge

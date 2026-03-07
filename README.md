@@ -18,7 +18,7 @@ Practical guidance for running AI agents in parallel with a consistent, auditabl
 This repository centers on a production-style `AGENTS.md` contract so agents can:
 - pick one issue at a time,
 - execute in dedicated worktrees,
-- deliver small commits and PRs,
+- deliver focused commits and PRs,
 - validate before merge,
 - and keep communication systematic with explicit end-of-cycle signals like `<CONTINUE-LOOP>`.
 
@@ -27,21 +27,23 @@ This repository centers on a production-style `AGENTS.md` contract so agents can
 Most teams do not fail from lack of AI capability; they fail from coordination drift.
 
 This playbook focuses on practical controls for multi-agent execution:
-- predictable task ownership with `br` issue IDs,
+- predictable task ownership with native issue IDs,
 - e2e worktree flow (`wt flow`) for safe branch isolation,
-- risk-based review/fix/improve passes,
+- key-gate validation (pre-PR required, pre-merge conditional),
 - concise final-response patterns that make pending work obvious.
 
 ## Start in 5 minutes ⏱️
 
 1. Read `AGENTS.md`.
-2. Initialize tracking with `br init`.
-3. Pick an item with `br ready`.
-4. Move it to active: `br update <id> --status in_progress`.
+2. List and pick a scoped item with `gh issue list --state open --limit 20`.
+3. Review context with `gh issue view <id>`.
+4. Mark it active using labels/status/projects in GitHub.
 5. Execute delivery work in a dedicated worktree branch (never directly on `main`).
 
 For full command detail, use:
 - `docs/tooling-quick-ref.md`
+- `docs/github-cli.md`
+- `docs/validation-policy.md`
 - `docs/orchestration-advanced.md`
 - `make help` for operator shortcuts
 - `make preflight` before long execution loops
@@ -49,7 +51,9 @@ For full command detail, use:
 ## What is in this repo 📚
 
 - `AGENTS.md`: source-of-truth operating contract.
-- `docs/tooling-quick-ref.md`: quick commands for `br`, `gh`, search, `uv`, and parallel execution.
+- `docs/github-cli.md`: automation-safe `gh` patterns and API fallback examples.
+- `docs/validation-policy.md`: key-gate validation policy and risk-based review budget.
+- `docs/tooling-quick-ref.md`: quick commands for `gh`, search, `uv`, and parallel execution.
 - `docs/orchestration-advanced.md`: high-pressure and high-risk orchestration controls.
 - `docs/support-the-project.md`: donation and sustainability options.
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
@@ -66,10 +70,10 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 ## Workflow highlights (wt flow e2e) 🔁
 
 - create a dedicated worktree and branch for each feature/bug/task,
-- implement with small, logical commits,
+- iterate quickly, then commit once per validated slice,
 - run review/fix/improve passes according to risk,
 - open PR, validate checks, merge,
-- cleanup worktree, sync `main`, close the `br` issue.
+- cleanup worktree, sync `main`, close the corresponding issue.
 
 Reference flow:
 
@@ -77,9 +81,9 @@ Reference flow:
 git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
-# implement + small commits
+# implement + validate, then one focused commit
 git push -u origin <branch>
-gh pr create
+# create PR (prefer `gh api`; see docs/github-cli.md)
 # after merge
 git worktree remove ../<branch>
 git pull --rebase
@@ -95,7 +99,7 @@ This keeps execution cycles explicit and prevents accidental early handoff.
 
 ## External tools used 🔧
 
-- `br` (beads_rust): issue tracking for agent workflows.
+- native GitHub issue tracking via `gh` and repository workflows.
 - `gh`: GitHub CLI for PR lifecycle and checks.
 - `uv`: Python environment and package tooling.
 - `ruff`: Python lint/format.
@@ -110,7 +114,7 @@ Useful links:
 - fd: https://github.com/sharkdp/fd
 - GNU parallel: https://www.gnu.org/software/parallel/
 
-`br` command usage is documented in `AGENTS.md` and `docs/tooling-quick-ref.md`.
+Native issue and PR command usage is documented in `AGENTS.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
 
 ## Docs, Wiki, and GitHub Pages 🌐
 

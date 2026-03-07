@@ -9,8 +9,8 @@ Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt fl
 - Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
 
 Worker lifecycle:
-1) Implement in its worktree with small incremental commits.
-2) Validate required checks/criteria.
+1) Implement in its worktree with fast local iteration.
+2) Run required checks at the pre-PR gate and create one focused commit for the validated slice.
 3) Open PR, post PR URL on the related issue, then stop.
 
 Coordinator loop (when `ox` is running):
@@ -36,6 +36,11 @@ If `ox` is not running, the active agent is the coordinator and should run this 
 - Low-risk code (small, scoped): run targeted lint/test for touched area + one smoke path.
 - High-risk/runtime/security/migration: run full required lint/test/build suite and include reviewer/verifier pass.
 - Never repeat heavyweight checks on unchanged diffs.
+
+Key gate policy:
+- Pre-PR gate (required): run the selected validation set once on the full current diff.
+- Pre-merge gate (conditional): re-run only when code changed after review or CI reports failures.
+- During implementation: optional quick smoke checks only when needed to unblock risky debugging.
 
 ## Memory-aware orchestration
 - If `continue_process_count >= 3`, avoid new reviewer/verifier runs unless a blocker requires it.

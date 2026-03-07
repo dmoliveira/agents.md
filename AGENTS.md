@@ -52,6 +52,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 
 ## Orchestration quickplay
 - Default mode: use a short WT flow (implement -> review/fix/improve -> open PR -> merge), then delete the local worktree branch and sync local `main`.
+- Prefer one focused commit per validated feature/task slice instead of many intermediate commits.
 - Open a PR for delivery changes and merge to `main` only through the PR for control and auditability (MUST).
 - For local productivity shortcuts, use `docs/tooling-quick-ref.md` (primary source: `../my_utils`, fallback: `../utils-scripts`).
 - Start in `build` for small, clear, single-scope changes (SHOULD).
@@ -60,6 +61,13 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Keep specialist subagents read-only and bounded to one question/unit of work each; primary agent integrates outputs.
 - Do not claim done until implementation, validations, and required review pass (or blocker contract is documented with evidence).
 - Under pressure, reduce concurrency first: finish active WT card before opening new long-running continuations.
+
+### Fast path (low risk)
+- Use this for docs-only changes or small, scoped edits with low blast radius.
+- Iterate quickly without running full lint/tests on every local change.
+- Run one required validation pass at the pre-PR gate, then create one focused commit.
+- Re-run validation only if code changes after review or CI reports failures.
+- Keep review/fix passes lean (typically one pass) unless a blocker appears.
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
@@ -81,9 +89,11 @@ git worktree list
 ### wt flow
 This flow is required for any feature, improvement, or bug fix:
 1) Create a dedicated worktree and branch.
-2) Implement in that worktree with small incremental commits.
-3) Commit small, focused advances as each logical slice lands (avoid one large batch commit).
-4) Run risk-based review/fix/improve passes before opening a PR.
+2) Implement in that worktree with fast local iteration.
+3) Create one focused commit when the slice is complete and validated at the pre-PR gate.
+4) Run risk-based review/fix/improve passes at key gates before opening a PR.
+   - Pre-PR gate (required): run the required lint/tests/build once for the current diff.
+   - Pre-merge gate (conditional): re-run checks only when code changes after review or CI reports failures.
    - Low risk (docs/tests/small scoped edit): 1 pass.
    - Medium risk (typical feature/refactor): 2 passes.
    - High risk (runtime/security/migration): 3-5 passes.
@@ -103,7 +113,8 @@ WT e2e command flow (reference):
 git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
-# implement + small commits
+# implement + validate (pre-PR gate)
+# create one focused commit
 git push -u origin <branch>
 gh pr create
 # after PR merge
@@ -132,10 +143,10 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 - Prefer Makefiles for scripts; provide `make help` with project name/version and concise command descriptions.
 - For quick helper scripts (data seeding, checks, one-off migrations), prefer Rust first, then Go, then Python based on fit and speed.
 - For web apps, install and use Playwright to simulate the browser and debug UX visually.
-- Use pre-commit hooks for lint/format before tests; fix failures, then run tests.
-- If pre-commit is missing, install it with `uv` (Python) or the repo's package manager (e.g., npm/pnpm/bun for TS).
-- If hook config is missing, add baseline commit hooks that run formatter, linter, and relevant test command(s), then install hooks before committing.
-- If commit hooks are not installed locally, install them (`pre-commit install`) and run them once across files (`pre-commit run --all-files`) before the first commit in a task.
+- Prefer running lint/tests at key gates (pre-PR required, pre-merge conditional) rather than on every local iteration.
+- If pre-commit is configured, use it as part of the pre-PR gate to catch issues before review.
+- If pre-commit is missing, installation is optional; prioritize CI and explicit pre-PR validation commands.
+- If hook config is missing, prefer lightweight CI checks over strict local hook setup.
 - For YAML config examples, include concise comments and explicit option choices when multiple safe defaults exist.
 - Add security/static checks to pre-commit when possible:
   - Python/TS: CodeQL + Semgrep (or Semgrep alone for custom rules).
@@ -151,8 +162,8 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 
 ## 6) Finish (per task)
 1) Update docs and tests to match the change.
-2) Run required tests/linters/builds and fix failures.
-3) Commit changes on your branch.
+2) Run required tests/linters/builds at the pre-PR gate and fix failures.
+3) Commit the validated changes on your branch (prefer one focused commit per completed slice).
 4) Push the branch and open a PR with clear summary + testing/docs notes.
 5) For meaningful changes in git projects, keep commit and push as separate steps.
 6) Review the PR before starting new cards; if incomplete, iterate until done.

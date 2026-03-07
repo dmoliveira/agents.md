@@ -5,13 +5,13 @@ Use this guide when work is multi-module, high-risk, or running under process pr
 Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt flow`); use this page only when advanced controls are needed.
 
 ## Parallel execution (AI runs)
-- Use one AI run per epic/task, each with its own worktree branch and `br` issue (`br-<id>`).
+- Use one AI run per epic/task, each with its own worktree branch and a tracked GitHub issue.
 - Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
 
 Worker lifecycle:
 1) Implement in its worktree with small incremental commits.
 2) Validate required checks/criteria.
-3) Open PR, post PR URL in `br-<id>`, then stop.
+3) Open PR, post PR URL on the related issue, then stop.
 
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.

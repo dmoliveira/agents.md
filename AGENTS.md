@@ -1,10 +1,9 @@
 # Agent Instructions
 
-Use **br** for task tracking and **Agent Mail** for coordination. Keep work scoped to one issue at a time.
-Use `br` only for issue tracking in this repo.
+Use native repo tooling available in this environment (`git`, `gh`, and built-in agent tools). Keep work scoped to one issue/task at a time.
 
 ## Quickstart
-- Follow `## 1) Start (every session)` and pick one `br` issue.
+- Follow `## 1) Start (every session)` and pick one scoped issue/task.
 - Use `## 2) Worktrees for new epics/tasks` for all delivery work (never land changes on `main`).
 - Use `## 6) Finish (per task)` for commit, PR, merge, cleanup, and sync steps.
 - Use `## 7) Final response pattern` for `<CONTINUE-LOOP>` and completion suggestions.
@@ -64,26 +63,18 @@ Use `br` only for issue tracking in this repo.
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
-2) If `br` is not initialized, run `br init` once.
-3) Run `br ready`, pick one issue, and check the `br-<id>` Mail thread before starting or reviewing.
-4) `br update <id> --status in_progress` when you start.
-5) Use the br issue id everywhere:
-   - Mail `thread_id`: `br-<id>`
-   - Subject prefix: `[br-<id>]`
-   - File reservation reason: `br-<id>`
-   - Optional: include `br-<id>` in commit messages
-6) Recommended: set `AGENT_NAME` and use the repo root path as the Mail `project_key`.
-
-`br` never runs git. Keep `.beads/` local, ensure `.gitignore` includes `.beads/`, and do not commit it.
-`br` data lives in the current worktree. Create epics/tasks/subtasks in the worktree you are using so each branch keeps its own `.beads/` context, and include epic/task/subtask ids in updates.
+2) Review open issues/PRs and pick one scoped item to deliver.
+3) Mark the item `in_progress` using native tracker capabilities when available (GitHub labels/status/projects).
+4) Use the issue/task id in branch names, commits, and PR titles when practical.
+5) Keep all execution in a dedicated worktree branch for that item.
 
 ## Quick commands
 ```bash
-br ready
-br show <id>
-br update <id> --status in_progress
-br close <id>
-br sync --flush-only
+gh issue list --state open --limit 20
+gh issue view <id>
+gh pr status
+git status
+git worktree list
 ```
 
 ## 2) Worktrees for new epics/tasks
@@ -105,7 +96,7 @@ This flow is required for any feature, improvement, or bug fix:
 
 WT execution checklist (canonical):
 - Use `wt flow` steps 1-9 above as the single source of truth for implementation, review, PR, merge, and cleanup.
-- Keep the `br-<id>` thread updated through start, progress, and completion.
+- Keep issue/PR status updated through start, progress, and completion.
 
 WT e2e command flow (reference):
 ```bash
@@ -124,16 +115,13 @@ git pull --rebase
 - For multi-agent execution, reviewer/verifier budgets, validation matrix, and memory-pressure playbooks, see `docs/orchestration-advanced.md`.
 - Use advanced controls when scope, risk, or process pressure requires them; otherwise follow `Orchestration quickplay` and `wt flow`.
 
-When starting a new epic or task, follow the `wt flow` and `WT e2e command flow` above; keep branch names repo-prefixed (for example, `asx-add-new-ux`) and run `br` in that worktree.
+When starting a new epic or task, follow the `wt flow` and `WT e2e command flow` above; keep branch names repo-prefixed (for example, `asx-add-new-ux`).
 
-## 3) Agent Mail coordination
-- Register an agent for this repo `project_key` (once per repo): `ensure_project`, then `register_agent`.
-- Reserve files before editing: `file_reservation_paths(project_key, agent_name, ["path/**"], ttl_seconds=3600, exclusive=true, reason="br-<id>")`.
-- Post updates in the `br-<id>` thread: `send_message(..., thread_id="br-<id>", subject="[br-<id>] Start: <title>")`.
-- Check/ack messages: `fetch_inbox`, `acknowledge_message`.
-- Release when done: `release_file_reservations(project_key, agent_name, paths=["path/**"])`.
-- Multi-agent flow: one agent may create epics/tasks/subtasks, others execute, and another reviews. Always check `br` status and the Mail thread before you start or review.
-- Sub-agents: use only for clean splits; each sub-agent registers/reserves and reports in the same `br-<id>` thread. Primary agent integrates/lands changes.
+## 3) Native coordination
+- Use GitHub Issues/PRs as the source of truth for task state and handoffs.
+- For multi-agent or multi-step work, post concise progress/blocker updates in issue or PR comments.
+- Keep ownership explicit by naming the active task id in branch, commit, and PR metadata when practical.
+- Share validation evidence (commands and outcomes) in PR descriptions or final task notes.
 
 ## 4) Python tooling
 - Use `uv` for environments and deps.
@@ -172,7 +160,7 @@ When starting a new epic or task, follow the `wt flow` and `WT e2e command flow`
 8) Delete the local worktree and merged branch, then `git pull --rebase` on local `main`.
 9) During rebase/merge conflict resolution, preserve user-authored updates in touched files.
 10) After completing an epic, create a version tag and release notes with an executive summary and a clear changelog (Adds, Changes, Removals, Fixes).
-11) Update `br` status to done/closed when appropriate.
+11) Update issue/task status to done/closed when appropriate.
 12) If additional requested tasks remain after this cycle, end with `<CONTINUE-LOOP>` on the final line.
 13) If no pending tasks remain, end with concise next-step suggestions (do not hand off with only a question).
 

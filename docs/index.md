@@ -14,6 +14,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `plan/README.md`: plan statuses, move rules, and allowed transitions
 
 ## Wiki and publishing
+- `site/index.html`: generated GitHub Pages landing page with latest release notes
 - `wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page
 - `wiki-bootstrap-runbook.md`: first-time wiki provisioning steps
 - `wiki-home-mirror.md`: fallback in-repo mirror of wiki home content

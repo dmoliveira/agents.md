@@ -7,94 +7,183 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5f8fc;
-        --card: #ffffff;
-        --text: #1d2a38;
-        --muted: #556779;
-        --accent: #0d6efd;
-        --accent-2: #13a8a8;
-        --border: #d9e2ec;
+        --bg: #f4efe6;
+        --panel: rgba(255, 250, 242, 0.9);
+        --card: #fffdf8;
+        --text: #1f1a17;
+        --muted: #625850;
+        --accent: #a44a19;
+        --accent-2: #0f7b6c;
+        --border: #e6d9ca;
+        --shadow: 0 18px 48px rgba(58, 33, 17, 0.12);
       }
+      * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
-        background: radial-gradient(circle at 10% 10%, #e8f3ff, transparent 40%),
-          radial-gradient(circle at 90% 90%, #daf7f2, transparent 35%), var(--bg);
+        font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
         color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(255, 216, 176, 0.65), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(171, 227, 214, 0.55), transparent 24%),
+          linear-gradient(180deg, #fbf6ee, #f2ece2 58%, #efe7db);
       }
-      .wrap {
-        max-width: 840px;
-        margin: 0 auto;
-        padding: 48px 20px 64px;
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 20px 64px; }
+      .hero {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1.5fr 1fr;
+        align-items: stretch;
+        margin-bottom: 28px;
       }
-      .card {
-        background: var(--card);
+      .hero-card, .panel {
+        background: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px;
-        box-shadow: 0 14px 40px rgba(7, 38, 76, 0.08);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
       }
-      h1 {
-        margin-top: 0;
-        font-size: 2rem;
+      .hero-card { padding: 32px; position: relative; overflow: hidden; }
+      .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -40px -60px auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(164, 74, 25, 0.18), transparent 68%);
       }
-      p {
-        color: var(--muted);
-        line-height: 1.5;
-      }
-      ul {
-        margin: 20px 0 0;
-        padding-left: 20px;
-      }
-      li {
-        margin: 10px 0;
-      }
-      a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .pill {
-        display: inline-block;
-        margin-top: 14px;
-        padding: 6px 10px;
+      .eyebrow {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        padding: 8px 14px;
         border-radius: 999px;
-        background: #e9f4ff;
-        color: #0a4fa1;
-        font-size: 0.8rem;
-        font-weight: 600;
-      }
-      .footer {
-        margin-top: 22px;
-        font-size: 0.9rem;
-      }
-      .accent {
-        color: var(--accent-2);
+        background: rgba(255,255,255,0.72);
+        color: var(--accent);
+        font-size: 0.86rem;
         font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      h1 { font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 0.96; margin: 18px 0 14px; }
+      .hero p { font-size: 1.07rem; line-height: 1.65; color: var(--muted); margin: 0 0 18px; }
+      .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 12px 18px; border-radius: 999px; font-weight: 700; border: 1px solid transparent;
+      }
+      .btn-primary { background: var(--accent); color: #fffaf6; }
+      .btn-secondary { background: transparent; border-color: var(--border); color: var(--text); }
+      .stats { padding: 26px; display: grid; gap: 14px; }
+      .stat { padding: 14px 0; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: 0; }
+      .stat-label { display: block; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 6px; }
+      .stat-value { font-size: 1.45rem; font-weight: 700; }
+      .grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; margin-bottom: 24px; }
+      .panel { padding: 28px; }
+      h2 { margin: 0 0 14px; font-size: 1.55rem; }
+      .release-grid { display: grid; gap: 16px; }
+      .release-block { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px 18px 6px; }
+      .release-block h3 { margin: 0 0 8px; font-size: 1.05rem; color: var(--accent-2); }
+      .release-block ul, .map-card ul { margin: 0; padding-left: 20px; }
+      .release-block li, .map-card li { margin: 0 0 10px; line-height: 1.5; }
+      .map { display: grid; gap: 16px; }
+      .map-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+      .map-card h3 { margin: 0 0 10px; font-size: 1.02rem; }
+      .map-card li span { display: block; color: var(--muted); margin-top: 3px; }
+      .donation {
+        display: grid; grid-template-columns: 1.2fr auto; gap: 20px; align-items: center;
+        background: linear-gradient(135deg, rgba(164, 74, 25, 0.92), rgba(82, 36, 16, 0.95));
+        color: #fff8f0;
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+      .donation h2, .donation p { color: inherit; margin: 0 0 10px; }
+      .donation .btn-primary { background: #fff3e3; color: #7d3310; }
+      .donation .btn-secondary { border-color: rgba(255,255,255,0.3); color: #fff8f0; }
+      .footnote { margin-top: 18px; color: var(--muted); font-size: 0.94rem; }
+      @media (max-width: 860px) {
+        .hero, .grid, .donation { grid-template-columns: 1fr; }
+        .wrap { padding: 24px 16px 48px; }
+        .hero-card, .panel, .donation { padding: 22px; }
       }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <section class="card">
-        <h1>AGENTS.md Playbook for Parallel Delivery 🤝</h1>
-        <p>
-          Practical guidance for running AI agents in parallel with consistent
-          workflows, worktree isolation, risk-based validation, and explicit loop
-          continuation using <span class="accent">&lt;CONTINUE-LOOP&gt;</span>.
-        </p>
-        <span class="pill">Docs Landing</span>
-        <ul>
-          <li><a href="https://github.com/dmoliveira/agents.md">Repository Home</a></li>
-          <li><a href="https://github.com/dmoliveira/agents.md/blob/main/AGENTS.md">AGENTS.md Contract</a></li>
-          <li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/tooling-quick-ref.md">Tooling Quick Reference</a></li>
-          <li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/orchestration-advanced.md">Advanced Orchestration</a></li>
-          <li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/support-the-project.md">Support the Project</a></li>
-        </ul>
-        <p class="footer">Made to help teams ship faster, safer, and with less coordination drift.</p>
+      <section class="hero">
+        <article class="hero-card">
+          <span class="eyebrow">Fresh on GitHub Pages</span>
+          <h1>Parallel agent delivery, without the coordination drift.</h1>
+          <p>
+            A production-minded playbook for worktree-based execution, key-gate validation,
+            focused commits, and clean handoffs. This landing page is generated from the repo's
+            docs index, changelog, and release metadata so it stays current with the latest notes.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://github.com/dmoliveira/agents.md">Open the repository</a>
+            <a class="btn btn-secondary" href="https://github.com/dmoliveira/agents.md/blob/main/docs/index.md">Browse the docs hub</a>
+            <a class="btn btn-secondary" href="https://github.com/dmoliveira/agents.md/blob/main/AGENTS.md">Read AGENTS.md</a>
+          </div>
+        </article>
+        <aside class="hero-card stats">
+          <div class="stat">
+            <span class="stat-label">GitHub Pages</span>
+            <span class="stat-value"><a href="https://dmoliveira.github.io/agents.md/">Live docs site</a></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Latest release</span>
+            <span class="stat-value"><a href="https://github.com/dmoliveira/agents.md/releases/tag/v0.1.0">v0.1.0</a></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Release notes date</span>
+            <span class="stat-value">2026-03-01</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Delivery style</span>
+            <span class="stat-value">Worktrees + key-gate validation</span>
+          </div>
+        </aside>
       </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Latest release notes</h2>
+          <p>
+            Generated from `CHANGELOG.md` and linked to the latest tagged release so readers can
+            see what changed without hunting through commits.
+          </p>
+          <div class="release-grid"><section class="release-block"><h3>Added</h3><ul><li>Practical root `README.md` explaining parallel agent workflow, `wt flow e2e`, and the `&lt;CONTINUE-LOOP&gt;` continuation signal.</li><li>Support documentation at `docs/support-the-project.md` and a reusable Wiki block at `docs/wiki-home-snippet.md`.</li><li>MIT license at `LICENSE`.</li><li>GitHub Pages deployment workflow at `.github/workflows/pages.yml`.</li><li>Docs quality workflow at `.github/workflows/docs-links.yml`.</li><li>Static docs landing page at `docs/site/index.html`.</li></ul></section><section class="release-block"><h3>Changed</h3><ul><li>`README.md` badges now include a Docs Site Deploy workflow badge.</li><li>`README.md` badges now include a Docs Quality Checks workflow badge.</li><li>`docs/wiki-home-snippet.md` now includes a wiki bootstrap note for `Repository not found` cases.</li><li>`README.md` tool links now keep issue-tracking guidance internal to avoid stale external references.</li><li>Added `docs/wiki-bootstrap-runbook.md` for first-time wiki provisioning and enabled manual dispatch for docs link checks.</li><li>Added `Makefile` with `make help`, docs workflow dispatch targets, and wiki provisioning status checks.</li><li><em>+8 more notes in the full changelog and release page.</em></li></ul></section></div>
+          <p><a href="https://github.com/dmoliveira/agents.md/releases/tag/v0.1.0">Open the full release notes on GitHub</a></p>
+        </article>
+        <aside class="panel">
+          <h2>Docs map</h2>
+          <p>Generated from `docs/index.md` so the page reflects the current operator entrypoints.</p>
+          <div class="map"><section class="map-card"><h3>Core workflow</h3><ul><li><a href="https://github.com/dmoliveira/agents.md/blob/main/AGENTS.md">../AGENTS.md</a><span>source-of-truth operating contract</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/github-cli.md">github-cli.md</a><span>automation-safe GitHub CLI patterns</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/validation-policy.md">validation-policy.md</a><span>key-gate validation and review budget</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/tooling-quick-ref.md">tooling-quick-ref.md</a><span>quick commands and curated external references</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/orchestration-advanced.md">orchestration-advanced.md</a><span>high-pressure and high-risk orchestration controls</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/operations-loop-runbook.md">operations-loop-runbook.md</a><span>long-running execution loop checklist</span></li></ul></section><section class="map-card"><h3>Planning</h3><ul><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/plan/README.md">plan/README.md</a><span>plan statuses, move rules, and allowed transitions</span></li></ul></section><section class="map-card"><h3>Wiki and publishing</h3><ul><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/site/index.html">site/index.html</a><span>generated GitHub Pages landing page with latest release notes</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/wiki-home-snippet.md">wiki-home-snippet.md</a><span>copy/paste block for the GitHub Wiki home page</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/wiki-bootstrap-runbook.md">wiki-bootstrap-runbook.md</a><span>first-time wiki provisioning steps</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/wiki-home-mirror.md">wiki-home-mirror.md</a><span>fallback in-repo mirror of wiki home content</span></li><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/wiki-publish-alternatives.md">wiki-publish-alternatives.md</a><span>approved fallback publication paths</span></li></ul></section><section class="map-card"><h3>Project support</h3><ul><li><a href="https://github.com/dmoliveira/agents.md/blob/main/docs/support-the-project.md">support-the-project.md</a><span>donation and sustainability options</span></li></ul></section></div>
+        </aside>
+      </section>
+
+      <section class="donation">
+        <div>
+          <h2>Back the next playbook upgrade</h2>
+          <p>
+            If this repo helps your team ship faster with less agent chaos, support the maintenance
+            work that keeps the docs, examples, and safer defaults improving release after release.
+          </p>
+          <p>Every sponsor helps fund tighter guidance, cleaner automation, and more practical examples.</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/sponsors/dmoliveira">Sponsor the work</a>
+          <a class="btn btn-secondary" href="https://github.com/dmoliveira/agents.md/blob/main/docs/support-the-project.md">More ways to help</a>
+        </div>
+      </section>
+
+      <p class="footnote">
+        Generated from repo notes in `CHANGELOG.md`, `Makefile`, and `docs/index.md`.
+      </p>
     </main>
   </body>
 </html>

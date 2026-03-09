@@ -3,13 +3,14 @@ PROJECT_VERSION := 0.1.0
 REPO ?= dmoliveira/agents.md
 WIKI_FALLBACK_REPO ?= dmoliveira/agents-md-wiki-fallback
 
-.PHONY: help preflight docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-fallback-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-fallback-sync-dry-run wiki-fallback-sync-apply wiki-publish-checklist
+.PHONY: help preflight site-build docs-checks-dispatch pages-dispatch wiki-probe-dispatch wiki-fallback-dispatch wiki-status wiki-mirror-status wiki-sync-check wiki-sync-dry-run wiki-sync-apply wiki-fallback-sync-dry-run wiki-fallback-sync-apply wiki-publish-checklist
 
 help:
 	@printf "%s v%s\n" "$(PROJECT_NAME)" "$(PROJECT_VERSION)"
 	@printf "Available targets:\n"
 	@printf "  %-24s %s\n" "help" "Show this help"
 	@printf "  %-24s %s\n" "preflight" "Validate auth, workflows, and wiki readiness"
+	@printf "  %-24s %s\n" "site-build" "Regenerate the GitHub Pages landing page"
 	@printf "  %-24s %s\n" "docs-checks-dispatch" "Trigger docs link checks workflow"
 	@printf "  %-24s %s\n" "pages-dispatch" "Trigger docs Pages deploy workflow"
 	@printf "  %-24s %s\n" "wiki-probe-dispatch" "Trigger wiki remote probe workflow"
@@ -27,10 +28,14 @@ preflight:
 	gh auth status >/dev/null
 	gh workflow view docs-links.yml --repo "$(REPO)" >/dev/null
 	gh workflow view pages.yml --repo "$(REPO)" >/dev/null
+	$(MAKE) site-build
 	$(MAKE) wiki-status
 	$(MAKE) wiki-mirror-status
 	$(MAKE) wiki-sync-check
 	@printf "preflight: ok\n"
+
+site-build:
+	python scripts/build_docs_site.py
 
 docs-checks-dispatch:
 	gh workflow run docs-links.yml --repo "$(REPO)"

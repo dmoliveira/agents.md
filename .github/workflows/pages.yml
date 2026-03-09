@@ -27,6 +27,9 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Build docs site
+        run: python scripts/build_docs_site.py
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:

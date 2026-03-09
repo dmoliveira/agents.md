@@ -55,6 +55,7 @@ For full command detail, use:
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
+- `docs/site/index.html`: generated GitHub Pages landing page with latest release notes from repo docs.
 - `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.
 - `Makefile`: non-interactive operator shortcuts for docs workflows and checks.
 
@@ -100,6 +101,8 @@ This keeps execution cycles explicit and prevents accidental early handoff.
 - `ruff`: Python lint/format.
 - `rg` and `fd`: fast search and discovery.
 - GNU `parallel`: parallelized independent command execution.
+
+The GitHub Pages site is generated from repo notes with `make site-build` and deployed by `.github/workflows/pages.yml`.
 
 Useful links:
 - GitHub CLI (`gh`): https://cli.github.com/

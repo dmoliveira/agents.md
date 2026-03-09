@@ -55,6 +55,7 @@ For full command detail, use:
 - `docs/validation-policy.md`: key-gate validation policy and risk-based review budget.
 - `docs/tooling-quick-ref.md`: quick commands for `gh`, search, `uv`, and parallel execution.
 - `docs/orchestration-advanced.md`: high-pressure and high-risk orchestration controls.
+- `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
 - `docs/support-the-project.md`: donation and sustainability options.
 - `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
 - `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.

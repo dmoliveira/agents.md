@@ -85,7 +85,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Prefer Makefiles for repeatable repo scripts; use `make help` first.
 - Prefer running lint/tests at key gates instead of on every local iteration.
 - If pre-commit is configured, use it at the pre-PR gate; if missing, installation is optional.
-- Keep delivery documentation under `docs/`, with planning docs in `docs/plan/` and specs in `docs/specs/`.
+- Keep delivery documentation under `docs/`, with planning docs organized by status under `docs/plan/{new,doing,blocked,parked,done,cancelled}` and specs in `docs/specs/`.
 
 ## 5) Finish (per task)
 1) Update docs and tests to match the change.

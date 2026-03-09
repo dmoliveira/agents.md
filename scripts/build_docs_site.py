@@ -132,6 +132,13 @@ def build_html(
     pages_url = f"https://{REPO.split('/')[0]}.github.io/{REPO.split('/')[1]}/"
     release_html = render_release_lists(release_sections)
     docs_html = render_docs_sections(docs_sections)
+    quick_steps = "".join(
+        [
+            "<li><strong>Read</strong><span>Start with AGENTS.md and the docs hub.</span></li>",
+            "<li><strong>Branch</strong><span>Create a dedicated worktree for one scoped task.</span></li>",
+            "<li><strong>Ship</strong><span>Iterate fast, validate at the pre-PR gate, then commit once.</span></li>",
+        ]
+    )
 
     return f"""<!doctype html>
 <html lang="en">
@@ -142,15 +149,16 @@ def build_html(
     <style>
       :root {{
         color-scheme: light;
-        --bg: #f4efe6;
-        --panel: rgba(255, 250, 242, 0.9);
-        --card: #fffdf8;
-        --text: #1f1a17;
-        --muted: #625850;
-        --accent: #a44a19;
-        --accent-2: #0f7b6c;
-        --border: #e6d9ca;
-        --shadow: 0 18px 48px rgba(58, 33, 17, 0.12);
+        --bg: #f5efe4;
+        --panel: rgba(255, 251, 246, 0.9);
+        --card: #fffdf9;
+        --text: #211914;
+        --muted: #6a5a4f;
+        --accent: #9c4b1d;
+        --accent-2: #0d7869;
+        --accent-3: #153d66;
+        --border: #eadbc9;
+        --shadow: 0 18px 52px rgba(49, 29, 16, 0.12);
       }}
       * {{ box-sizing: border-box; }}
       body {{
@@ -164,11 +172,29 @@ def build_html(
       }}
       a {{ color: var(--accent); text-decoration: none; }}
       a:hover {{ text-decoration: underline; }}
-      .wrap {{ max-width: 1120px; margin: 0 auto; padding: 40px 20px 64px; }}
+      .wrap {{ max-width: 1180px; margin: 0 auto; padding: 24px 20px 64px; }}
+      .topbar {{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }}
+      .brand {{ font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }}
+      .nav {{ display: flex; flex-wrap: wrap; gap: 10px; }}
+      .nav a {{
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.55);
+        color: var(--text);
+        font-size: 0.92rem;
+      }}
       .hero {{
         display: grid;
         gap: 24px;
-        grid-template-columns: 1.5fr 1fr;
+        grid-template-columns: 1.4fr 0.95fr;
         align-items: stretch;
         margin-bottom: 28px;
       }}
@@ -204,6 +230,18 @@ def build_html(
       }}
       h1 {{ font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 0.96; margin: 18px 0 14px; }}
       .hero p {{ font-size: 1.07rem; line-height: 1.65; color: var(--muted); margin: 0 0 18px; }}
+      .hero-meta {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }}
+      .meta-chip {{
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 8px 12px;
+        color: var(--text);
+        font-size: 0.92rem;
+      }}
       .cta-row {{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }}
       .btn {{
         display: inline-flex; align-items: center; justify-content: center;
@@ -216,7 +254,21 @@ def build_html(
       .stat:last-child {{ border-bottom: 0; }}
       .stat-label {{ display: block; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 6px; }}
       .stat-value {{ font-size: 1.45rem; font-weight: 700; }}
-      .grid {{ display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; margin-bottom: 24px; }}
+      .mini-note {{ color: var(--muted); font-size: 0.95rem; margin: 0; }}
+      .step-list {{ list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }}
+      .step-list li {{
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 14px;
+        align-items: start;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 14px 16px;
+      }}
+      .step-list strong {{ color: var(--accent-3); text-transform: uppercase; font-size: 0.86rem; letter-spacing: 0.04em; }}
+      .step-list span {{ color: var(--muted); line-height: 1.5; }}
+      .grid {{ display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 24px; margin-bottom: 24px; }}
       .panel {{ padding: 28px; }}
       h2 {{ margin: 0 0 14px; font-size: 1.55rem; }}
       .release-grid {{ display: grid; gap: 16px; }}
@@ -228,6 +280,7 @@ def build_html(
       .map-card {{ background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }}
       .map-card h3 {{ margin: 0 0 10px; font-size: 1.02rem; }}
       .map-card li span {{ display: block; color: var(--muted); margin-top: 3px; }}
+      .map-card li a {{ font-weight: 700; }}
       .donation {{
         display: grid; grid-template-columns: 1.2fr auto; gap: 20px; align-items: center;
         background: linear-gradient(135deg, rgba(164, 74, 25, 0.92), rgba(82, 36, 16, 0.95));
@@ -242,13 +295,24 @@ def build_html(
       .footnote {{ margin-top: 18px; color: var(--muted); font-size: 0.94rem; }}
       @media (max-width: 860px) {{
         .hero, .grid, .donation {{ grid-template-columns: 1fr; }}
+        .topbar {{ align-items: flex-start; }}
         .wrap {{ padding: 24px 16px 48px; }}
         .hero-card, .panel, .donation {{ padding: 22px; }}
+        .step-list li {{ grid-template-columns: 1fr; gap: 8px; }}
       }}
     </style>
   </head>
   <body>
     <main class="wrap">
+      <header class="topbar">
+        <div class="brand">AGENTS.md Playbook</div>
+        <nav class="nav">
+          <a href="https://github.com/{REPO}/blob/main/docs/index.md">Docs Hub</a>
+          <a href="https://github.com/{REPO}/blob/main/AGENTS.md">Contract</a>
+          <a href="{release_url}">Release Notes</a>
+          <a href="{SPONSORS_URL}">Sponsor</a>
+        </nav>
+      </header>
       <section class="hero">
         <article class="hero-card">
           <span class="eyebrow">Fresh on GitHub Pages</span>
@@ -258,6 +322,11 @@ def build_html(
             focused commits, and clean handoffs. This landing page is generated from the repo's
             docs index, changelog, and release metadata so it stays current with the latest notes.
           </p>
+          <div class="hero-meta">
+            <span class="meta-chip">Release v{escape(version)}</span>
+            <span class="meta-chip">Updated from {escape(changelog_date)}</span>
+            <span class="meta-chip">Native tools only</span>
+          </div>
           <div class="cta-row">
             <a class="btn btn-primary" href="{repo_url}">Open the repository</a>
             <a class="btn btn-secondary" href="https://github.com/{REPO}/blob/main/docs/index.md">Browse the docs hub</a>
@@ -281,6 +350,24 @@ def build_html(
             <span class="stat-label">Delivery style</span>
             <span class="stat-value">Worktrees + key-gate validation</span>
           </div>
+          <p class="mini-note">Pages, docs, and release notes stay aligned through `make site-build` during preflight and deploy.</p>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Quick start</h2>
+          <p>Use the page as a launchpad: understand the model, jump into the contract, then ship from a dedicated worktree.</p>
+          <ol class="step-list">{quick_steps}</ol>
+        </article>
+        <aside class="panel">
+          <h2>What this optimizes for</h2>
+          <p class="mini-note">A tighter delivery loop with less review churn, fewer coordination mistakes, and faster onboarding for both people and agents.</p>
+          <ol class="step-list">
+            <li><strong>Scope</strong><span>One issue or task at a time to reduce branch and context drift.</span></li>
+            <li><strong>Speed</strong><span>Fast local iteration, then required validation at key gates instead of every edit.</span></li>
+            <li><strong>Clarity</strong><span>Concise docs, a docs hub, and explicit plan states so active work is obvious.</span></li>
+          </ol>
         </aside>
       </section>
 

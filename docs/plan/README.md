@@ -18,6 +18,14 @@ Keep AI planning docs in status folders so active, paused, and historical work s
 - Move it to `docs/plan/done` after the work lands.
 - Move it to `docs/plan/cancelled` when explicitly abandoned or superseded.
 
+## Allowed transitions
+- `new` -> `doing`, `cancelled`
+- `doing` -> `blocked`, `parked`, `done`, `cancelled`
+- `blocked` -> `doing`, `parked`, `cancelled`
+- `parked` -> `doing`, `cancelled`
+- `done` -> no further moves; create a new plan if follow-up work is needed
+- `cancelled` -> no further moves; create a new plan if work is revived
+
 ## Recommended frontmatter
 ```md
 ---

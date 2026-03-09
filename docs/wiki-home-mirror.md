@@ -6,6 +6,7 @@ Use this page when the wiki git remote (`<repo>.wiki.git`) is not yet provisione
 
 - Start here: [README](../README.md)
 - Operating contract: [AGENTS.md](../AGENTS.md)
+- Docs hub: [docs/index.md](index.md)
 - Tooling quick reference: [docs/tooling-quick-ref.md](tooling-quick-ref.md)
 - Advanced orchestration: [docs/orchestration-advanced.md](orchestration-advanced.md)
 - Support this work: [docs/support-the-project.md](support-the-project.md)

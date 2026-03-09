@@ -41,6 +41,7 @@ This playbook focuses on practical controls for multi-agent execution:
 5. Execute delivery work in a dedicated worktree branch (never directly on `main`).
 
 For full command detail, use:
+- `docs/index.md`
 - `docs/tooling-quick-ref.md`
 - `docs/github-cli.md`
 - `docs/validation-policy.md`
@@ -51,18 +52,11 @@ For full command detail, use:
 ## What is in this repo 📚
 
 - `AGENTS.md`: source-of-truth operating contract.
-- `docs/github-cli.md`: automation-safe `gh` patterns and API fallback examples.
-- `docs/validation-policy.md`: key-gate validation policy and risk-based review budget.
-- `docs/tooling-quick-ref.md`: quick commands for `gh`, search, `uv`, and parallel execution.
-- `docs/orchestration-advanced.md`: high-pressure and high-risk orchestration controls.
+- `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
+- `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
-- `docs/support-the-project.md`: donation and sustainability options.
-- `docs/wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page.
-- `docs/wiki-bootstrap-runbook.md`: operator runbook for first-time wiki provisioning.
-- `docs/wiki-home-mirror.md`: fallback in-repo mirror of Wiki Home content.
-- `docs/wiki-publish-alternatives.md`: fallback publication paths when wiki git is unavailable.
-- `docs/operations-loop-runbook.md`: practical long-running execution loop checklist.
-- `Makefile`: non-interactive operator shortcuts for docs workflows, wiki status, wiki consistency checks, publish checklist runs, and wiki sync dry-run/apply.
+- `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.
+- `Makefile`: non-interactive operator shortcuts for docs workflows and checks.
 
 For ongoing readiness checks, run `make wiki-probe-dispatch` to trigger the scheduled wiki probe workflow on demand.
 For publishable fallback sync, use `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.
@@ -115,7 +109,7 @@ Useful links:
 - fd: https://github.com/sharkdp/fd
 - GNU parallel: https://www.gnu.org/software/parallel/
 
-Native issue and PR command usage is documented in `AGENTS.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
+Native issue and PR command usage is documented in `AGENTS.md`, `docs/index.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
 
 ## Docs, Wiki, and GitHub Pages 🌐
 

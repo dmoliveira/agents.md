@@ -106,6 +106,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
   - `NEXT:` best next action
 
 ## References
+- Docs hub: `docs/index.md`
 - GitHub CLI patterns: `docs/github-cli.md`
 - Validation gates and risk matrix: `docs/validation-policy.md`
 - Quick commands: `docs/tooling-quick-ref.md`

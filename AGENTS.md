@@ -24,7 +24,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Choose strong defaults for minor decisions and keep execution moving until done or blocked.
 - Do not ask for confirmation unless ambiguity materially changes the result or a secret/credential is required.
 - Keep explanations lean; summarize long logs and keep evidence relevant.
-- When asked for the current runtime session id, return it exactly as provided in the session context.
+- When asked for the current runtime session id, output only the exact id from the session context and nothing else. Do not add acknowledgements, explanations, paraphrases, punctuation, or substitute another value.
 - Preserve user-authored changes when syncing or resolving conflicts in touched files.
 - Keep implementations semantically structured; add comments only when they materially help.
 

@@ -2,6 +2,8 @@
 
 Use this runbook for long-running agent cycles where changes are shipped continuously in small, auditable steps.
 
+For the full docs map, start with `docs/index.md`.
+
 ## Loop sequence
 
 1. Start from `main`, sync, then create a dedicated worktree branch.

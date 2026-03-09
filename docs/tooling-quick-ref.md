@@ -3,6 +3,7 @@
 Use this as a fast productivity map for local utility tools.
 
 Detailed references:
+- `docs/index.md` for the full docs map
 - `docs/github-cli.md` for automation-safe `gh` patterns
 - `docs/validation-policy.md` for key-gate validation defaults
 

@@ -99,6 +99,7 @@ When requested scope still has pending tasks, the final line should be:
 `<CONTINUE-LOOP>`
 
 Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
+Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
 
 ## External tools used 🔧
 

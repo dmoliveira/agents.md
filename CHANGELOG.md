@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## 2026-03-10
+
+### Changed
+- Tightened `docs/operations-loop-runbook.md` so long-running loops explicitly re-check remote state, keep moving while the next safe action is clear, and use `<CONTINUE-LOOP>` when work remains or the next slice is already known.
+- Updated `docs/wiki-home-snippet.md`, `docs/wiki-home-mirror.md`, and `docs/wiki-bootstrap-runbook.md` to mirror the latest autonomous execution and remote-alignment guidance.
+- Expanded `scripts/wiki_sync_check.py` so wiki sync validation enforces the updated continuation and remote-check wording.
+
 ## 2026-03-01
 
 ### Added

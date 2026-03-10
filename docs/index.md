@@ -8,7 +8,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `validation-policy.md`: key-gate validation and review budget
 - `tooling-quick-ref.md`: quick commands and curated external references
 - `orchestration-advanced.md`: high-pressure and high-risk orchestration controls
-- `operations-loop-runbook.md`: long-running execution loop checklist
+- `operations-loop-runbook.md`: long-running execution loop checklist with continuation discipline
 
 ## Planning
 - `plan/README.md`: plan statuses, move rules, and allowed transitions

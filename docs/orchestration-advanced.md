@@ -9,15 +9,17 @@ Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt fl
 - Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
 
 Worker lifecycle:
-1) Implement in its worktree with fast local iteration.
-2) Run required checks at the pre-PR gate and create one focused commit for the validated slice.
-3) Open PR, post PR URL on the related issue, then stop.
+1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
+2) Implement in its worktree with fast local iteration.
+3) Run required checks at the pre-PR gate and create one focused commit for the validated slice.
+4) Open PR, post PR URL on the related issue, then stop.
 
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.
-2) Merge PRs with required approvals/checks.
-3) Delete merged worktree/branch.
-4) Sync `main` (`git pull --rebase`) and rebase active worktrees.
+2) Re-check `main` and overlapping PRs/branches right before merge so late upstream changes do not stale out active work.
+3) Merge PRs with required approvals/checks.
+4) Delete merged worktree/branch.
+5) Sync `main` (`git pull --rebase`) and rebase active worktrees.
 
 If `ox` is not running, the active agent is the coordinator and should run this loop end-to-end.
 

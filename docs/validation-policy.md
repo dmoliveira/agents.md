@@ -3,8 +3,10 @@
 Use validation at key gates so iteration stays fast without skipping quality checks.
 
 ## Gate policy
+- Start gate (required): fetch/check the remote before implementation so the task still matches the latest branch and PR state.
 - Pre-PR gate (required): run the selected validation set once on the full current diff.
 - Pre-merge gate (conditional): re-run only when code changed after review or CI reported failures.
+- Final remote check (required): compare with latest `main` and overlapping PRs right before merge; update if upstream changes would stale or conflict with the current branch.
 - During implementation: run quick smoke checks only when needed to unblock risky debugging.
 
 ## Risk matrix

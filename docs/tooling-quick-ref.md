@@ -36,6 +36,10 @@ Detailed references:
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
   - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-sync-dry-run`, `make wiki-sync-apply`, `make wiki-fallback-sync-dry-run`, `make wiki-fallback-sync-apply`, `make wiki-fallback-dispatch`, `make wiki-publish-checklist`, `make wiki-probe-dispatch`.
 
+## Remote alignment checks
+- Before implementation: run `git fetch --all --prune`, `gh pr status`, and review the selected issue/PR again so the task still matches upstream.
+- Before merge: re-check `origin/main`, current PR status, and any overlapping PRs/branches; rebase or update when upstream changed in a way that affects your slice.
+
 ## Parallel execution default
 - Prefer `parallel` for independent repeated commands instead of `for` loops.
 - Base pattern: `parallel --jobs <n> --halt soon,fail=1 '<cmd {1}>' ::: <arg1> <arg2> <arg3>`

@@ -29,16 +29,19 @@ Most teams do not fail from lack of AI capability; they fail from coordination d
 This playbook focuses on practical controls for multi-agent execution:
 - predictable task ownership with native issue IDs,
 - e2e worktree flow (`wt flow`) for safe branch isolation,
+- remote alignment checks before implementation and again right before merge,
+- autonomous execution that keeps moving while a safe next step is clear,
 - key-gate validation (pre-PR required, pre-merge conditional),
 - concise final-response patterns that make pending work obvious.
 
 ## Start in 5 minutes ⏱️
 
 1. Read `AGENTS.md`.
-2. List and pick a scoped item with `gh issue list --state open --limit 20`.
-3. Review context with `gh issue view <id>`.
-4. Mark it active using labels/status/projects in GitHub.
-5. Execute delivery work in a dedicated worktree branch (never directly on `main`).
+2. Sync/check remote state so local context matches the latest branch and PR status.
+3. List and pick a scoped item with `gh issue list --state open --limit 20`.
+4. Review context with `gh issue view <id>` and confirm it still fits upstream.
+5. Mark it active using labels/status/projects in GitHub.
+6. Execute delivery work in a dedicated worktree branch (never directly on `main`).
 
 For full command detail, use:
 - `docs/index.md`
@@ -66,8 +69,10 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 ## Workflow highlights (wt flow e2e) 🔁
 
 - create a dedicated worktree and branch for each feature/bug/task,
+- check remote branch and PR state before implementing so overlapping AI work is caught early,
 - iterate quickly, then commit once per validated slice,
 - run review/fix/improve passes according to risk,
+- do one final upstream/overlap check before merge to avoid stale or conflicting changes,
 - open PR, validate checks, merge,
 - cleanup worktree, sync `main`, close the corresponding issue.
 
@@ -77,9 +82,11 @@ Reference flow:
 git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
+# confirm issue/PR scope still matches latest upstream before coding
 # implement + validate, then one focused commit
 git push -u origin <branch>
 # create PR (prefer `gh api`; see docs/github-cli.md)
+# re-check origin/main and overlapping PRs before merge
 # after merge
 git worktree remove ../<branch>
 git pull --rebase
@@ -91,7 +98,7 @@ When requested scope still has pending tasks, the final line should be:
 
 `<CONTINUE-LOOP>`
 
-This keeps execution cycles explicit and prevents accidental early handoff.
+Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
 
 ## External tools used 🔧
 

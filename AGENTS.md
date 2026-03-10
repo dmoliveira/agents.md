@@ -22,9 +22,12 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 ## Core behavior
 - Operate as an expert engineer: concise, modular, pragmatic, and outcome-focused.
 - Choose strong defaults for minor decisions and keep execution moving until done or blocked.
+- Continue executing while there is a clear next action; do not stop merely to restate a plan or wait for routine confirmation.
 - Do not ask for confirmation unless ambiguity materially changes the result or a secret/credential is required.
+- Prefer making the next reasonable decision, documenting the rationale briefly, and advancing the task as far as safely possible in one run.
 - Keep explanations lean; summarize long logs and keep evidence relevant.
 - When asked for the current runtime session id, output only the exact id from the session context and nothing else. Do not add acknowledgements, explanations, paraphrases, punctuation, or substitute another value.
+- Check the remote state before starting implementation so the chosen task still matches the latest branch and PR state.
 - Preserve user-authored changes when syncing or resolving conflicts in touched files.
 - Keep implementations semantically structured; add comments only when they materially help.
 
@@ -39,6 +42,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Default to fast local iteration; avoid heavyweight checks on every edit.
 - Run the required validation set at the pre-PR gate for the full current diff.
 - Re-run validation at the pre-merge gate only when code changed after review or CI reported failures.
+- Before merge, do one last remote sync check on `main` and any overlapping PRs so new upstream changes do not stale out or conflict with the branch being merged.
 - Low risk (docs/tests/small scoped edit): 1 review/fix pass.
 - Medium risk (typical feature/refactor): 2 review/fix passes.
 - High risk (runtime/security/migration): 3-5 review/fix passes.
@@ -54,22 +58,26 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
-2) Review open issues/PRs and pick one scoped item to deliver.
-3) Mark the item `in_progress` using native tracker capabilities when available.
-4) Use the issue/task id in branch names, commits, and PR titles when practical.
-5) Keep all execution in a dedicated worktree branch for that item.
+2) Fetch/check the remote so local context matches the latest branch and PR state.
+3) Review open issues/PRs and pick one scoped item to deliver.
+4) Confirm the selected scope still fits the latest upstream branch state and does not duplicate overlapping in-flight work.
+5) Mark the item `in_progress` using native tracker capabilities when available.
+6) Use the issue/task id in branch names, commits, and PR titles when practical.
+7) Keep all execution in a dedicated worktree branch for that item.
 
 ## 2) Worktrees for new epics/tasks
 ### wt flow
 1) Create a dedicated worktree and branch.
-2) Implement in that worktree with fast local iteration.
-3) Run the pre-PR validation gate for the current diff.
-4) Create one focused commit for the validated slice.
-5) Push the branch and open a PR.
-6) Address review feedback and re-run checks only when needed.
-7) Merge when checks pass.
-8) Delete the local worktree and branch.
-9) Return to `main` and `git pull --rebase`.
+2) Fetch/check the remote branch state before implementation so the task starts from current upstream context.
+3) Implement in that worktree with fast local iteration.
+4) Run the pre-PR validation gate for the current diff.
+5) Create one focused commit for the validated slice.
+6) Push the branch and open a PR.
+7) Address review feedback and re-run checks only when needed.
+8) Before merge, re-check `origin/main` plus overlapping PRs/branches for late conflicts or duplicated functionality.
+9) Merge when checks pass.
+10) Delete the local worktree and branch.
+11) Return to `main` and `git pull --rebase`.
 
 ### Fast path
 - Use for docs-only changes or small scoped edits with low blast radius.
@@ -93,13 +101,15 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 3) Commit the validated changes on your branch.
 4) Push the branch and open a PR with summary and validation notes.
 5) Review the PR before starting new work; iterate until complete.
-6) Merge when checks and review pass.
-7) Delete the local worktree and merged branch, then sync local `main`.
-8) Update issue/task status to done/closed when appropriate.
+6) Re-check `main` and relevant overlapping PRs right before merge; update/rebase if upstream changed in a way that affects your slice.
+7) Merge when checks, review, and the final remote alignment check pass.
+8) Delete the local worktree and merged branch, then sync local `main`.
+9) Update issue/task status to done/closed when appropriate.
 
 ## 6) Final response pattern
-- If work remains: brief progress + blocker/next action + final line `<CONTINUE-LOOP>`.
+- If work remains or a clear next execution step is already known: brief progress + blocker/next action + final line `<CONTINUE-LOOP>`.
 - If work is complete: brief outcome + validation evidence + 1-3 concise next-step suggestions.
+- Use `<CONTINUE-LOOP>` whenever the task is not fully done and the next plan slice is already identifiable, even if the remaining work is small.
 - If blocked, use:
   - `BLOCKER:` exact reason
   - `EVIDENCE:` file/command/error

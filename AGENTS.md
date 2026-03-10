@@ -108,8 +108,9 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 
 ## 6) Final response pattern
 - If work remains or a clear next execution step is already known: brief progress + blocker/next action + final line `<CONTINUE-LOOP>`.
-- If work is complete: brief outcome + validation evidence + 1-3 concise next-step suggestions.
+- If work is complete: brief outcome + validation evidence + optional follow-up suggestions only when no further in-scope execution is pending.
 - Use `<CONTINUE-LOOP>` whenever the task is not fully done and the next plan slice is already identifiable, even if the remaining work is small.
+- Do not frame pending in-scope work as "best next steps" or optional suggestions; treat it as continuation and end with `<CONTINUE-LOOP>`.
 - If blocked, use:
   - `BLOCKER:` exact reason
   - `EVIDENCE:` file/command/error

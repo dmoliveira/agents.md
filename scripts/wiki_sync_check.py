@@ -15,8 +15,9 @@ REQUIRED_SNIPPET = [
     "- Advanced orchestration: [docs/orchestration-advanced.md](https://github.com/dmoliveira/agents.md/blob/main/docs/orchestration-advanced.md)",
     "- Support this work: [docs/support-the-project.md](https://github.com/dmoliveira/agents.md/blob/main/docs/support-the-project.md)",
     "- Use dedicated worktrees per task.",
+    "- Check remote state before coding and again before merge.",
     "- Keep commits small and focused.",
-    "- End cycles with `<CONTINUE-LOOP>` when tasks remain.",
+    "- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.",
 ]
 
 REQUIRED_MIRROR = [
@@ -27,8 +28,9 @@ REQUIRED_MIRROR = [
     "- Advanced orchestration: [docs/orchestration-advanced.md](orchestration-advanced.md)",
     "- Support this work: [docs/support-the-project.md](support-the-project.md)",
     "- Use dedicated worktrees per task.",
+    "- Check remote state before coding and again before merge.",
     "- Keep commits small and focused.",
-    "- End cycles with `<CONTINUE-LOOP>` when tasks remain.",
+    "- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.",
 ]
 
 

@@ -16,8 +16,9 @@ This project documents a practical `AGENTS.md` contract for teams running AI age
 
 Key behavior:
 - Use dedicated worktrees per task.
+- Check remote state before coding and again before merge.
 - Keep commits small and focused.
-- End cycles with `<CONTINUE-LOOP>` when tasks remain.
+- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.
 ```
 
 ## Bootstrap note

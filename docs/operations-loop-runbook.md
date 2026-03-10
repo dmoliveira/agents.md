@@ -7,11 +7,12 @@ For the full docs map, start with `docs/index.md`.
 ## Loop sequence
 
 1. Start from `main`, sync, then create a dedicated worktree branch.
-2. Pick one GitHub issue and move it to `in_progress` using labels/status/projects.
-3. Implement one scoped slice with fast local iteration.
-4. Run validations at the pre-PR gate, then create one focused commit for the validated slice.
-5. Open PR, watch checks, merge, and clean up worktree.
-6. Sync local `main`, close the issue, and continue to next slice.
+2. Fetch/check remote branch and PR state so the selected slice still matches upstream before implementation.
+3. Pick one GitHub issue and move it to `in_progress` using labels/status/projects.
+4. Implement one scoped slice with fast local iteration and continue while the next safe action is clear.
+5. Run validations at the pre-PR gate, then create one focused commit for the validated slice.
+6. Open PR, watch checks, do one final overlap check against latest `main`, merge, and clean up worktree.
+7. Sync local `main`, close the issue, and continue to next slice.
 
 ## Fast preflight
 
@@ -64,4 +65,4 @@ make wiki-probe-dispatch
 
 - Use short progress messages per cycle.
 - Keep each change minimal and reversible.
-- Use `<CONTINUE-LOOP>` only when requested work still remains.
+- Use `<CONTINUE-LOOP>` when work still remains or the next plan slice is already clear.

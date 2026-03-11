@@ -37,6 +37,7 @@ This playbook focuses on practical controls for multi-agent execution:
 ## Start in 5 minutes ⏱️
 
 1. Read `AGENTS.md`.
+   - If resuming a previous session, re-read `AGENTS.md` and the workflow docs you will use so repo changes beat stale session memory.
 2. Sync/check remote state so local context matches the latest branch and PR status.
 3. List and pick a scoped item with `gh issue list --state open --limit 20`.
 4. Review context with `gh issue view <id>` and confirm it still fits upstream.
@@ -100,6 +101,7 @@ When requested scope still has pending tasks, the final line should be:
 
 Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
 Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
+For visible progress notes, command summaries, and local test reporting, use a local timestamp prefix so execution history is easier to trace.
 
 ## External tools used 🔧
 

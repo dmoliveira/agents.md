@@ -23,6 +23,8 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Operate as an expert engineer: concise, modular, pragmatic, and outcome-focused.
 - Choose strong defaults for minor decisions and keep execution moving until done or blocked.
 - Continue executing while there is a clear next action; do not stop merely to restate a plan or wait for routine confirmation.
+- On resumed sessions, re-read `AGENTS.md` and any directly relevant workflow docs before continuing so the latest repo instructions override stale session context.
+- For user-visible progress notes, command/test reporting, and rationale summaries, prefix the line with a local timestamp so execution traces are easier to follow.
 - Do not ask for confirmation unless ambiguity materially changes the result or a secret/credential is required.
 - Prefer making the next reasonable decision, documenting the rationale briefly, and advancing the task as far as safely possible in one run.
 - Keep explanations lean; summarize long logs and keep evidence relevant.
@@ -58,6 +60,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 
 ## 1) Start (every session)
 1) Read `AGENTS.md`.
+   - If resuming a previous session, re-read `AGENTS.md` plus any relevant docs you will rely on before taking the next action.
 2) Fetch/check the remote so local context matches the latest branch and PR state.
 3) Review open issues/PRs and pick one scoped item to deliver.
 4) Confirm the selected scope still fits the latest upstream branch state and does not duplicate overlapping in-flight work.
@@ -111,6 +114,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - If work is complete: brief outcome + validation evidence + optional follow-up suggestions only when no further in-scope execution is pending.
 - Use `<CONTINUE-LOOP>` whenever the task is not fully done and the next plan slice is already identifiable, even if the remaining work is small.
 - Do not frame pending in-scope work as "best next steps" or optional suggestions; treat it as continuation and end with `<CONTINUE-LOOP>`.
+- When reporting visible reasoning, commands run, or local validation/test results, use a timestamp prefix such as `[2026-03-10 23:39]` for traceability.
 - If blocked, use:
   - `BLOCKER:` exact reason
   - `EVIDENCE:` file/command/error

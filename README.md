@@ -101,7 +101,7 @@ When requested scope still has pending tasks, the final line should be:
 
 Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
 Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
-For visible progress notes, command summaries, and local test reporting, use a local timestamp prefix so execution history is easier to trace.
+For visible progress notes, command summaries, and local test reporting, use one local timestamp prefix per related block so execution history is easier to trace without adding noise to every line.
 
 ## External tools used 🔧
 

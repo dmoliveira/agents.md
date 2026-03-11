@@ -58,6 +58,7 @@ For full command detail, use:
 - `AGENTS.md`: source-of-truth operating contract.
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
+- `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.
 - `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
 - `docs/site/index.html`: generated GitHub Pages landing page with latest release notes from repo docs.
 - `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.

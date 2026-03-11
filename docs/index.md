@@ -15,6 +15,7 @@ Use this page as the fast entrypoint for repo documentation.
 
 ## Wiki and publishing
 - `site/index.html`: generated GitHub Pages landing page with latest release notes
+- `release-notes-template.md`: lightweight template for concise, friendly release notes and PR rollups
 - `wiki-home-snippet.md`: copy/paste block for the GitHub Wiki home page
 - `wiki-bootstrap-runbook.md`: first-time wiki provisioning steps
 - `wiki-home-mirror.md`: fallback in-repo mirror of wiki home content

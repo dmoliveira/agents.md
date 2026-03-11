@@ -58,6 +58,7 @@ For full command detail, use:
 - `AGENTS.md`: source-of-truth operating contract.
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
+- `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.
 - `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
 - `docs/site/index.html`: generated GitHub Pages landing page with latest release notes from repo docs.
 - `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.
@@ -101,7 +102,7 @@ When requested scope still has pending tasks, the final line should be:
 
 Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
 Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
-For visible progress notes, command summaries, and local test reporting, use a local timestamp prefix so execution history is easier to trace.
+For visible progress notes, command summaries, and local test reporting, use one local timestamp prefix per related block so execution history is easier to trace without adding noise to every line.
 
 ## External tools used 🔧
 

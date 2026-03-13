@@ -81,11 +81,14 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 Reference flow:
 
 ```bash
+TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+SID="<runtime-session-id>"
 git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
 # confirm issue/PR scope still matches latest upstream before coding
 # implement + validate, then one focused commit
+# when a command writes logs or telemetry, prefix it with TS="$TS" OPENCODE_SESSION_ID="$SID"
 git push -u origin <branch>
 # create PR (prefer `gh api`; see docs/github-cli.md)
 # re-check origin/main and overlapping PRs before merge

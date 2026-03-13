@@ -25,6 +25,7 @@ Use native repo tooling available in this environment (`git`, `gh`, and built-in
 - Continue executing while there is a clear next action; do not stop merely to restate a plan or wait for routine confirmation.
 - On resumed sessions, re-read `AGENTS.md` and any directly relevant workflow docs before continuing so the latest repo instructions override stale session context.
 - For user-visible progress notes, command/test reporting, and rationale summaries, prefix each reporting block with a local timestamp so execution traces are easier to follow without adding noise to every line.
+- When a command/log/telemetry example includes the runtime session id, include a timestamp variable too (for example `TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"`) so execution time is explicit.
 - Do not ask for confirmation unless ambiguity materially changes the result or a secret/credential is required.
 - Do not hand low-impact decisions back to the user when the repo context already makes a reasonable choice clear; pick the strong default and keep moving.
 - Treat naming, file placement, ordering, wording, and similarly small implementation details as agent-owned decisions unless the user explicitly asks to control them.

@@ -8,7 +8,7 @@ Codememory is the internal execution tracker and handoff memory.
 ## Why this exists
 
 - keep AI execution resumable across context compression and handoffs
-- replace ad hoc todo lists with durable repo-scoped state
+- replace ad hoc todo lists, including OpenCode's `todowrite`/todo list, with durable repo-scoped state
 - keep branch/worktree execution tied to explicit task and session records
 - centralize Codememory instructions so future updates or temporary disablement stay localized
 

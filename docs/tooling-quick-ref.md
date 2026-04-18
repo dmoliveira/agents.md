@@ -46,7 +46,7 @@ Detailed references:
 - Before merge: re-check `origin/main`, current PR status, and any overlapping PRs/branches; rebase or update when upstream changed in a way that affects your slice.
 
 ## Codememory default flow
-- For meaningful work, check Codememory before implementation and use it instead of ad hoc todo lists.
+- For meaningful work, check Codememory before implementation and use it instead of ad hoc todo lists, including OpenCode's `todowrite`/todo list.
 - Start with `oc current`, `oc next`, `oc queue`, and `oc resume --task <id>` when resuming a known slice.
 - Create or attach a Codememory task/epic before implementation continues on meaningful requests.
 - Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.

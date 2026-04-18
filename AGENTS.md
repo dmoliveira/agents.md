@@ -47,6 +47,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Codememory is REQUIRED in this repo for internal execution tracking, handoffs, durable learnings, and resumable AI coordination.
 - Treat Codememory as the source of truth for internal execution state; treat GitHub as the source of truth for delivery state, reviews, and merges.
 - Use Codememory instead of ad hoc todo lists for meaningful work.
+- Do not use OpenCode's `todowrite`/todo list for task coordination in this repo; use Codememory (`oc`) instead.
 - Before starting or resuming meaningful work, check Codememory first with the startup flow in `docs/codememory-workflow.md`.
 - Every meaningful request that creates work MUST create or attach to a Codememory `task` or `epic` before implementation continues.
 - Every active implementation attempt MUST have a Codememory `session` tied to the active worktree path.

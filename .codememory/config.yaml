@@ -1,0 +1,5 @@
+version: 1
+defaults:
+  scope_key: dmoliveira/agents.md
+  canonicalize_worktree: true
+  prefer_alias: true

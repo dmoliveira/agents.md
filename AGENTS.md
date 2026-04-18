@@ -42,6 +42,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Prefer one focused commit per validated feature/task slice instead of many intermediate commits.
 - Open a PR for delivery changes and merge to `main` only through the PR.
 - Keep commit and push as separate steps for meaningful changes.
+- When a user asks to do work "end-to-end", "e2e", or with equivalent shorthand, treat that as default authorization to run the full `wt flow` for the scoped request: split the work into focused validated slices when needed, commit the validated slice(s), open the PR, run the required risk-based review/fix/improve loop until the latest pass has no blocker findings, merge when checks are clear, delete the merged worktree/branch, and sync local `main`, unless the user explicitly narrows or overrides part of that flow.
 
 ## Codememory coordination
 - Codememory is REQUIRED in this repo for internal execution tracking, handoffs, durable learnings, and resumable AI coordination.

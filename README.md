@@ -75,6 +75,7 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 
 ## Workflow highlights (wt flow e2e) 🔁
 
+- In this repo, asking an agent to do work "end-to-end"/"e2e" means: run the default `wt flow` through commit, PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
 - create a dedicated worktree and branch for each feature/bug/task,
 - recover or create task/session state in Codememory before coding,
 - check remote branch and PR state before implementing so overlapping AI work is caught early,

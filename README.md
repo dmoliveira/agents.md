@@ -17,6 +17,7 @@ Practical guidance for running AI agents in parallel with a consistent, auditabl
 
 This repository centers on a production-style `AGENTS.md` contract so agents can:
 - pick one issue at a time,
+- recover execution state from Codememory instead of chat history,
 - execute in dedicated worktrees,
 - deliver focused commits and PRs,
 - validate before merge,
@@ -28,6 +29,7 @@ Most teams do not fail from lack of AI capability; they fail from coordination d
 
 This playbook focuses on practical controls for multi-agent execution:
 - predictable task ownership with native issue IDs,
+- durable internal task/session memory through Codememory,
 - e2e worktree flow (`wt flow`) for safe branch isolation,
 - remote alignment checks before implementation and again right before merge,
 - autonomous execution that keeps moving while a safe next step is clear,
@@ -39,13 +41,16 @@ This playbook focuses on practical controls for multi-agent execution:
 1. Read `AGENTS.md`.
    - If resuming a previous session, re-read `AGENTS.md` and the workflow docs you will use so repo changes beat stale session memory.
 2. Sync/check remote state so local context matches the latest branch and PR status.
-3. List and pick a scoped item with `gh issue list --state open --limit 20`.
-4. Review context with `gh issue view <id>` and confirm it still fits upstream.
-5. Mark it active using labels/status/projects in GitHub.
-6. Execute delivery work in a dedicated worktree branch (never directly on `main`).
+3. Check Codememory context with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
+4. List and pick a scoped delivery item with `gh issue list --state open --limit 20`.
+5. Review context with `gh issue view <id>` and confirm it still fits upstream.
+6. Create or attach the work to Codememory, then mark it active in GitHub.
+7. Execute delivery work in a dedicated worktree branch (never directly on `main`).
 
 For full command detail, use:
 - `docs/index.md`
+- `docs/codememory-workflow.md`
+- `docs/codememory-conventions.md`
 - `docs/tooling-quick-ref.md`
 - `docs/github-cli.md`
 - `docs/validation-policy.md`
@@ -57,9 +62,9 @@ For full command detail, use:
 
 - `AGENTS.md`: source-of-truth operating contract.
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
-- `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
+- `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.
-- `docs/plan/README.md`: status model for AI planning docs under `docs/plan/`.
+- `docs/plan/README.md`: status model for long-form AI planning docs under `docs/plan/`.
 - `docs/site/index.html`: generated GitHub Pages landing page with latest release notes from repo docs.
 - `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.
 - `Makefile`: non-interactive operator shortcuts for docs workflows and checks.
@@ -71,6 +76,7 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 ## Workflow highlights (wt flow e2e) 🔁
 
 - create a dedicated worktree and branch for each feature/bug/task,
+- recover or create task/session state in Codememory before coding,
 - check remote branch and PR state before implementing so overlapping AI work is caught early,
 - iterate quickly, then commit once per validated slice,
 - run review/fix/improve passes according to risk,
@@ -87,6 +93,7 @@ git checkout main
 git pull --rebase
 git worktree add ../<branch> -b <branch>
 # confirm issue/PR scope still matches latest upstream before coding
+# recover or attach Codememory task/session context before coding
 # implement + validate, then one focused commit
 # when a command writes logs or telemetry, prefix it with TS="$TS" OPENCODE_SESSION_ID="$SID"
 git push -u origin <branch>
@@ -110,6 +117,7 @@ For visible progress notes, command summaries, and local test reporting, use one
 
 ## External tools used 🔧
 
+- `oc`: Codememory CLI for internal execution tracking and AI handoffs.
 - native GitHub issue tracking via `gh` and repository workflows.
 - `gh`: GitHub CLI for PR lifecycle and checks.
 - `uv`: Python environment and package tooling.
@@ -128,6 +136,7 @@ Useful links:
 - GNU parallel: https://www.gnu.org/software/parallel/
 
 Native issue and PR command usage is documented in `AGENTS.md`, `docs/index.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
+Codememory usage is documented in `AGENTS.md`, `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, and `docs/tooling-quick-ref.md`.
 
 ## Docs, Wiki, and GitHub Pages 🌐
 

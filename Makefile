@@ -35,7 +35,7 @@ preflight:
 	@printf "preflight: ok\n"
 
 site-build:
-	python scripts/build_docs_site.py
+	python3 scripts/build_docs_site.py
 
 docs-checks-dispatch:
 	gh workflow run docs-links.yml --repo "$(REPO)"
@@ -66,19 +66,19 @@ wiki-mirror-status:
 	fi
 
 wiki-sync-check:
-	python scripts/wiki_sync_check.py
+	python3 scripts/wiki_sync_check.py
 
 wiki-sync-dry-run:
-	python scripts/wiki_sync.py --repo "$(REPO)" --target wiki
+	python3 scripts/wiki_sync.py --repo "$(REPO)" --target wiki
 
 wiki-sync-apply:
-	python scripts/wiki_sync.py --repo "$(REPO)" --target wiki --apply
+	python3 scripts/wiki_sync.py --repo "$(REPO)" --target wiki --apply
 
 wiki-fallback-sync-dry-run:
-	python scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo
+	python3 scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo
 
 wiki-fallback-sync-apply:
-	python scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo --apply
+	python3 scripts/wiki_sync.py --repo "$(WIKI_FALLBACK_REPO)" --target repo --apply
 
 wiki-publish-checklist:
 	@printf "wiki publish checklist:\n"

@@ -1,6 +1,6 @@
 # Plan Statuses
 
-Keep AI planning docs in status folders so active, paused, and historical work stay easy to distinguish.
+Keep long-form AI planning docs in status folders so active, paused, and historical narratives stay easy to distinguish. Codememory is the primary execution tracker for this repo.
 
 ## Status folders
 - `new`: drafted plans not yet started
@@ -12,7 +12,7 @@ Keep AI planning docs in status folders so active, paused, and historical work s
 
 ## Agent rules
 - Create new plans in `docs/plan/new`.
-- Use the same status model for full plans and for tracked epics/tasks inside a plan so partial progress stays visible.
+- Use the same status model for full plans and for tracked epics/tasks inside a long-form plan so partial progress stays visible. Mirror actionable execution state in Codememory rather than treating this folder as the primary tracker.
 - Move a plan to `docs/plan/doing` when execution starts.
 - Move it to `docs/plan/blocked` only for a real blocker.
 - Move it to `docs/plan/parked` when intentionally paused.
@@ -38,4 +38,4 @@ updated: 2026-03-09
 ---
 ```
 
-For multi-step plans, track child epics/tasks with the same statuses (`new`, `doing`, `blocked`, `parked`, `done`, `cancelled`) in the plan body so it is obvious what finished, paused, or changed direction.
+For multi-step plans, track child epics/tasks with the same statuses (`new`, `doing`, `blocked`, `parked`, `done`, `cancelled`) in the plan body so it is obvious what finished, paused, or changed direction. When the work is actionable, link the plan to Codememory and keep the live execution state there.

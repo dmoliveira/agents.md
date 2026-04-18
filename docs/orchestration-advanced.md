@@ -5,14 +5,15 @@ Use this guide when work is multi-module, high-risk, or running under process pr
 Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt flow`); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
 
 ## Parallel execution (AI runs)
-- Use one AI run per epic/task, each with its own worktree branch and a tracked GitHub issue.
+- Use one AI run per epic/task, each with its own worktree branch, Codememory task/session context, and a tracked GitHub issue when delivery tracking is needed.
 - Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
 
 Worker lifecycle:
 1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
-2) Implement in its worktree with fast local iteration.
-3) Run required checks at the pre-PR gate and create one focused commit for the validated slice.
-4) Open PR, post PR URL on the related issue, then stop.
+2) Recover or create Codememory task/session state for the assigned slice.
+3) Implement in its worktree with fast local iteration.
+4) Run required checks at the pre-PR gate, update Codememory outcome state, and create one focused commit for the validated slice.
+5) Open PR, post PR URL on the related issue, then stop.
 
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.

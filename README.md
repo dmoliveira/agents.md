@@ -81,7 +81,7 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 Reference flow:
 
 ```bash
-TS="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+TS="$(date +"%Y-%m-%dT%H:%M:%S%z")"
 SID="<runtime-session-id>"
 git checkout main
 git pull --rebase
@@ -106,7 +106,7 @@ When requested scope still has pending tasks, the final line should be:
 Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
 Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
 Do not bounce small choices like naming, wording, file placement, or ordering back to the user when a repo-consistent default is obvious; make the call and continue, and ask only when ambiguity is material or a secret is required.
-For visible progress notes, command summaries, and local test reporting, use one local timestamp prefix per related block so execution history is easier to trace without adding noise to every line.
+For visible progress notes, command summaries, and local test reporting, use one local timestamp prefix per related block collected from the shell at runtime (for example `[$(date +"%Y-%m-%d %H:%M")]`) so execution history is easier to trace without adding noise to every line.
 
 ## External tools used 🔧
 

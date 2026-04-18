@@ -8,11 +8,12 @@ For the full docs map, start with `docs/index.md`.
 
 1. Start from `main`, sync, then create a dedicated worktree branch.
 2. Fetch/check remote branch and PR state so the selected slice still matches upstream before implementation.
-3. Pick one GitHub issue and move it to `in_progress` using labels/status/projects.
-4. Implement one scoped slice with fast local iteration and continue while the next safe action is clear.
-5. Run validations at the pre-PR gate, then create one focused commit for the validated slice.
-6. Open PR, watch checks, do one final overlap check against latest `main`, merge, and clean up worktree.
-7. Sync local `main`, close the issue, and continue to next slice.
+3. Check Codememory with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
+4. Pick one GitHub issue and create or attach the work to a Codememory task before implementation.
+5. Implement one scoped slice with fast local iteration and continue while the next safe action is clear.
+6. Run validations at the pre-PR gate, update Codememory outcome state, then create one focused commit for the validated slice.
+7. Open PR, watch checks, do one final overlap check against latest `main`, merge, and clean up worktree.
+8. Sync local `main`, close the issue, and continue to next slice.
 
 ## Fast preflight
 
@@ -25,6 +26,8 @@ make preflight
 This validates authentication, workflow availability, wiki readiness, and fallback wiki mirror presence.
 
 It also runs wiki consistency checks to ensure snippet and mirror content stay aligned.
+
+For the full Codememory startup and closeout flow, see `docs/codememory-workflow.md`.
 
 ## If wiki git remote is blocked
 

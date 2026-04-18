@@ -4,6 +4,8 @@ Use this as a fast productivity map for local utility tools.
 
 Detailed references:
 - `docs/index.md` for the full docs map
+- `docs/codememory-workflow.md` for required Codememory execution flow
+- `docs/codememory-conventions.md` for repo-specific Codememory rules
 - `docs/github-cli.md` for automation-safe `gh` patterns
 - `docs/validation-policy.md` for key-gate validation defaults
 
@@ -29,6 +31,9 @@ Detailed references:
 - Avoid using `/Users/cauhirsch/Codes/Projects/utils-scripts/AGENTS.md` as a reference here because its coordination model differs from this repo.
 
 ## High-value tools
+- `oc` (Codememory): `oc current`, `oc next --scope <repo-scope> --limit 5`, `oc queue --scope <repo-scope> --limit 10`, `oc resume --scope <repo-scope> --task <id>`
+- `oc` (capture): `oc add task "title" ...`, `oc add epic "title" ...`, `oc add memory "title" --kind decision|constraint|assumption|convention ...`, `oc add doc "title" ...`
+- `oc` (reports/closeout): `oc report improvement "title" --body "..."`, `oc report error "title" --body "..."`, `oc done <task_id> --note "..."`, `oc end-session <session_id> --outcome done|failed|canceled`
 - `gh` (task flow): `gh issue list --state open --limit 20`, `gh issue view <id>`, `gh issue comment <id> --body "status update"`, `gh issue close <id>`
 - `gh` (PR flow): `gh pr status`, `gh pr view <id>`, `gh pr checks --watch`, `gh api repos/<owner>/<repo>/pulls ...`, `gh pr merge <id> --merge --delete-branch`
 - `rg` + `fd` (code search): `fd -e md`, `rg -n "pattern" -g "*.md"`
@@ -39,6 +44,13 @@ Detailed references:
 ## Remote alignment checks
 - Before implementation: run `git fetch --all --prune`, `gh pr status`, and review the selected issue/PR again so the task still matches upstream.
 - Before merge: re-check `origin/main`, current PR status, and any overlapping PRs/branches; rebase or update when upstream changed in a way that affects your slice.
+
+## Codememory default flow
+- For meaningful work, check Codememory before implementation and use it instead of ad hoc todo lists.
+- Start with `oc current`, `oc next`, `oc queue`, and `oc resume --task <id>` when resuming a known slice.
+- Create or attach a Codememory task/epic before implementation continues on meaningful requests.
+- Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.
+- Keep detailed workflow and conventions in the dedicated Codememory docs so the integration can be updated or disabled with minimal churn.
 
 ## Parallel execution default
 - Prefer `parallel` for independent repeated commands instead of `for` loops.

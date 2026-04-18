@@ -1,3 +1,5 @@
 .beads/
 .opencode/
-.codememory/
+.codememory/*
+!.codememory/
+!.codememory/config.yaml

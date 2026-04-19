@@ -24,8 +24,8 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Choose strong defaults for minor decisions and keep execution moving until done or blocked.
 - Continue executing while there is a clear next action; do not stop merely to restate a plan or wait for routine confirmation.
 - On resumed sessions, re-read `AGENTS.md` and any directly relevant workflow docs before continuing so the latest repo instructions override stale session context.
-- For user-visible progress notes, command/test reporting, and rationale summaries, prefix each reporting block with a local timestamp collected from the shell at runtime (for example via `date`) so execution traces are easier to follow without adding noise to every line.
-- When a command/log/telemetry example includes the runtime session id, include a timestamp variable collected from the shell too (for example `TS="$(date +"%Y-%m-%dT%H:%M:%S%z")"`) so execution time is explicit and not auto-generated from memory.
+- For user-visible progress notes, command/test reporting, and rationale summaries, prefix each reporting block with a real local timestamp string collected from the shell at runtime (for example by running `date +"%Y-%m-%d %H:%M"` first and then pasting the resulting value in the format `[YYYY-MM-DD HH:MM]`) so execution traces are easier to follow without adding noise to every line. Do not print a literal shell expression such as `$(date ...)` in the response or reuse a canned sample timestamp.
+- When a command/log/telemetry example includes the runtime session id, run `date +"%Y-%m-%dT%H:%M:%S%z"` first and include the rendered timestamp value with the session id so execution time is explicit and not auto-generated from memory. If you show shell syntax, keep it inside a code block or inline command example, not as the user-visible timestamp itself, and do not reuse placeholder values as if they were real output.
 - Do not ask for confirmation unless ambiguity materially changes the result or a secret/credential is required.
 - Do not hand low-impact decisions back to the user when the repo context already makes a reasonable choice clear; pick the strong default and keep moving.
 - Treat naming, file placement, ordering, wording, and similarly small implementation details as agent-owned decisions unless the user explicitly asks to control them.
@@ -136,7 +136,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Use `<CONTINUE-LOOP>` whenever the task is not fully done and the next plan slice is already identifiable, even if the remaining work is small.
 - Do not frame pending in-scope work as "best next steps" or optional suggestions; treat it as continuation and end with `<CONTINUE-LOOP>`.
 - Do not ask the user to break ties between equivalent low-risk options when one reasonable default will keep execution moving.
-- When reporting visible reasoning, commands run, or local validation/test results, use one timestamp prefix per related block based on the current local shell time (for example `[$(date +"%Y-%m-%d %H:%M")]`) for traceability.
+- When reporting visible reasoning, commands run, or local validation/test results, use one timestamp prefix per related block based on the current local shell time (for example, after running `date +"%Y-%m-%d %H:%M"` in the shell first, prefix the block with the resulting value in the format `[YYYY-MM-DD HH:MM]`) for traceability. Do not print the literal command substitution form.
 - If blocked, use:
   - `BLOCKER:` exact reason
   - `EVIDENCE:` file/command/error

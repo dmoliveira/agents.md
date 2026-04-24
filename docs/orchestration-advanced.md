@@ -26,6 +26,7 @@ If `ox` is not running, the active agent is the coordinator and should run this 
 
 ## Build-mode efficiency
 - Prefer direct implementation and verification before reviewer subagents.
+- If repeated shell retries are only blocked by UI-owned state, switch to the browser workflow in `docs/agent-browser.md` instead of adding more shell churn.
 - Reviewer budget by risk:
   - Low risk: 0 reviewer passes.
   - Medium risk: max 1 reviewer pass.

@@ -9,6 +9,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `github-cli.md`: automation-safe GitHub CLI patterns
 - `validation-policy.md`: key-gate validation and review budget
 - `tooling-quick-ref.md`: quick commands and curated external references
+- `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `orchestration-advanced.md`: high-pressure and high-risk orchestration controls
 - `operations-loop-runbook.md`: long-running execution loop checklist with continuation discipline
 

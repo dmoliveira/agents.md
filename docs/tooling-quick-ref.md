@@ -8,6 +8,13 @@ Detailed references:
 - `docs/codememory-conventions.md` for repo-specific Codememory rules
 - `docs/github-cli.md` for automation-safe `gh` patterns
 - `docs/validation-policy.md` for key-gate validation defaults
+- `docs/agent-browser.md` for browser-only blocker handling
+
+## Browser automation decision rule
+- Use shell-first automation by default.
+- Switch to browser automation only for UI-owned state such as OAuth/install/re-auth/scope acceptance and final visual verification.
+- Keep browser scope narrow, then hand control back to shell tooling as soon as the blocker is cleared.
+- Treat the browser as a bridge, not the default environment.
 
 ## Tool source paths
 - Primary external tooling repo: `/Users/cauhirsch/Codes/Projects/utils-scripts`

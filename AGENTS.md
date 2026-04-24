@@ -71,6 +71,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Switch to `orchestrator` when scope spans multiple files/modules, requires sequencing, or needs strict completion gates.
 - Delegate intentionally: `explore` for discovery, `librarian` for external docs, `oracle` for hard tradeoffs, `verifier` for validation, `reviewer` for final risk review, `release-scribe` for PR/release text.
 - Keep specialist subagents read-only and bounded; the primary agent integrates and lands changes.
+- Browser-only blockers (OAuth consent, admin install/re-auth, scope upgrade prompts, final visual verification) should follow `docs/agent-browser.md` instead of stretching shell automation.
 - Under pressure, reduce concurrency first and finish the active worktree card before opening another.
 
 ## 1) Start (every session)

@@ -9,7 +9,7 @@
 [![Wiki](https://img.shields.io/badge/wiki-github-1f6feb)](https://github.com/dmoliveira/agents.md/wiki)
 [![GitHub Pages](https://img.shields.io/badge/site-github_pages-2ea44f)](https://dmoliveira.github.io/agents.md/)
 [![Model: GPT-5.3 Codex](https://img.shields.io/badge/model-gpt--5.3--codex-8a2be2)](https://platform.openai.com/docs/models)
-[![Visuals: GPT-Image-1.5](https://img.shields.io/badge/visuals-gpt--image--1.5-ff7f50)](https://platform.openai.com/docs/guides/image-generation)
+[![Visuals: GPT-Image-models](https://img.shields.io/badge/visuals-gpt--image--models-ff7f50)](https://platform.openai.com/docs/guides/image-generation)
 [![Support](https://img.shields.io/badge/support-future_projects-ffb300?logo=githubsponsors&logoColor=white)](docs/support-the-project.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -52,6 +52,7 @@ For full command detail, use:
 - `docs/codememory-workflow.md`
 - `docs/codememory-conventions.md`
 - `docs/tooling-quick-ref.md`
+- `docs/design-image-decision-guide.md`
 - `docs/github-cli.md`
 - `docs/validation-policy.md`
 - `docs/orchestration-advanced.md`

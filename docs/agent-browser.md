@@ -23,6 +23,7 @@ Use this when shell automation reaches a real browser-owned boundary.
 - Switch to the browser only for the narrow blocked step.
 - Capture the minimum evidence needed.
 - Return to shell tooling immediately for the rest of the flow.
+- Use design/image generation separately when the task is concepting rather than validating the implemented UI.
 
 ## Evidence to capture
 - Exact page or prompt reached
@@ -45,4 +46,5 @@ Use this when shell automation reaches a real browser-owned boundary.
 - Keep the browser session scoped to the blocker you are clearing.
 - Do not turn browser work into the primary operating environment.
 - Prefer reproducible notes over screenshots unless visuals are the point.
+- Do not use browser work as the default path for asset generation, icon drafting, wireframe ideation, or palette exploration; use the design/image workflow for that.
 - If the browser step expands beyond a narrow unblock, stop and document the new scope explicitly.

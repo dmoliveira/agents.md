@@ -10,6 +10,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `validation-policy.md`: key-gate validation and review budget
 - `tooling-quick-ref.md`: quick commands and curated external references
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
+- `design-image-decision-guide.md`: when to use design/image generation versus browser validation
 - `orchestration-advanced.md`: high-pressure and high-risk orchestration controls
 - `operations-loop-runbook.md`: long-running execution loop checklist with continuation discipline
 

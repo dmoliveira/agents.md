@@ -45,6 +45,10 @@ Detailed references:
 - `gh` (task flow): `gh issue list --state open --limit 20`, `gh issue view <id>`, `gh issue comment <id> --body "status update"`, `gh issue close <id>`
 - `gh` (PR flow): `gh pr status`, `gh pr view <id>`, `gh pr checks --watch`, `gh api repos/<owner>/<repo>/pulls ...`, `gh pr merge <id> --merge --delete-branch`
 - `rg` + `fd` (code search): `fd -e md`, `rg -n "pattern" -g "*.md"`
+- `ast-grep` (structural code search): `sg run -p 'console.log($A)' src`, `sg scan -r rules/`
+- `tree-sitter-cli` (syntax-aware experiments): `tree-sitter parse path/to/file`, `tree-sitter highlight path/to/file`
+- `watchexec` (fast rerun loop): `watchexec -e py,ts -r -- make test`
+- `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
   - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-sync-dry-run`, `make wiki-sync-apply`, `make wiki-fallback-sync-dry-run`, `make wiki-fallback-sync-apply`, `make wiki-fallback-dispatch`, `make wiki-publish-checklist`, `make wiki-probe-dispatch`.
@@ -82,3 +86,5 @@ Detailed references:
 ## Notes
 - Keep commands non-interactive and CI-safe.
 - Prefer existing repo conventions over generic defaults when they conflict.
+- Prefer local CLI/browser/session tools before adding more remote MCP servers when token cost matters.
+- Treat `browser-use` and Context7 as opt-in/manual additions: use `browser-use` for higher-level browser-agent work when Playwright is too low-level, and use Context7 only when you have a local CLI path you trust.

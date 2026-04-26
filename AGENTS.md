@@ -76,7 +76,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Keep detailed iterative-testing guidance in the dedicated workflow doc and `skills/iterative-testing/SKILL.md` so future updates or temporary disablement stay localized.
 
 ## Concise communication module
-- Repo mode for concise/terse communication guidance (runtime alias: `/caveman`): `off` by default; use `lite`, `full`, or `ultra` only when the runtime or user explicitly enables it.
+- Repo mode for concise/terse communication guidance (for example via `/gateway concise` when the runtime provides it): `off` by default; use `lite`, `full`, or `ultra` only when the runtime or user explicitly enables it.
 - Precedence: explicit user request > runtime/plugin mode > repo default behavior.
 - When a concise mode is active, use `docs/concise-communication-workflow.md` and `skills/concise-mode/SKILL.md` so terse output stays technically accurate, easy to inspect via runtime status, and easy to disable.
 - Relax concise mode for destructive warnings, ambiguity that requires clarity, and multi-step instructions where fragment-style wording would make the result less safe.

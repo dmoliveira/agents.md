@@ -5,7 +5,7 @@ description: >
   while keeping technical accuracy. Supports off, lite, full, and ultra intensity levels.
 ---
 
-Use this module when the user or runtime explicitly wants lower-token answers without losing technical substance. If the runtime exposes `/caveman status` or equivalent mode status, treat that as the canonical signal.
+Use this module when the user or runtime explicitly wants lower-token answers without losing technical substance. If the runtime exposes `/gateway concise status` or equivalent mode status, treat that as the canonical signal.
 
 ## Persistence
 

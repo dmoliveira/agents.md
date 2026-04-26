@@ -32,3 +32,26 @@ artifacts/design/
 ```
 
 Commit curated assets when they materially help implementation, review, or communication.
+
+## Runtime checks for agents
+
+When `my_opencode` is available, agents should check the effective image workflow before generating assets:
+
+```text
+/image access --json
+/image preference show --json
+/image location show --json
+```
+
+Interpretation:
+
+- `/image access --json` tells you whether the stable API-backed path and any experimental local Codex path are available.
+- `/image preference show --json` tells you which provider will actually be used when the prompt does not pass `--provider`.
+- `/image location show --json` tells you where generated artifacts will land by default.
+
+Current local convention in `my_opencode` may prefer:
+
+- provider: `codex-experimental`
+- output location: `cwd-artifacts`
+
+Agents should treat those as repo-local preferences, not universal defaults for every runtime.

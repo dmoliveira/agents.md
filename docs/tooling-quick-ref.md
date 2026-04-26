@@ -36,6 +36,7 @@ Detailed references:
   - local `my_opencode/docs/agents-cheatsheet.md` for agent-selection reminders when you have the runtime repo nearby
   - local `my_opencode/docs/agent-tool-restrictions.md` for maintainer checks on agent boundaries when available
   - local `my_opencode/docs/quickstart.md` for lightweight runtime health commands when available
+  - local `my_opencode/docs/image-design-workflow.md` for `/ox-design`, `/image`, provider preference, and output-location preference behavior when available
 - Avoid using `utils-scripts/AGENTS.md` as a reference here because its coordination model differs from this repo.
 
 ## High-value tools
@@ -50,6 +51,7 @@ Detailed references:
 - `watchexec` (fast rerun loop): `watchexec -e py,ts -r -- make test`
 - `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
+- `my_opencode` image workflow when available: `/image access --json`, `/image preference show --json`, `/image location show --json`, `/image generate ...`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
   - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-sync-dry-run`, `make wiki-sync-apply`, `make wiki-fallback-sync-dry-run`, `make wiki-fallback-sync-apply`, `make wiki-fallback-dispatch`, `make wiki-publish-checklist`, `make wiki-probe-dispatch`.
 

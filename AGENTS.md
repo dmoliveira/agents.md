@@ -31,6 +31,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Treat naming, file placement, ordering, wording, and similarly small implementation details as agent-owned decisions unless the user explicitly asks to control them.
 - Prefer making the next reasonable decision, documenting the rationale briefly, and advancing the task as far as safely possible in one run.
 - Keep explanations lean; summarize long logs and keep evidence relevant.
+- When a local OpenCode runtime such as `my_opencode` is available, inspect its capability/status commands before assuming optional workflows exist; for image/design work specifically, prefer `/image access --json`, `/image preference show --json`, and `/image location show --json` to discover the effective provider and artifact destination.
 - When asked for the current runtime session id, output only the exact id from the session context and nothing else. Do not add acknowledgements, explanations, paraphrases, punctuation, or substitute another value.
 - Check the remote state before starting implementation so the chosen task still matches the latest branch and PR state.
 - Preserve user-authored changes when syncing or resolving conflicts in touched files.
@@ -65,6 +66,12 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - High risk (runtime/security/migration): 3-5 review/fix passes.
 - Stop review cycling once required checks are green and the latest review has no blocker findings.
 - For docs-only or low-blast-radius changes, use the fast path in `docs/validation-policy.md`.
+
+## Design/image workflow defaults
+- When the task is concepting, visual exploration, or design-resource generation, use the repo-local design/image workflow instead of browser automation.
+- In the `my_opencode` runtime, start with `/ox-design` for concept planning and `/image access --json` before assuming generation is available.
+- If `/image access --json` reports a local Codex-backed path, agents MAY use that provider; if it is unavailable, fall back to the stable API-backed path or stay in prompt-only planning mode.
+- Respect repo-local image output preferences so artifacts land where the operator expects; use `/image location show --json` when the destination matters.
 
 ## Orchestration quickplay
 - Start in `build` for small, clear, single-scope changes.

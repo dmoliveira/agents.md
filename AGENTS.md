@@ -58,7 +58,9 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 
 ## Validation and review
 - Default to fast local iteration; avoid heavyweight checks on every edit.
+- For iterative or long-lived software flows, prefer a reproducible live-state check over guesswork: if terminal state is the blocker and `tmux` is available, inspect the running session there and send non-interactive commands instead of stopping at static analysis alone.
 - Run the required validation set at the pre-PR gate for the full current diff.
+- For important or behavior-heavy changes, add one best-available sandbox validation pass that exercises the real behavior in an isolated environment, not just lint/unit checks.
 - Re-run validation at the pre-merge gate only when code changed after review or CI reported failures.
 - Before merge, do one last remote sync check on `main` and any overlapping PRs so new upstream changes do not stale out or conflict with the branch being merged.
 - Low risk (docs/tests/small scoped edit): 1 review/fix pass.

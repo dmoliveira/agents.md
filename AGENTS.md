@@ -75,6 +75,12 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - When mode is `auto` or `on`, use `docs/iterative-testing-workflow.md` for stateful CLI/TUI/runtime flows where live session state or one stronger sandbox pass materially improves confidence.
 - Keep detailed iterative-testing guidance in the dedicated workflow doc and `skills/iterative-testing/SKILL.md` so future updates or temporary disablement stay localized.
 
+## Concise communication module
+- Repo mode for concise/terse communication guidance (runtime alias: `/caveman`): `off` by default; use `lite`, `full`, or `ultra` only when the runtime or user explicitly enables it.
+- Precedence: explicit user request > runtime/plugin mode > repo default behavior.
+- When a concise mode is active, use `docs/concise-communication-workflow.md` and `skills/concise-mode/SKILL.md` so terse output stays technically accurate, easy to inspect via runtime status, and easy to disable.
+- Relax concise mode for destructive warnings, ambiguity that requires clarity, and multi-step instructions where fragment-style wording would make the result less safe.
+
 ## Design/image workflow defaults
 - When the task is concepting, visual exploration, or design-resource generation, use the repo-local design/image workflow instead of browser automation.
 - In the `my_opencode` runtime, start with `/ox-design` for concept planning and `/image access --json` before assuming generation is available.

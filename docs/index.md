@@ -9,6 +9,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `github-cli.md`: automation-safe GitHub CLI patterns
 - `validation-policy.md`: key-gate validation and review budget
 - `iterative-testing-workflow.md`: optional live-state and sandbox testing module
+- `concise-communication-workflow.md`: optional concise/terse communication module
 - `tooling-quick-ref.md`: quick commands and curated external references
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `design-image-decision-guide.md`: when to use design/image generation versus browser validation
@@ -21,6 +22,7 @@ Use this page as the fast entrypoint for repo documentation.
 ## Optional modules
 - `../skills/README.md`: repo-local reusable instruction modules (not runtime-loaded skills by default)
 - `../skills/iterative-testing/SKILL.md`: polished compact guidance for iterative/live-state testing decisions
+- `../skills/concise-mode/SKILL.md`: concise/terse communication guidance for low-token high-signal responses
 
 ## Wiki and publishing
 - `site/index.html`: generated GitHub Pages landing page with latest release notes

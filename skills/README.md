@@ -8,6 +8,7 @@ Rules:
 - `docs/` remains the canonical place for full workflow detail.
 - `skills/` is for compact reusable modules that are easy to reference, refine, or disable later.
 
-Current module:
+Current modules:
 
 - `iterative-testing/SKILL.md`: compact guidance for live-state, `tmux`, and sandbox-oriented validation decisions.
+- `concise-mode/SKILL.md`: compact guidance for concise/terse communication with optional intensity levels.

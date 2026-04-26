@@ -54,7 +54,7 @@ Detailed references:
 - `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious; use it to inspect live CLI/TUI state and send non-interactive commands when iterative testing depends on the current session
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
 - `my_opencode` image workflow when available: `/image access --json`, `/image preference show --json`, `/image location show --json`, `/image generate ...`
-- `my_opencode` concise mode when available: `/caveman status`, `/caveman set lite|full|ultra`, `/caveman off`
+- `my_opencode` concise mode when available: `/gateway concise status`, `/gateway concise set lite|full|ultra`, `/gateway concise off`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
   - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-sync-dry-run`, `make wiki-sync-apply`, `make wiki-fallback-sync-dry-run`, `make wiki-fallback-sync-apply`, `make wiki-fallback-dispatch`, `make wiki-publish-checklist`, `make wiki-probe-dispatch`.
 

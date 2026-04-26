@@ -1,6 +1,6 @@
 # Concise Communication Workflow
 
-Use this optional module when the user or runtime wants lower-token, higher-density answers without losing technical accuracy. Runtime alias: `/caveman` when provided.
+Use this optional module when the user or runtime wants lower-token, higher-density answers without losing technical accuracy. One runtime surface may expose it as `/gateway concise ...`.
 
 ## Mode model
 
@@ -19,7 +19,7 @@ The runtime MAY expose independent submodes such as `review`, `commit`, or `comp
 
 ## Canonical runtime signal
 
-If a runtime exposes concise-mode controls, treat its effective-mode status output (for example `/caveman status` or equivalent gateway state) as the source of truth. Missing or unknown mode means `off`.
+If a runtime exposes concise-mode controls, treat its effective-mode status output (for example `/gateway concise status` or equivalent gateway state) as the source of truth. Missing or unknown mode means `off`.
 
 ## Core rules
 

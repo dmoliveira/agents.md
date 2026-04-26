@@ -38,6 +38,7 @@ If `ox` is not running, the active agent is the coordinator and should run this 
 ## Validation matrix
 - Follow `docs/validation-policy.md` for the base gate policy and task-type defaults.
 - Add reviewer/verifier passes when scope or risk exceeds the base policy.
+- For important or behavior-heavy changes, prefer one sandboxed end-to-end validation pass over multiple weaker speculative checks.
 
 ## Memory-aware orchestration
 - If `continue_process_count >= 3`, avoid new reviewer/verifier runs unless a blocker requires it.

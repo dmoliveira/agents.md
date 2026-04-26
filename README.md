@@ -135,7 +135,7 @@ Useful links:
 - Ruff: https://docs.astral.sh/ruff/
 - ripgrep (`rg`): https://github.com/BurntSushi/ripgrep
 - fd: https://github.com/sharkdp/fd
-- GNU parallel: https://www.gnu.org/software/parallel/
+- GNU parallel usage in this repo: `docs/tooling-quick-ref.md` and local `utils-scripts/docs/cheatsheets/parallel.md` when that clone is available.
 
 Native issue and PR command usage is documented in `AGENTS.md`, `docs/index.md`, `docs/tooling-quick-ref.md`, and `docs/github-cli.md`.
 Codememory usage is documented in `AGENTS.md`, `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, and `docs/tooling-quick-ref.md`.

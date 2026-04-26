@@ -8,6 +8,7 @@ Detailed references:
 - `docs/codememory-conventions.md` for repo-specific Codememory rules
 - `docs/github-cli.md` for automation-safe `gh` patterns
 - `docs/validation-policy.md` for key-gate validation defaults
+- `docs/iterative-testing-workflow.md` for the optional live-state and sandbox testing module
 - `docs/agent-browser.md` for browser-only blocker handling
 - `docs/design-image-decision-guide.md` for design/image generation versus browser-validation routing
 
@@ -49,7 +50,7 @@ Detailed references:
 - `ast-grep` (structural code search): `sg run -p 'console.log($A)' src`, `sg scan -r rules/`
 - `tree-sitter-cli` (syntax-aware experiments): `tree-sitter parse path/to/file`, `tree-sitter highlight path/to/file`
 - `watchexec` (fast rerun loop): `watchexec -e py,ts -r -- make test`
-- `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious
+- `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious; use it to inspect live CLI/TUI state and send non-interactive commands when iterative testing depends on the current session
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
 - `my_opencode` image workflow when available: `/image access --json`, `/image preference show --json`, `/image location show --json`, `/image generate ...`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
@@ -65,6 +66,10 @@ Detailed references:
 - Create or attach a Codememory task/epic before implementation continues on meaningful requests.
 - Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.
 - Keep detailed workflow and conventions in the dedicated Codememory docs so the integration can be updated or disabled with minimal churn.
+
+## Repo-local skill modules
+- `skills/` stores polished reusable instruction modules that support the repo contract without replacing `AGENTS.md` as the source of truth.
+- Current optional module: `skills/iterative-testing/SKILL.md` for compact iterative/live-state testing guidance.
 
 ## Parallel execution default
 - Prefer `parallel` for independent repeated commands instead of `for` loops.

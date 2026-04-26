@@ -11,6 +11,18 @@ Use this optional module when the user or runtime wants lower-token, higher-dens
 
 The runtime MAY expose independent submodes such as `review`, `commit`, or `compress`. Treat them as concise-output variants, not as replacements for correctness or validation. Missing or unknown runtime mode means `off`.
 
+## Runtime taxonomy
+
+Use this split when a runtime exposes concise controls:
+
+| Category | Examples | Persistence | Notes |
+|---|---|---|---|
+| Repo default | `off`, `lite`, `full`, `ultra` | repo-scoped | Default for future sessions in that repo when the runtime supports it. |
+| Active session mode | `lite`, `full`, `ultra`, `review`, `commit` | session-scoped | Applies to the current runtime session only unless changed again. |
+| One-shot alias | `compress` | one-shot | Runs a related low-token or cleanup action without becoming the active communication mode. |
+
+If a runtime uses different names, keep the behavior split the same: durable defaults, session-scoped active mode, and one-shot aliases.
+
 ## Precedence
 
 1. explicit user request

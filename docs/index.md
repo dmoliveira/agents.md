@@ -8,6 +8,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `codememory-conventions.md`: repo-specific Codememory scope, labels, and capture rules
 - `github-cli.md`: automation-safe GitHub CLI patterns
 - `validation-policy.md`: key-gate validation and review budget
+- `iterative-testing-workflow.md`: optional live-state and sandbox testing module
 - `tooling-quick-ref.md`: quick commands and curated external references
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `design-image-decision-guide.md`: when to use design/image generation versus browser validation
@@ -16,6 +17,10 @@ Use this page as the fast entrypoint for repo documentation.
 
 ## Planning
 - `plan/README.md`: status folders for long-form plans and historical planning artifacts
+
+## Optional modules
+- `../skills/README.md`: repo-local reusable instruction modules (not runtime-loaded skills by default)
+- `../skills/iterative-testing/SKILL.md`: polished compact guidance for iterative/live-state testing decisions
 
 ## Wiki and publishing
 - `site/index.html`: generated GitHub Pages landing page with latest release notes

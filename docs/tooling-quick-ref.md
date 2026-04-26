@@ -8,6 +8,7 @@ Detailed references:
 - `docs/codememory-conventions.md` for repo-specific Codememory rules
 - `docs/github-cli.md` for automation-safe `gh` patterns
 - `docs/validation-policy.md` for key-gate validation defaults
+- `docs/iterative-testing-workflow.md` for the optional live-state and sandbox testing module
 - `docs/agent-browser.md` for browser-only blocker handling
 - `docs/design-image-decision-guide.md` for design/image generation versus browser-validation routing
 
@@ -65,6 +66,10 @@ Detailed references:
 - Create or attach a Codememory task/epic before implementation continues on meaningful requests.
 - Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.
 - Keep detailed workflow and conventions in the dedicated Codememory docs so the integration can be updated or disabled with minimal churn.
+
+## Repo-local skill modules
+- `skills/` stores polished reusable instruction modules that support the repo contract without replacing `AGENTS.md` as the source of truth.
+- Current optional module: `skills/iterative-testing/SKILL.md` for compact iterative/live-state testing guidance.
 
 ## Parallel execution default
 - Prefer `parallel` for independent repeated commands instead of `for` loops.

@@ -58,9 +58,9 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 
 ## Validation and review
 - Default to fast local iteration; avoid heavyweight checks on every edit.
-- For iterative or long-lived software flows, prefer a reproducible live-state check over guesswork: if terminal state is the blocker and `tmux` is available, inspect the running session there and send non-interactive commands instead of stopping at static analysis alone.
+- When the iterative-testing mode is `auto` or `on`, prefer a reproducible live-state check over guesswork for iterative or long-lived software flows. If terminal state is the blocker and `tmux` is available, inspect the running session there and send non-interactive commands instead of stopping at static analysis alone.
 - Run the required validation set at the pre-PR gate for the full current diff.
-- For important or behavior-heavy changes, add one best-available sandbox validation pass that exercises the real behavior in an isolated environment, not just lint/unit checks.
+- When the iterative-testing mode is `auto` or `on`, add one best-available sandbox validation pass for important or behavior-heavy changes that exercises the real behavior in an isolated environment, not just lint/unit checks.
 - Re-run validation at the pre-merge gate only when code changed after review or CI reported failures.
 - Before merge, do one last remote sync check on `main` and any overlapping PRs so new upstream changes do not stale out or conflict with the branch being merged.
 - Low risk (docs/tests/small scoped edit): 1 review/fix pass.
@@ -68,6 +68,12 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - High risk (runtime/security/migration): 3-5 review/fix passes.
 - Stop review cycling once required checks are green and the latest review has no blocker findings.
 - For docs-only or low-blast-radius changes, use the fast path in `docs/validation-policy.md`.
+
+## Iterative testing module
+- Repo mode for iterative/live-state testing guidance: `auto` by default; use `off` to disable repo-default use and `on` to require it for applicable work.
+- Precedence: explicit user request > repo mode > default behavior.
+- When mode is `auto` or `on`, use `docs/iterative-testing-workflow.md` for stateful CLI/TUI/runtime flows where live session state or one stronger sandbox pass materially improves confidence.
+- Keep detailed iterative-testing guidance in the dedicated workflow doc and `skills/iterative-testing/SKILL.md` so future updates or temporary disablement stay localized.
 
 ## Design/image workflow defaults
 - When the task is concepting, visual exploration, or design-resource generation, use the repo-local design/image workflow instead of browser automation.

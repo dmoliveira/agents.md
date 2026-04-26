@@ -49,7 +49,7 @@ Detailed references:
 - `ast-grep` (structural code search): `sg run -p 'console.log($A)' src`, `sg scan -r rules/`
 - `tree-sitter-cli` (syntax-aware experiments): `tree-sitter parse path/to/file`, `tree-sitter highlight path/to/file`
 - `watchexec` (fast rerun loop): `watchexec -e py,ts -r -- make test`
-- `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious
+- `tmux` (persistent panes): keep AI/OpenCode sessions prefixed like `ai-oc-<task>` so cleanup and resume targeting stay obvious; use it to inspect live CLI/TUI state and send non-interactive commands when iterative testing depends on the current session
 - `uv` (Python): `uv venv .venv`, `uv run pytest -q`, `uv run ruff check .`
 - `my_opencode` image workflow when available: `/image access --json`, `/image preference show --json`, `/image location show --json`, `/image generate ...`
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.

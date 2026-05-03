@@ -6,14 +6,16 @@ For the full docs map, start with `docs/index.md`.
 
 ## Loop sequence
 
-1. Start from `main`, sync, then create a dedicated worktree branch.
-2. Fetch/check remote branch and PR state so the selected slice still matches upstream before implementation.
-3. Check Codememory with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
-4. Pick one GitHub issue and create or attach the work to a Codememory task before implementation.
+This runbook extends the canonical adaptive loop from `AGENTS.md` for long-running delivery work.
+
+1. Resume/alignment: start from `main`, sync, fetch/check remote branch and PR state, and check Codememory with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
+2. Open or resume one dedicated worktree branch and bind the active Codememory task/session to it.
+3. Classify the slice (`small` / `medium` / `large`) and do only the research needed for safe progress.
+4. Record the active plan slice plus validation definition before coding. Add dependencies/sequence when the work is `medium` or `large`.
 5. Implement one scoped slice with fast local iteration and continue while the next safe action is clear.
-6. Run validations at the pre-PR gate, update Codememory outcome state, then create one focused commit for the validated slice.
-7. Open PR, watch checks, do one final overlap check against latest `main`, merge, and clean up worktree.
-8. Sync local `main`, close the issue, and continue to next slice.
+6. Run the required validation gate, update Codememory with the latest validated outcome, and create one focused commit for the validated slice.
+7. If delivery is in scope, open/update the PR, watch checks, do one final overlap check against latest `main`, merge, and clean up the worktree.
+8. Sync local `main`, close/update the issue or task, then continue to the next slice.
 
 ## Fast preflight
 
@@ -27,7 +29,7 @@ This validates authentication, workflow availability, wiki readiness, and fallba
 
 It also runs wiki consistency checks to ensure snippet and mirror content stay aligned.
 
-For the full Codememory startup and closeout flow, see `docs/codememory-workflow.md`.
+For the full Codememory startup and closeout flow, see `docs/codememory-workflow.md`. For validation-definition and gate policy, see `docs/validation-policy.md`.
 
 ## If wiki git remote is blocked
 

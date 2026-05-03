@@ -61,7 +61,7 @@ For full command detail, use:
 
 ## What is in this repo 📚
 
-- `AGENTS.md`: source-of-truth operating contract.
+- `AGENTS.md`: source-of-truth operating contract. Repo-root `AGENTS.md` is canonical; runtime mirrors should symlink to it rather than copy it.
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.

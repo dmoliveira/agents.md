@@ -33,6 +33,7 @@ Before meaningful work begins:
 4. If resuming a known task, run:
    - `oc resume --scope <repo-scope> --task <task_id>`
 5. If the request creates new work, create or attach the work to a Codememory `task` or `epic` before implementation.
+6. For non-trivial work, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts.
 
 If `oc current` or `oc resume` shows a valid active session bound to the current worktree, continue that flow instead of opening a parallel duplicate.
 
@@ -66,10 +67,33 @@ Use single commands first.
 1. Create or resume the Git worktree branch.
 2. Start or resume a Codememory session bound to that worktree path.
 3. Ensure the session is attached to the active task.
-4. Implement in that worktree.
-5. Record durable execution state in Codememory during the work.
-6. Validate.
-7. Close the session and task state when the slice outcome is known.
+4. Capture the durable execution brief before coding when the slice is meaningful:
+   - current objective
+   - chosen approach or options under consideration
+   - dependencies/sequence if the work is `medium` or `large`
+   - validation definition for the slice
+5. Implement in that worktree.
+6. Record durable execution state in Codememory when decisions, blockers, assumptions, or sequencing change materially.
+7. Validate.
+8. Close the session and task state when the slice outcome is known.
+
+## Recommended capture shape by execution phase
+
+### Research
+- Capture only durable findings that affect future execution: chosen pattern, relevant dependency behavior, UX/testing constraints, or library/tool decisions.
+
+### Plan
+- Record the smallest useful slices, major dependencies, and any parallelizable work worth preserving across handoffs.
+- For `large` work, use Codememory to preserve the execution graph/DAG logic so another AI can resume sequencing without rebuilding it from chat history.
+
+### Plan review
+- Record only the durable outcome: scope reduced, approach changed, dependency uncovered, or rollback/containment requirement added.
+
+### Validation definition
+- Name the exact checks that prove the slice is done: docs checks, lint/tests, UX smoke path, frontend/backend flow, sandbox/live-state run, or debug harness/scripts when applicable.
+
+### Execution/review loop
+- Update Codememory when the plan changes, a blocker appears, or a completed slice changes the next best action.
 
 ## During execution
 
@@ -90,11 +114,11 @@ Do not spam Codememory with every transient note. Prefer durable and resumable s
 
 Before ending a meaningful task slice:
 
-1. update Codememory task state with the outcome
-2. record any durable learnings or blockers
-3. close the Codememory session with the correct outcome
+1. update Codememory task state with the latest validated outcome
+2. record any durable learnings, blockers, dependencies, or next-slice context
+3. close the Codememory session with the correct outcome when the session is actually ending
 4. update GitHub issue/PR state as needed
-5. continue or merge according to the normal repo workflow
+5. continue the next slice or merge according to the normal repo workflow
 
 Typical commands:
 

@@ -61,7 +61,7 @@ For full command detail, use:
 
 ## What is in this repo 📚
 
-- `AGENTS.md`: source-of-truth operating contract.
+- `AGENTS.md`: source-of-truth operating contract. Repo-root `AGENTS.md` is canonical; runtime mirrors should symlink to it rather than copy it.
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.
@@ -74,12 +74,14 @@ For ongoing readiness checks, run `make wiki-probe-dispatch` to trigger the sche
 For publishable fallback sync, use `make wiki-fallback-sync-dry-run` and `make wiki-fallback-sync-apply`.
 For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make wiki-fallback-dispatch`.
 
-## Workflow highlights (wt flow e2e) 🔁
+## Workflow highlights (adaptive loop + wt flow e2e) 🔁
 
-- In this repo, asking an agent to do work "end-to-end"/"e2e" means: run the default `wt flow` through commit, PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
+- Default execution loop: resume, classify, research, plan, plan review, define validation, execute, review/fix, commit the validated slice, update Codememory, then continue or close.
+- In this repo, asking an agent to do work "end-to-end"/"e2e" means: run that default loop inside `wt flow`, then continue through PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
 - create a dedicated worktree and branch for each feature/bug/task,
 - recover or create task/session state in Codememory before coding,
 - check remote branch and PR state before implementing so overlapping AI work is caught early,
+- define validation before coding,
 - iterate quickly, then commit once per validated slice,
 - run review/fix/improve passes according to risk,
 - do one final upstream/overlap check before merge to avoid stale or conflicting changes,

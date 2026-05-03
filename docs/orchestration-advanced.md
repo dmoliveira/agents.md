@@ -1,8 +1,8 @@
 # Orchestration Advanced
 
-Use this guide when work is multi-module, high-risk, or running under process pressure.
+Use this guide when work is multi-module, high-risk, dependency-heavy, or running under process pressure.
 
-Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt flow`); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
+Primary operating contract is in `AGENTS.md` (adaptive default loop + `wt flow` extension); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
 
 ## Parallel execution (AI runs)
 - Use one AI run per epic/task, each with its own worktree branch, Codememory task/session context, and a tracked GitHub issue when delivery tracking is needed.
@@ -11,9 +11,11 @@ Primary operating contract is in `AGENTS.md` (`Orchestration quickplay` + `wt fl
 Worker lifecycle:
 1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
 2) Recover or create Codememory task/session state for the assigned slice.
-3) Implement in its worktree with fast local iteration.
-4) Run required checks at the pre-PR gate, update Codememory outcome state, and create one focused commit for the validated slice.
-5) Open PR, post PR URL on the related issue, then stop.
+3) Classify execution depth/risk, do targeted research, and capture the plan + validation definition before coding.
+4) If sequencing matters, preserve dependencies/parallelism in Codememory so the execution graph survives handoff or resume.
+5) Implement in its worktree with fast local iteration.
+6) Run required checks at the pre-PR gate, update Codememory outcome state, and create one focused commit for the validated slice.
+7) Open PR, post PR URL on the related issue, then stop.
 
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.
@@ -27,13 +29,16 @@ If `ox` is not running, the active agent is the coordinator and should run this 
 ## Build-mode efficiency
 - Prefer direct implementation and verification before reviewer subagents.
 - If repeated shell retries are only blocked by UI-owned state, switch to the browser workflow in `docs/agent-browser.md` instead of adding more shell churn.
-- Reviewer budget by risk:
-  - Low risk: 0 reviewer passes.
-  - Medium risk: max 1 reviewer pass.
-  - High risk: max 2 reviewer passes unless diff changed materially.
+- Reviewer/verifier usage should defer to the canonical review budget in `AGENTS.md` and `docs/validation-policy.md`.
+- Prefer the lightest reviewer usage that still satisfies that budget.
 - Do not repeat reviewer passes on unchanged diffs.
 - For PR merge operations, run `gh pr checks` + `gh pr view --json ...` first; use reviewer only when checks fail or code changes.
 - Keep concurrency to at most one reviewer and one verifier at a time.
+
+## Sequencing and DAG guidance
+- Use Codememory-backed sequencing only when dependencies, parallel branches of work, or likely handoffs would otherwise get lost.
+- Prefer a compact execution graph: objective, child slices, dependency edges, required checks, and current next slice.
+- Do not build a formal DAG for tiny work that can be carried safely in one short plan.
 
 ## Validation matrix
 - Follow `docs/validation-policy.md` for the base gate policy and task-type defaults.

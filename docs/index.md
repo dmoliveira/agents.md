@@ -3,17 +3,17 @@
 Use this page as the fast entrypoint for repo documentation.
 
 ## Core workflow
-- `../AGENTS.md`: source-of-truth operating contract
-- `codememory-workflow.md`: required Codememory execution and handoff flow
+- `../AGENTS.md`: source-of-truth operating contract for the adaptive execution loop
+- `codememory-workflow.md`: required Codememory execution, plan capture, and handoff flow
 - `codememory-conventions.md`: repo-specific Codememory scope, labels, and capture rules
 - `github-cli.md`: automation-safe GitHub CLI patterns
-- `validation-policy.md`: key-gate validation and review budget
+- `validation-policy.md`: validation-definition gate, key-gate validation, and review budget
 - `iterative-testing-workflow.md`: optional live-state and sandbox testing module
 - `concise-communication-workflow.md`: optional concise/terse communication module
 - `tooling-quick-ref.md`: quick commands and curated external references
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `design-image-decision-guide.md`: when to use design/image generation versus browser validation
-- `orchestration-advanced.md`: high-pressure and high-risk orchestration controls
+- `orchestration-advanced.md`: advanced sequencing, DAG, and pressure-mode orchestration controls
 - `operations-loop-runbook.md`: long-running execution loop checklist with continuation discipline
 
 ## Planning

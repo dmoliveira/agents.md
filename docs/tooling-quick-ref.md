@@ -13,6 +13,10 @@ Detailed references:
 - `docs/agent-browser.md` for browser-only blocker handling
 - `docs/design-image-decision-guide.md` for design/image generation versus browser-validation routing
 
+## Canonical instruction file
+- Repo-root `AGENTS.md` is the source of truth.
+- Runtime mirrors such as `my_opencode/AGENTS.md` SHOULD be symlinks to the repo-root file so sandbox/runtime starts pick up the latest instructions without copying.
+
 ## Browser automation decision rule
 - Use shell-first automation by default.
 - Switch to browser automation only for UI-owned state such as OAuth/install/re-auth/scope acceptance and final visual verification.
@@ -58,6 +62,14 @@ Detailed references:
 - `make` (entrypoint): `make help`, then run project targets instead of ad-hoc scripts.
   - In this repo: `make preflight`, `make wiki-status`, `make wiki-mirror-status`, `make wiki-sync-check`, `make wiki-sync-dry-run`, `make wiki-sync-apply`, `make wiki-fallback-sync-dry-run`, `make wiki-fallback-sync-apply`, `make wiki-fallback-dispatch`, `make wiki-publish-checklist`, `make wiki-probe-dispatch`.
 
+## Default execution loop cheat sheet
+- Resume/alignment: `git fetch --all --prune`, `gh pr status`, `oc current`, `oc next --scope <repo-scope> --limit 5`, `oc queue --scope <repo-scope> --limit 10`
+- Plan capture: `oc add task ...`, `oc add session ...`, `oc add memory ... --kind decision|assumption|constraint`, `oc add doc ...`
+- Research helpers: `rg -n "pattern" -g "*.md"`, `fd -e md`, targeted file reads
+- Validation definition: write the named checks into Codememory or the active plan note before coding
+- Execution/review loop: run lightweight checks as needed, then the required validation set from `docs/validation-policy.md`
+- Closeout: `oc done <task_id> --note "..."`, `oc end-session <session_id> --outcome done|failed|canceled`
+
 ## Remote alignment checks
 - Before implementation: run `git fetch --all --prune`, `gh pr status`, and review the selected issue/PR again so the task still matches upstream.
 - Before merge: re-check `origin/main`, current PR status, and any overlapping PRs/branches; rebase or update when upstream changed in a way that affects your slice.
@@ -66,6 +78,7 @@ Detailed references:
 - For meaningful work, check Codememory before implementation and use it instead of ad hoc todo lists, including OpenCode's `todowrite`/todo list.
 - Start with `oc current`, `oc next`, `oc queue`, and `oc resume --task <id>` when resuming a known slice.
 - Create or attach a Codememory task/epic before implementation continues on meaningful requests.
+- For `medium` or `large` work, store the current plan slice, dependencies, and validation definition before coding.
 - Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.
 - Keep detailed workflow and conventions in the dedicated Codememory docs so the integration can be updated or disabled with minimal churn.
 

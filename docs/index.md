@@ -11,6 +11,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `iterative-testing-workflow.md`: optional live-state and sandbox testing module
 - `concise-communication-workflow.md`: optional concise/terse communication module
 - `tooling-quick-ref.md`: quick commands and curated external references
+- `runtime-slash-command-audit.md`: repeatable slash-command audit flow for runtime-backed command validation
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `design-image-decision-guide.md`: when to use design/image generation versus browser validation
 - `orchestration-advanced.md`: advanced sequencing, DAG, and pressure-mode orchestration controls

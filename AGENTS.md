@@ -33,6 +33,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 - Prefer making the next reasonable decision, documenting the rationale briefly, and advancing the task as far as safely possible in one run.
 - Keep explanations lean; summarize long logs and keep evidence relevant.
 - Default communication posture: low-token and high-signal. Keep routine progress, plan, and validation notes brief unless risk, ambiguity, or blockers require expansion.
+- Keep always-on workflow rules in `AGENTS.md`; use skills for bounded tool- or domain-specific workflows that are expensive to restate but not needed every session.
 - When a local OpenCode runtime such as `my_opencode` is available, inspect its capability/status commands before assuming optional workflows exist; for image/design work specifically, prefer `/image access --json`, `/image preference show --json`, and `/image location show --json` to discover the effective provider and artifact destination.
 - When asked for the current runtime session id, output only the exact id from the session context and nothing else. Do not add acknowledgements, explanations, paraphrases, punctuation, or substitute another value.
 - Check the remote state before starting implementation so the chosen task still matches the latest branch and PR state.
@@ -108,6 +109,7 @@ Use native repo tooling available in this environment (`git`, `gh`, `oc`, and bu
 ## Validation and iterative testing
 - Default to fast local iteration; avoid heavyweight checks on every edit.
 - Define validation before coding and run the required gate once on the current full diff before claiming the slice is done.
+- Prefer the smallest validation bundle that matches the change type: docs/config/skills changes usually start with `git diff --check`; Python script edits usually add `python3 -m py_compile <touched-files>`; broaden only when runtime risk or changed surfaces justify it.
 - When the iterative-testing mode is `auto` or `on`, prefer a reproducible live-state check over guesswork for iterative or long-lived software flows. If terminal state is the blocker and `tmux` is available, inspect the running session there and send non-interactive commands instead of stopping at static analysis alone.
 - Use `docs/validation-policy.md` for risk-based validation depth and `docs/iterative-testing-workflow.md` for live-state/sandbox rules.
 

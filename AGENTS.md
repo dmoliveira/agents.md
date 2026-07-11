@@ -13,7 +13,7 @@ Use native repo tooling (`git`, `gh`, `oc`, built-in agent tools); keep one scop
 
 ## Required lifecycle
 
-1. **Align:** read instructions; inspect remote/GitHub; run `oc current`, `oc next`, and `oc queue` (plus `oc resume` when resuming); use a dedicated worktree branch; create/attach the Codememory task or epic and bind its active session before meaningful implementation.
+1. **Align:** read instructions; inspect remote/GitHub; run `oc current`, `oc next`, and `oc queue` (plus `oc resume` when resuming); use a dedicated worktree branch; create/attach the Codememory task, link a parent epic when needed, and bind its active session before meaningful implementation.
 2. **Classify:** depth is `small` (clear, low blast radius), `medium` (typical multi-file task), or `large` (cross-module, ambiguous, dependency-heavy). Risk is `low` (docs/tests/small edit), `medium` (feature/refactor), or `high` (runtime/security/migration/broad behavior).
 3. **Research and plan:** research only what affects the slice, preferring local patterns. Define small slices and validation before coding. `medium`/`large` work needs plan review; `large` work needs durable Codememory sequencing/dependencies.
 4. **Execute:** implement the smallest useful slice; iterate cheaply; record material decisions, blockers, assumptions, dependencies, or handoff context in Codememory.
@@ -24,7 +24,7 @@ Use native repo tooling (`git`, `gh`, `oc`, built-in agent tools); keep one scop
 
 - Features, improvements, and fixes MUST use a dedicated worktree; never deliver from `main`. Use a focused validated commit, PR-only merge, and current issue/PR status when tracking exists.
 - “End-to-end”/“e2e” authorizes the full `wt flow`: worktree + current upstream/Codememory session, validated slice, commit/push/PR, review/fix, recheck `origin/main` and overlaps, merge, close Codememory state, delete branch/worktree, and `main` rebase-sync.
-- Codememory is REQUIRED for internal execution/handoffs; GitHub is authoritative for delivery/reviews/merges. Do not use `todowrite` or ad hoc task lists. Every meaningful task needs a Codememory task/epic; every implementation attempt needs a session tied to its worktree. See `docs/codememory-workflow.md` and `docs/codememory-conventions.md` for commands and recovery.
+- Codememory is REQUIRED for internal execution/handoffs; GitHub is authoritative for delivery/reviews/merges. Do not use `todowrite` or ad hoc task lists. Every meaningful task needs a Codememory task (linked to an epic when applicable); every implementation attempt needs a session tied to its worktree. See `docs/codememory-workflow.md` and `docs/codememory-conventions.md` for commands and recovery.
 
 ## Validation and routing
 

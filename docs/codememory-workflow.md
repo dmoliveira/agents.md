@@ -32,7 +32,7 @@ Before meaningful work begins:
    - `oc queue --scope <repo-scope> --limit 10`
 4. If resuming a known task, run:
    - `oc resume --scope <repo-scope> --task <task_id>`
-5. If the request creates new work, create or attach the work to a Codememory `task` or `epic` before implementation.
+5. If the request creates new work, create or attach a Codememory `task` before implementation; for a broader initiative, create an `epic` and link the task to it.
 6. For non-trivial work, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts.
 
 If `oc current` or `oc resume` shows a valid active session bound to the current worktree, continue that flow instead of opening a parallel duplicate.
@@ -45,6 +45,7 @@ Use single commands first.
 
 - create a task: `oc add task "<title>" ...`
 - create an epic when the work spans multiple tasks: `oc add epic "<title>" ...`
+- link a task to its epic when needed: `oc link <epic_id> parent-of <task_id>`
 
 ### Durable ideas or improvements
 
@@ -66,14 +67,14 @@ Use single commands first.
 
 1. Create or resume the Git worktree branch.
 2. Start a session with `oc add session "<title>" --worktree . --task <task_id> ...`, or resume the matching session, bound to that worktree path.
-3. Ensure the session is attached to the active task.
+3. Ensure the session is attached to the active task and, when applicable, that task is linked to its parent epic.
 4. Capture the durable execution brief before coding when the slice is meaningful:
    - current objective
    - chosen approach or options under consideration
    - dependencies/sequence if the work is `medium` or `large`
    - validation definition for the slice
 5. Implement in that worktree.
-6. Record durable execution state in Codememory when decisions, blockers, assumptions, or sequencing change materially.
+6. Record durable execution state in Codememory when decisions, blockers, assumptions, sequencing, or parent-epic progress change materially.
 7. Validate.
 8. Close the session and task state when the slice outcome is known.
 
@@ -114,7 +115,7 @@ Do not spam Codememory with every transient note. Prefer durable and resumable s
 
 Before ending a meaningful task slice:
 
-1. update Codememory task state with the latest validated outcome
+1. update Codememory task state with the latest validated outcome; update its parent epic when the slice changes initiative progress
 2. record any durable learnings, blockers, dependencies, or next-slice context
 3. close the Codememory session with the correct outcome when the session is actually ending
 4. update GitHub issue/PR state as needed

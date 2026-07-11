@@ -40,7 +40,6 @@ If a runtime exposes concise-mode controls, treat its effective-mode status outp
 - Prefer concrete nouns and verbs over polite filler.
 - Short fragments are acceptable when the meaning stays obvious.
 - If a short answer becomes ambiguous, expand enough to keep the meaning safe.
-- Do not compress away plan-review outcomes, validation definitions, blocker evidence, or final state.
 
 ## Safe compression targets
 
@@ -82,7 +81,7 @@ Concise (`lite`):
 
 ## Boundaries
 
-- Do not compress away critical risk, blocker, validation evidence, plan-review outcome, or validation definition.
+- Do not compress away critical risk, blocker evidence, validation definitions/results, plan-review outcomes, or final state.
 - Do not rewrite code style inside code blocks just to sound terse.
 - Do not force stronger concise modes on every repo or every session; keep `off` and `lite` easy to choose.
 - Keep the module easy to disable or override.

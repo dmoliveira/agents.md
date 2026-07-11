@@ -13,7 +13,7 @@ Use native repo tooling (`git`, `gh`, `oc`, built-in agent tools); keep one scop
 
 ## Required lifecycle
 
-1. **Align:** read instructions; inspect remote/GitHub and Codememory (`oc current`, `oc next`, `oc queue`, or `oc resume`); use a dedicated worktree branch; create/attach the Codememory task or epic and bind its active session before meaningful implementation.
+1. **Align:** read instructions; inspect remote/GitHub; run `oc current`, `oc next`, and `oc queue` (plus `oc resume` when resuming); use a dedicated worktree branch; create/attach the Codememory task or epic and bind its active session before meaningful implementation.
 2. **Classify:** depth is `small` (clear, low blast radius), `medium` (typical multi-file task), or `large` (cross-module, ambiguous, dependency-heavy). Risk is `low` (docs/tests/small edit), `medium` (feature/refactor), or `high` (runtime/security/migration/broad behavior).
 3. **Research and plan:** research only what affects the slice, preferring local patterns. Define small slices and validation before coding. `medium`/`large` work needs plan review; `large` work needs durable Codememory sequencing/dependencies.
 4. **Execute:** implement the smallest useful slice; iterate cheaply; record material decisions, blockers, assumptions, dependencies, or handoff context in Codememory.

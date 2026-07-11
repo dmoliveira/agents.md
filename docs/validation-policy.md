@@ -26,6 +26,7 @@ Validation definition should be compact but explicit. Name only the checks that 
 - Low risk: 1 review/fix pass.
 - Medium risk: 2 review/fix passes.
 - High risk: 3-5 review/fix passes.
+- A repeat pass needs changed evidence, a failed check, or newly discovered risk; do not duplicate the same verifier/reviewer pass on an unchanged diff.
 
 ## Fast path
 - Use for docs-only or low-blast-radius changes.
@@ -44,6 +45,7 @@ make preflight
 
 ## Typical Python validation
 ```bash
+python3 -m py_compile <touched-files>
 uv run ruff check .
 uv run pytest -q
 ```

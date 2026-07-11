@@ -50,7 +50,7 @@ Detailed references:
 - `oc` (capture): `oc add task "title" ...`, `oc add epic "title" ...`, `oc add memory "title" --kind decision|constraint|assumption|convention ...`, `oc add doc "title" ...`
 - `oc` (reports/closeout): `oc report improvement "title" --body "..."`, `oc report error "title" --body "..."`, `oc done <task_id> --note "..."`, `oc end-session <session_id> --outcome done|failed|canceled`
 - `gh` (task flow): `gh issue list --state open --limit 20`, `gh issue view <id>`, `gh issue comment <id> --body "status update"`, `gh issue close <id>`
-- `gh` (PR flow): `gh pr status`, `gh pr view <id>`, `gh pr checks --watch`, `gh api repos/<owner>/<repo>/pulls ...`, `gh pr merge <id> --merge --delete-branch`
+- `gh` (PR flow): `gh pr status`, `gh pr view <id>`, `gh pr checks <id> --watch`, `gh api repos/<owner>/<repo>/pulls ...`, `gh pr merge <id> --merge --delete-branch`
 - `rg` + `fd` (code search): `fd -e md`, `rg -n "pattern" -g "*.md"`
 - `ast-grep` (structural code search): `sg run -p 'console.log($A)' src`, `sg scan -r rules/`
 - `tree-sitter-cli` (syntax-aware experiments): `tree-sitter parse path/to/file`, `tree-sitter highlight path/to/file`
@@ -76,7 +76,7 @@ Detailed references:
 
 ## Codememory default flow
 - For meaningful work, check Codememory before implementation and use it instead of ad hoc todo lists, including OpenCode's `todowrite`/todo list.
-- Start with `oc current`, `oc next`, `oc queue`, and `oc resume --task <id>` when resuming a known slice.
+- Start with `oc current`, `oc next --scope <repo-scope> --limit 5`, and `oc queue --scope <repo-scope> --limit 10`; add `oc resume --scope <repo-scope> --task <id>` when resuming a known slice.
 - Create or attach a Codememory task/epic before implementation continues on meaningful requests.
 - For `medium` or `large` work, store the current plan slice, dependencies, and validation definition before coding.
 - Prefer a repo-local `.codememory/config.yaml` for the repo scope; otherwise pass `--scope <repo-scope>` explicitly.

@@ -65,7 +65,7 @@ Use single commands first.
 ## Worktree flow
 
 1. Create or resume the Git worktree branch.
-2. Start or resume a Codememory session bound to that worktree path.
+2. Start a session with `oc add session "<title>" --worktree . --task <task_id> ...`, or resume the matching session, bound to that worktree path.
 3. Ensure the session is attached to the active task.
 4. Capture the durable execution brief before coding when the slice is meaningful:
    - current objective
@@ -133,7 +133,7 @@ When taking over from another AI or after context compression:
 
 1. read `AGENTS.md`
 2. run `oc current`
-3. run `oc queue --scope <repo-scope> --limit 10`
+3. run `oc next --scope <repo-scope> --limit 5` and `oc queue --scope <repo-scope> --limit 10`
 4. run `oc resume --scope <repo-scope> --task <task_id>` for the intended slice
 5. read any linked docs only after Codememory narrows the active context
 

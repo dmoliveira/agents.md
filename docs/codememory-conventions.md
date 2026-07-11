@@ -77,6 +77,8 @@ Common `memory.kind` usage in this repo:
 - `learning`: lesson from completed work
 - `note`: small durable fact that does not fit the stronger categories
 
+Use `oc report improvement` or `oc report error` for new actionable work; use a memory kind for durable context that should survive after that work is tracked or closed.
+
 ### Doc
 
 Use `doc` for:

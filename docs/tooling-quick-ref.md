@@ -64,7 +64,7 @@ Detailed references:
 
 ## Default execution loop cheat sheet
 - Resume/alignment: `git fetch --all --prune`, `gh pr status`, `oc current`, `oc next --scope <repo-scope> --limit 5`, `oc queue --scope <repo-scope> --limit 10`
-- Plan capture: `oc add task ...`, `oc add session ...`, `oc add memory ... --kind decision|assumption|constraint`, `oc add doc ...`
+- Plan capture: `oc add task ...`, `oc add epic ...`, `oc link <epic_id> parent-of <task_id>` when needed, `oc add session ... --task <task_id>`, `oc add memory ... --kind decision|assumption|constraint`, `oc add doc ...`
 - Research helpers: `rg -n "pattern" -g "*.md"`, `fd -e md`, targeted file reads
 - Validation definition: write the named checks into Codememory or the active plan note before coding
 - Execution/review loop: run lightweight checks as needed, then the required validation set from `docs/validation-policy.md`

@@ -9,7 +9,7 @@ Use this module when the user, runtime, or repo default wants lower-token, highe
 - `full`: prefer short direct fragments, drop filler words and most articles, keep technical terms exact.
 - `ultra`: maximize compression while preserving correctness; use only when readability remains safe.
 
-The runtime MAY expose independent submodes such as `review`, `commit`, or `compress`. Treat them as concise-output variants, not as replacements for correctness or validation. Missing or unknown runtime mode means: fall back to the repo default from `AGENTS.md` unless the user explicitly asked for `off`.
+The runtime MAY expose independent submodes such as `review`, `commit`, or `compress`. Treat them as concise-output variants, not as replacements for correctness or validation. Missing or unknown runtime mode means: fall back to the repo default from `AGENTS.md` unless the user explicitly requested a mode.
 
 ## Runtime taxonomy
 

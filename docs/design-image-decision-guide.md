@@ -23,6 +23,49 @@ Use this guide when a task touches UX visuals, design artifacts, or image genera
 - if you are using the `my_opencode` OpenCode runtime: real implemented UX review -> `/ox-ux`
 - otherwise: use your repo-local design workflow for concepting/assets and keep browser usage scoped to implemented-UI validation or narrow browser-owned blockers
 
+## Use the public `codex-image` CLI for portable API generation
+
+Use [`codex-image`](https://github.com/dmoliveira/codex-image-cli) when an agent needs a documented, shell-only GPT Image 2 generation path that works outside a particular OpenCode runtime.
+
+This is an **API-key-only** path:
+
+- require `OPENAI_API_KEY` in the child-process environment
+- do **not** reuse a ChatGPT/Codex subscription login, browser session, cookie, or access token
+- treat a present key as local configuration only—not proof of billing, organization verification, model access, or entitlement
+- never put the key in flags, prompts, URLs, JSON, files, or logs
+
+Discover the installed contract and validate before any billable request:
+
+```bash
+codex-image ai-help --json
+codex-image doctor --json
+
+mkdir -p artifacts/design
+codex-image generate \
+  --prompt "<prompt>" \
+  --output-dir artifacts/design \
+  --prefix <safe-stem> \
+  --n 1 \
+  --dry-run \
+  --json
+```
+
+Only after the dry run is correct, make one real request:
+
+```bash
+OPENAI_API_KEY="${OPENAI_API_KEY:?set in the environment}" \
+codex-image generate \
+  --prompt "<prompt>" \
+  --output-dir artifacts/design \
+  --prefix <safe-stem> \
+  --n 1 \
+  --json
+```
+
+`--output-dir` must already exist and have no symlinked path components. Use `--name` only for a single image; use `--prefix` for deterministic batches. Parse `outputs`, `retained_artifacts`, and `possibly_modified_paths` from JSON before cleanup. Never automatically retry exit codes `5`, `6`, or `7`: a generation may have been billed even without a usable image.
+
+See [the dedicated agent protocol](codex-image-cli.md) for JSON/exit-code handling and the distinction from `my_opencode`'s experimental local providers.
+
 ## Artifact posture
 
 When design outputs matter to delivery, keep them repo-native under:

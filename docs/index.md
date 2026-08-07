@@ -14,6 +14,7 @@ Use this page as the fast entrypoint for repo documentation.
 - `runtime-slash-command-audit.md`: repeatable slash-command audit flow for runtime-backed command validation
 - `agent-browser.md`: browser-only bridge guidance for OAuth, installs, and final visual checks
 - `design-image-decision-guide.md`: when to use design/image generation versus browser validation
+- `codex-image-cli.md`: safe, non-interactive public GPT Image 2 CLI protocol for agents
 - `orchestration-advanced.md`: advanced sequencing, DAG, and pressure-mode orchestration controls
 - `operations-loop-runbook.md`: long-running execution loop checklist with continuation discipline
 

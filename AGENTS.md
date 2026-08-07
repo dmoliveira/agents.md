@@ -30,7 +30,7 @@ Use native repo tooling (`git`, `gh`, `oc`, built-in agent tools); keep one scop
 
 - Start with the smallest appropriate validation bundle: docs/config/skills usually `git diff --check`; Python edits also `python3 -m py_compile <touched-files>`; broaden for risk/surface. Use `docs/validation-policy.md`; use reproducible live-state checks and `tmux` inspection in iterative `auto`/`on` flows when static checks are insufficient.
 - Default concise mode is `lite`; precedence is explicit user request > runtime/plugin mode > repo default. Follow `docs/concise-communication-workflow.md` and `skills/concise-mode/SKILL.md`; relax compression for destructive warnings, material ambiguity, or unsafe multi-step instructions.
-- For design/image work, use the repo design workflow, `/ox-design`, then `/image access --json`; inspect preference/location when relevant. Browser-only auth/admin/final-visual blockers follow `docs/agent-browser.md`.
+- For design/image work, use the repo design workflow, `/ox-design`, then `/image access --json`; inspect preference/location when relevant. For a portable public API CLI, use the `codex-image` protocol in `docs/codex-image-cli.md`—it requires `OPENAI_API_KEY`, not a ChatGPT/Codex subscription credential. Browser-only auth/admin/final-visual blockers follow `docs/agent-browser.md`.
 - Use `build` for small clear work and `orchestrator` for multi-file/sequenced work. Delegate bounded read-only work: `explore` (discovery), `librarian` (external docs), `oracle` (hard tradeoffs), `verifier` (validation), `reviewer` (final risk), `release-scribe` (release text). Do not duplicate verifier/reviewer passes without changed evidence; reduce concurrency before opening more worktrees.
 
 ## Project conventions

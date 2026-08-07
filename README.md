@@ -53,6 +53,7 @@ For full command detail, use:
 - `docs/codememory-conventions.md`
 - `docs/tooling-quick-ref.md`
 - `docs/design-image-decision-guide.md`
+- `docs/codex-image-cli.md`
 - `docs/github-cli.md`
 - `docs/validation-policy.md`
 - `docs/orchestration-advanced.md`
@@ -65,6 +66,7 @@ For full command detail, use:
 - `docs/index.md`: concise hub for core workflow, planning, and wiki docs.
 - `docs/codememory-workflow.md`, `docs/codememory-conventions.md`, `docs/tooling-quick-ref.md`, `docs/github-cli.md`, `docs/validation-policy.md`, `docs/orchestration-advanced.md`: daily operator references.
 - `docs/release-notes-template.md`: minimal template for friendly, concise release notes and PR summaries.
+- `docs/codex-image-cli.md`: portable, API-key-only GPT Image 2 CLI protocol for non-interactive agents.
 - `docs/plan/README.md`: status model for long-form AI planning docs under `docs/plan/`.
 - `docs/site/index.html`: generated GitHub Pages landing page with latest release notes from repo docs.
 - `docs/wiki-*`: wiki provisioning, mirror, and fallback publication docs.

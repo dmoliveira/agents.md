@@ -1,9 +1,9 @@
 # Validation Policy
 
-Use validation at key gates so iteration stays fast without skipping quality checks.
+Use validation at key gates so iteration stays fast without skipping quality checks. Validation is an AI-owned evidence loop, not a request for human approval: run, repair, and evaluate the named checks without pausing the authorized run for routine sign-off.
 
 ## Gate policy
-- Validation definition gate (required for non-trivial work): before implementation, name the checks that will prove the slice is done.
+- Validation definition gate (required for non-trivial work): before implementation, record the checks that will prove the slice is done; this is internal execution state, not a user authorization checkpoint.
 - Start gate (required): fetch/check the remote before implementation so the task still matches the latest branch and PR state.
 - For iterative or stateful products, when the repo iterative-testing mode is `auto` or `on`, follow `docs/iterative-testing-workflow.md` and prefer validating against the current running state when feasible instead of inferring behavior from files alone.
 - During implementation: run quick smoke checks only when needed to unblock risky debugging.
@@ -12,10 +12,10 @@ Use validation at key gates so iteration stays fast without skipping quality che
 - Pre-merge gate (conditional): re-run only when code changed after review or CI reported failures.
 - Final remote check (required): compare with latest `main` and overlapping PRs right before merge; update if upstream changes would stale or conflict with the current branch.
 - When the repo iterative-testing mode is `auto` or `on`, and current live terminal state is needed to validate or debug behavior, use `tmux` if available to inspect live output, keep the process attached, and send non-interactive commands into the running session.
-- Fix and rerun failed checks autonomously while the failure remains inside the assigned scope and validation budget. Stop only when repair would require new authorization, credentials, scope expansion, a security/privacy decision, or an unresolved blocker.
+- Fix and rerun failed checks autonomously while the failure remains inside the assigned scope and validation budget. Stop only when repair requires credentials, scope expansion, a security/privacy decision, a repository/platform-protected approval, or an unresolved blocker; report that boundary rather than creating a routine approval request.
 - For changes to `AGENTS.md`, workflow docs, or skills, add a semantic consistency check across all touched policy files: lane names, authority precedence, Codememory outage behavior, delegation ownership, validation gates, and concise-mode fallback must agree.
 
-Validation definition should be compact but explicit. Name only the checks that matter for the slice: docs validation, lint/unit/integration tests, UX smoke path, frontend/backend behavior, sandbox/live-state run, or debug harness/scripts when they materially improve confidence.
+Validation definition should be compact but explicit. Name only the checks that matter for the slice: docs validation, lint/unit/integration tests, UX smoke path, frontend/backend behavior, sandbox/live-state run, or debug harness/scripts when they materially improve confidence. Passing evidence advances the authorized slice; it does not request new human authorization.
 
 ## Read-only and no-change gates
 
@@ -31,7 +31,7 @@ Validation definition should be compact but explicit. Name only the checks that 
 
 ## Review budget
 - Low risk: 1 review/fix pass.
-- Medium risk: 2 review/fix passes.
+- Medium risk: 2 review/fix passes, performed as AI evidence loops unless repository/platform rules require an external approver.
 - High risk: 3-5 review/fix passes.
 - A repeat pass needs changed evidence, a failed check, or newly discovered risk; do not duplicate the same verifier/reviewer pass on an unchanged diff.
 

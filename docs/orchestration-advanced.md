@@ -13,7 +13,7 @@ Primary operating contract is in `AGENTS.md` (adaptive default loop + `wt flow` 
 - The coordinator owns scope, sequencing, and delivery authority. Workers return evidence; they do not silently turn a discovery assignment into implementation.
 - Default packets are read-only and must state the paths or state to inspect, exclusions, acceptance criteria, required checks (if any), and output format.
 - An implementation packet must explicitly grant one worktree/path ownership and name the allowed mutations. It must prohibit push, PR, merge, branch/worktree deletion, coordinator-state changes, and scope expansion unless each is separately authorized.
-- A worker must return changed paths, command/check results, failures, assumptions, unresolved risks, and a concise done/not-done decision. The coordinator decides whether to open the next lane.
+- A worker must return changed paths, command/check results, failures, assumptions, unresolved risks, and a concise done/not-done decision. The coordinator advances automatically to the next lane when acceptance criteria and checks pass, staying within the authorized scope and delivery boundary; never cross into Delivery without its entry signal or create a human approval checkpoint.
 
 Worker lifecycle for implementation/delivery packets:
 1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
@@ -30,7 +30,7 @@ Read-only workers skip branch/task/session creation and remote mutation; they in
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.
 2) Re-check `main` and overlapping PRs/branches right before merge so late upstream changes do not stale out active work.
-3) Merge PRs with required approvals/checks.
+3) Merge PRs only after required repository/platform approvals and checks; routine AI review evidence does not create an additional approval request.
 4) Delete merged worktree/branch.
 5) Sync `main` (`git pull --rebase`) and rebase active worktrees.
 
@@ -42,6 +42,7 @@ If `ox` is not running, the active agent is the coordinator for the currently au
 - Reviewer/verifier usage should defer to the canonical review budget in `AGENTS.md` and `docs/validation-policy.md`.
 - Prefer the lightest reviewer usage that still satisfies that budget.
 - Do not repeat reviewer passes on unchanged diffs.
+- Reviewer/verifier passes are internal evidence loops. The coordinator repairs findings and advances automatically when the authorized acceptance gate passes; they do not create a human sign-off checkpoint.
 - For PR merge operations, run `gh pr checks` + `gh pr view --json ...` first; use reviewer only when checks fail or code changes.
 - Keep concurrency to at most one reviewer and one verifier at a time.
 

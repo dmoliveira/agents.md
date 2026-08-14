@@ -8,7 +8,7 @@ For the full docs map, start with `docs/index.md`.
 
 This runbook extends the canonical adaptive loop from `AGENTS.md` for long-running delivery work.
 
-1. Resume/alignment: start from `main`, sync, fetch/check remote branch and PR state, and check Codememory with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
+1. Resume/alignment: start from `main`, sync, fetch/check remote branch and PR state, and check Codememory with `oc current`, `oc next`, `oc queue`, or `oc resume --scope <repo-scope> --task <task_id>`.
 2. Open or resume one dedicated worktree branch and bind the active Codememory task/session to it.
 3. Classify the slice (`small` / `medium` / `large`) and do only the research needed for safe progress.
 4. Record the active plan slice plus validation definition before coding. Add dependencies/sequence when the work is `medium` or `large`.
@@ -19,7 +19,13 @@ This runbook extends the canonical adaptive loop from `AGENTS.md` for long-runni
 
 ## Fast preflight
 
-Before each cycle, run:
+For the lightweight local gate, run:
+
+```bash
+git diff --check
+```
+
+When the cycle includes remote delivery or wiki publication, also run:
 
 ```bash
 make preflight
@@ -70,4 +76,4 @@ make wiki-probe-dispatch
 
 - Use short progress messages per cycle.
 - Keep each change minimal and reversible.
-- Use `<CONTINUE-LOOP>` when work still remains or the next plan slice is already clear.
+- Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or the cycle is intentionally paused; otherwise continue while the next safe action is clear.

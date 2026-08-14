@@ -21,7 +21,7 @@ This repository centers on a production-style `AGENTS.md` contract so agents can
 - execute in dedicated worktrees,
 - deliver focused commits and PRs,
 - validate before merge,
-- and keep communication systematic with explicit end-of-cycle signals like `<CONTINUE-LOOP>`.
+- and continue autonomously, using `<CONTINUE-LOOP>` only when the runtime needs another turn or work is intentionally paused.
 
 ## Why this exists 🧭
 
@@ -41,7 +41,7 @@ This playbook focuses on practical controls for multi-agent execution:
 1. Read `AGENTS.md`.
    - If resuming a previous session, re-read `AGENTS.md` and the workflow docs you will use so repo changes beat stale session memory.
 2. Sync/check remote state so local context matches the latest branch and PR status.
-3. Check Codememory context with `oc current`, `oc next`, `oc queue`, or `oc resume --task <id>`.
+3. Check Codememory context with `oc current`, `oc next`, `oc queue`, or `oc resume --scope <repo-scope> --task <task_id>`.
 4. List and pick a scoped delivery item with `gh issue list --state open --limit 20`.
 5. Review context with `gh issue view <id>` and confirm it still fits upstream.
 6. Create or attach the work to Codememory, then mark it active in GitHub.
@@ -58,7 +58,7 @@ For full command detail, use:
 - `docs/validation-policy.md`
 - `docs/orchestration-advanced.md`
 - `make help` for operator shortcuts
-- `make preflight` before long execution loops
+- `make preflight` when remote/wiki readiness is needed
 
 ## What is in this repo 📚
 
@@ -110,15 +110,10 @@ git worktree remove ../<branch>
 git pull --rebase
 ```
 
-## Magic continue keyword ✨
+## Continuation signal ✨
 
-When requested scope still has pending tasks, the final line should be:
-
-`<CONTINUE-LOOP>`
-
-Use the same keyword when the next plan slice is already clear and execution should continue without an early handoff.
-Do not present remaining in-scope work as generic "next steps" when the agent can keep going; use `<CONTINUE-LOOP>` instead.
-Do not bounce small choices like naming, wording, file placement, or ordering back to the user when a repo-consistent default is obvious; make the call and continue, and ask only when ambiguity is material or a secret is required.
+Continue autonomously while the next safe action is clear. Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or work is intentionally paused; do not use it as a routine handoff or approval prompt.
+Do not bounce small choices like naming, wording, file placement, or ordering back to the user when a repo-consistent default is obvious; make the call and continue. Stop with `BLOCKER:`, `EVIDENCE:`, and `NEXT:` only for material ambiguity, secrets, security/privacy, scope, or an unresolved check.
 For visible progress notes, command summaries, and local test reporting, use one local timestamp prefix per related block collected from the shell at runtime (for example by running `date +"%Y-%m-%d %H:%M"` first and then prefixing the block with the resulting value in the format `[YYYY-MM-DD HH:MM]`) so execution history is easier to trace without adding noise to every line. Do not print the literal `$(date ...)` form in the response.
 
 ## External tools used 🔧

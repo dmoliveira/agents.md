@@ -17,7 +17,7 @@ REQUIRED_SNIPPET = [
     "- Use dedicated worktrees per task.",
     "- Check remote state before coding and again before merge.",
     "- Keep commits small and focused.",
-    "- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.",
+    "- Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or the cycle is intentionally paused; otherwise continue while the next safe action is clear.",
 ]
 
 REQUIRED_MIRROR = [
@@ -30,8 +30,12 @@ REQUIRED_MIRROR = [
     "- Use dedicated worktrees per task.",
     "- Check remote state before coding and again before merge.",
     "- Keep commits small and focused.",
-    "- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.",
+    "- Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or the cycle is intentionally paused; otherwise continue while the next safe action is clear.",
 ]
+
+LEGACY_CONTINUATION = (
+    "<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear."
+)
 
 
 def missing(content: str, required: list[str]) -> list[str]:
@@ -48,8 +52,13 @@ def main() -> int:
 
     snippet_missing = missing(snippet, REQUIRED_SNIPPET)
     mirror_missing = missing(mirror, REQUIRED_MIRROR)
+    legacy_found = [
+        path
+        for path, content in (("snippet", snippet), ("mirror", mirror))
+        if LEGACY_CONTINUATION in content
+    ]
 
-    if not snippet_missing and not mirror_missing:
+    if not snippet_missing and not mirror_missing and not legacy_found:
         print("wiki-sync-check: ok")
         return 0
 
@@ -62,6 +71,11 @@ def main() -> int:
         print("wiki-sync-check: missing mirror entries:")
         for item in mirror_missing:
             print(f"  - {item}")
+
+    if legacy_found:
+        print("wiki-sync-check: legacy continuation wording found in:")
+        for path in legacy_found:
+            print(f"  - {path}")
 
     return 1
 

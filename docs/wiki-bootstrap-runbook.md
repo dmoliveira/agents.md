@@ -32,4 +32,4 @@ If clone succeeds, the wiki git remote is provisioned and automation can continu
 - Use `make wiki-sync-dry-run` before first push and `make wiki-sync-apply` when ready.
 - If provisioning remains blocked, publish via fallback repo: `https://github.com/dmoliveira/agents-md-wiki-fallback`.
 - Use small commits with clear PR notes.
-- End ongoing delivery loops with `<CONTINUE-LOOP>` when tasks still remain or the next execution slice is already clear.
+- Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or the delivery loop is intentionally paused; otherwise continue while the next safe action is clear.

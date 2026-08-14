@@ -38,7 +38,8 @@ Before each publish cycle:
 
 ```bash
 make preflight
-make wiki-sync-check
 ```
+
+`make preflight` already runs `make wiki-sync-check`.
 
 If wiki is still not provisioned, proceed with the in-repo mirror path.

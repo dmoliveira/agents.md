@@ -16,6 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate Python helpers
+        run: python -m py_compile scripts/*.py
+
+      - name: Validate wiki mirror
+        run: python scripts/wiki_sync_check.py
+
       - name: Check markdown links
         uses: lycheeverse/lychee-action@v2
         with:

@@ -12,8 +12,15 @@ Use validation at key gates so iteration stays fast without skipping quality che
 - Pre-merge gate (conditional): re-run only when code changed after review or CI reported failures.
 - Final remote check (required): compare with latest `main` and overlapping PRs right before merge; update if upstream changes would stale or conflict with the current branch.
 - When the repo iterative-testing mode is `auto` or `on`, and current live terminal state is needed to validate or debug behavior, use `tmux` if available to inspect live output, keep the process attached, and send non-interactive commands into the running session.
+- Fix and rerun failed checks autonomously while the failure remains inside the assigned scope and validation budget. Stop only when repair would require new authorization, credentials, scope expansion, a security/privacy decision, or an unresolved blocker.
+- For changes to `AGENTS.md`, workflow docs, or skills, add a semantic consistency check across all touched policy files: lane names, authority precedence, Codememory outage behavior, delegation ownership, validation gates, and concise-mode fallback must agree.
 
 Validation definition should be compact but explicit. Name only the checks that matter for the slice: docs validation, lint/unit/integration tests, UX smoke path, frontend/backend behavior, sandbox/live-state run, or debug harness/scripts when they materially improve confidence.
+
+## Read-only and no-change gates
+
+- Read-only/no-diff work needs no implementation test command. Report the searched paths or queries, the evidence gathered, and the resulting decision.
+- If an implementation produces no diff, verify that the requested outcome already exists and cite the evidence. Otherwise treat no-change as unmet acceptance, not as a successful empty commit or PR.
 
 ## Risk matrix
 - Docs-only: run `git diff --check`; skip heavier checks unless behavior changed.

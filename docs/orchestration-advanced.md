@@ -5,17 +5,27 @@ Use this guide when work is multi-module, high-risk, dependency-heavy, or runnin
 Primary operating contract is in `AGENTS.md` (adaptive default loop + `wt flow` extension); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
 
 ## Parallel execution (AI runs)
-- Use one AI run per epic/task, each with its own worktree branch, Codememory task/session context, and a tracked GitHub issue when delivery tracking is needed.
-- Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
+- Use one AI run per implementation/delivery epic or task, each with its own worktree branch, Codememory task/session context, and a tracked GitHub issue when delivery tracking is needed. Read-only discovery is a lightweight exception: it may inspect local state without creating a branch, task, session, or remote record.
+- Use a task packet with: lane, objective, owned worktree/path scope, allowed mutations, prohibited delivery actions, acceptance criteria, required checks, stop conditions, constraints, and done definition.
 
-Worker lifecycle:
+### Delegation packet defaults
+
+- The coordinator owns scope, sequencing, and delivery authority. Workers return evidence; they do not silently turn a discovery assignment into implementation.
+- Default packets are read-only and must state the paths or state to inspect, exclusions, acceptance criteria, required checks (if any), and output format.
+- An implementation packet must explicitly grant one worktree/path ownership and name the allowed mutations. It must prohibit push, PR, merge, branch/worktree deletion, coordinator-state changes, and scope expansion unless each is separately authorized.
+- A worker must return changed paths, command/check results, failures, assumptions, unresolved risks, and a concise done/not-done decision. The coordinator decides whether to open the next lane.
+
+Worker lifecycle for implementation/delivery packets:
 1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
 2) Recover or create Codememory task/session state for the assigned slice.
 3) Classify execution depth/risk, do targeted research, and capture the plan + validation definition before coding.
 4) If sequencing matters, preserve dependencies/parallelism in Codememory so the execution graph survives handoff or resume.
 5) Implement in its worktree with fast local iteration.
-6) Run required checks at the pre-PR gate, update Codememory outcome state, and create one focused commit for the validated slice.
-7) Open PR, post PR URL on the related issue, then stop.
+6) Run required checks at the pre-delivery gate, update Codememory outcome state, and create one focused commit for the validated slice.
+7) For an implementation packet, return after the validated local commit; do not push or open a PR.
+8) For a delivery packet with explicit delivery authority, open the PR, post its URL on the related issue, then stop.
+
+Read-only workers skip branch/task/session creation and remote mutation; they inspect only the assigned scope and return their evidence to the coordinator.
 
 Coordinator loop (when `ox` is running):
 1) Check open PRs and run review/fix until criteria pass.
@@ -24,7 +34,7 @@ Coordinator loop (when `ox` is running):
 4) Delete merged worktree/branch.
 5) Sync `main` (`git pull --rebase`) and rebase active worktrees.
 
-If `ox` is not running, the active agent is the coordinator and should run this loop end-to-end.
+If `ox` is not running, the active agent is the coordinator for the currently authorized lane. It must not infer delivery authority from its role or tool availability; run merge, cleanup, and `main` synchronization only for an explicit Delivery/e2e request.
 
 ## Build-mode efficiency
 - Prefer direct implementation and verification before reviewer subagents.

@@ -20,22 +20,39 @@ Codememory is the internal execution tracker and handoff memory.
 - use GitHub Issues/PRs for delivery visibility; do not use them as the only AI handoff medium
 - prefer a repo-local `.codememory/config.yaml` that sets `defaults.scope_key` to the repo slug; until that exists, pass `--scope <repo-scope>` explicitly on Codememory reads and writes
 
+## Execution lanes
+
+`AGENTS.md` is the canonical authority matrix. Read-only discovery may inspect local state and report findings without creating a worktree, task, session, or remote mutation. Implementation and delivery require the full tracking flow below. A delegated worker is read-only unless its packet explicitly grants an implementation worktree and bounded mutation scope.
+
 ## Required startup flow
 
 Before meaningful work begins:
 
 1. Read `AGENTS.md`.
-2. Check remote and GitHub state.
-3. Check Codememory state for the repo:
+2. For implementation or delivery, check remote and GitHub state. For read-only discovery, skip remote mutation and inspect only the local state needed for the request.
+3. For implementation or delivery, check Codememory state for the repo:
    - `oc current`
    - `oc next --scope <repo-scope> --limit 5`
    - `oc queue --scope <repo-scope> --limit 10`
 4. If resuming a known task, run:
    - `oc resume --scope <repo-scope> --task <task_id>`
 5. If the request creates new work, create or attach a Codememory `task` before implementation; for a broader initiative, create an `epic` and link the task to it.
-6. For non-trivial work, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts.
+6. For non-trivial implementation or delivery, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts.
 
 If `oc current` or `oc resume` shows a valid active session bound to the current worktree, continue that flow instead of opening a parallel duplicate.
+
+### Transient Codememory outage
+
+When an `oc` command fails because the configured backend is unavailable or unhealthy:
+
+1. Run one bounded `oc config --doctor` diagnosis and preserve the exact command and error.
+2. Do not repeatedly retry, reset a database, rewrite configuration, switch backends, or delete state automatically.
+3. Read-only discovery may continue and report its evidence.
+4. New implementation or delivery stops unless the user explicitly overrides the tracking requirement. If overridden, keep the dedicated worktree and validation gates, label the run as tracking-incomplete, and never claim durable Codememory state.
+
+If the outage appears after implementation has already started, freeze the current diff, collect only read-only diagnostics or validation evidence, and do not make further edits, commits, pushes, or delivery changes until tracking is restored or the user explicitly overrides the requirement.
+
+This transient-outage path is distinct from the intentional temporary disable path below.
 
 ## Required intake flow
 

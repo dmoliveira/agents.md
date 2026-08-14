@@ -20,22 +20,42 @@ Codememory is the internal execution tracker and handoff memory.
 - use GitHub Issues/PRs for delivery visibility; do not use them as the only AI handoff medium
 - prefer a repo-local `.codememory/config.yaml` that sets `defaults.scope_key` to the repo slug; until that exists, pass `--scope <repo-scope>` explicitly on Codememory reads and writes
 
+## Execution lanes
+
+`AGENTS.md` owns lanes and authority. This page owns Codememory commands, tracking, recovery, and closeout; read-only work and the documented outage fallback are exceptions to tracked startup. Delegated workers are read-only unless their packet grants bounded implementation scope.
+
 ## Required startup flow
 
 Before meaningful work begins:
 
 1. Read `AGENTS.md`.
-2. Check remote and GitHub state.
-3. Check Codememory state for the repo:
+2. For implementation or delivery, check remote and GitHub state. For read-only discovery, skip remote mutation and inspect only the local state needed for the request.
+3. For implementation or delivery, check Codememory state for the repo:
    - `oc current`
    - `oc next --scope <repo-scope> --limit 5`
    - `oc queue --scope <repo-scope> --limit 10`
 4. If resuming a known task, run:
    - `oc resume --scope <repo-scope> --task <task_id>`
 5. If the request creates new work, create or attach a Codememory `task` before implementation; for a broader initiative, create an `epic` and link the task to it.
-6. For non-trivial work, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts.
+6. For non-trivial implementation or delivery, capture the execution depth, plan slice, and validation definition before coding.
 
 If `oc current` or `oc resume` shows a valid active session bound to the current worktree, continue that flow instead of opening a parallel duplicate.
+
+### Transient Codememory outage
+
+When an `oc` command fails because the configured backend is unavailable or unhealthy:
+
+1. Run one bounded `oc config --doctor` diagnosis and preserve the exact command and error.
+2. Do not repeatedly retry, reset a database, rewrite configuration, switch backends, or delete state automatically.
+3. Read-only discovery may continue and report its evidence.
+4. For **small/medium-depth, low/medium-risk** implementation, continue the bounded local slice in its dedicated worktree, run its validation, and optionally create the focused local commit. Mark the run `tracking-incomplete`; do not push, open/update a PR, merge, delete state, or claim durable Codememory state.
+5. For **large-depth or high-risk** work, stop with `BLOCKER:`, `EVIDENCE:`, and `NEXT:` before new mutations.
+
+If the outage appears after implementation has already started, only a **small/medium-depth, low/medium-risk** slice may finish its existing bounded work and validation; do not broaden scope or start a new slice. Large-depth or high-risk work freezes before further mutation and reports `BLOCKER:`, `EVIDENCE:`, and `NEXT:`. A focused local commit is allowed after eligible work validates, but no push, PR, merge, cleanup, or other remote mutation is allowed until tracking is restored.
+
+Before any later push, PR, or merge, restore the backend and reconcile the task, session, changed files, local commit, and outcome in Codememory. Delivery remains subject to repository/platform-required checks and protections.
+
+This transient-outage path is distinct from the intentional temporary disable path below.
 
 ## Required intake flow
 
@@ -66,17 +86,17 @@ Use single commands first.
 ## Worktree flow
 
 1. Create or resume the Git worktree branch.
-2. Start a session with `oc add session "<title>" --worktree . --task <task_id> ...`, or resume the matching session, bound to that worktree path.
-3. Ensure the session is attached to the active task and, when applicable, that task is linked to its parent epic.
+2. When Codememory is available, start a session with `oc add session "<title>" --worktree . --task <task_id> ...`, or resume the matching session, bound to that worktree path. During the bounded outage fallback, keep the dedicated worktree and mark tracking as incomplete instead.
+3. When tracked, ensure the session is attached to the active task and, when applicable, that task is linked to its parent epic.
 4. Capture the durable execution brief before coding when the slice is meaningful:
    - current objective
    - chosen approach or options under consideration
    - dependencies/sequence if the work is `medium` or `large`
    - validation definition for the slice
 5. Implement in that worktree.
-6. Record durable execution state in Codememory when decisions, blockers, assumptions, sequencing, or parent-epic progress change materially.
+6. Record durable execution state in Codememory when available and when decisions, blockers, assumptions, sequencing, or parent-epic progress change materially. In fallback mode, preserve the same evidence in the run report and reconcile it before remote delivery.
 7. Validate.
-8. Close the session and task state when the slice outcome is known.
+8. When tracked, close the session and task state when the slice outcome is known; in fallback mode, report the untracked outcome and reconcile before remote delivery.
 
 ## Recommended capture shape by execution phase
 
@@ -91,7 +111,7 @@ Use single commands first.
 - Record only the durable outcome: scope reduced, approach changed, dependency uncovered, or rollback/containment requirement added.
 
 ### Validation definition
-- Name the exact checks that prove the slice is done: docs checks, lint/tests, UX smoke path, frontend/backend flow, sandbox/live-state run, or debug harness/scripts when applicable.
+- Record the slice checks; use `docs/validation-policy.md` for the gate and review budget.
 
 ### Execution/review loop
 - Update Codememory when the plan changes, a blocker appears, or a completed slice changes the next best action.
@@ -118,8 +138,8 @@ Before ending a meaningful task slice:
 1. update Codememory task state with the latest validated outcome; update its parent epic when the slice changes initiative progress
 2. record any durable learnings, blockers, dependencies, or next-slice context
 3. close the Codememory session with the correct outcome when the session is actually ending
-4. update GitHub issue/PR state as needed
-5. continue the next slice or merge according to the normal repo workflow
+4. update GitHub issue/PR state when the Delivery lane is authorized
+5. continue the next slice automatically within the authorized scope, or merge only through the Delivery/e2e workflow
 
 Typical commands:
 

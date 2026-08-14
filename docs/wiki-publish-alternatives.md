@@ -13,7 +13,7 @@ Use this guide when GitHub Wiki git remote provisioning is blocked and you still
 
 - Treat `docs/wiki-home-mirror.md` as the live source while `.wiki.git` is unavailable.
 - Link stakeholders to the mirror file from PR descriptions and release notes.
-- Keep updates small and validated via `make preflight`.
+- Keep updates small and validated via `make wiki-sync-check`.
 
 ## Alternative path C: Dedicated fallback repository mirror
 
@@ -38,7 +38,8 @@ Before each publish cycle:
 
 ```bash
 make preflight
-make wiki-sync-check
 ```
+
+`make preflight` already runs `make wiki-sync-check`.
 
 If wiki is still not provisioned, proceed with the in-repo mirror path.

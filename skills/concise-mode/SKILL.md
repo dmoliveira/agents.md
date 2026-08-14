@@ -5,11 +5,11 @@ description: >
   while keeping technical accuracy. Supports off, lite, full, and ultra intensity levels.
 ---
 
-Use this module when the user or runtime explicitly wants lower-token answers without losing technical substance. If the runtime exposes `/gateway concise status` or equivalent mode status, treat that as the canonical signal.
+Use this module when the user or runtime explicitly wants lower-token answers without losing technical substance. If the runtime exposes `/gateway concise status` or equivalent mode status, treat that as the canonical signal. Otherwise use the precedence and repo default defined in `AGENTS.md` and `docs/concise-communication-workflow.md`.
 
 ## Persistence
 
-Active only when the user or runtime enables it. Missing or unknown mode means `off`. Some runtimes persist the chosen mode at repo scope until it changes or is turned off explicitly.
+Active when the user or runtime enables it, or when the repo default applies. Precedence is explicit user request, then a valid runtime/plugin mode, then the repo default in `AGENTS.md`; missing or unknown mode falls back to that repo default, while explicit `off` remains authoritative. Some runtimes persist the chosen mode at repo scope until it changes or is turned off explicitly.
 
 ## Rules
 

@@ -4,58 +4,28 @@ Use this guide when work is multi-module, high-risk, dependency-heavy, or runnin
 
 Primary operating contract is in `AGENTS.md` (adaptive default loop + `wt flow` extension); use this page only when advanced controls are needed. For base GitHub CLI and validation defaults, see `docs/github-cli.md` and `docs/validation-policy.md`.
 
-## Parallel execution (AI runs)
-- Use one AI run per epic/task, each with its own worktree branch, Codememory task/session context, and a tracked GitHub issue when delivery tracking is needed.
-- Use a task packet with: epic/task ids, scope, acceptance criteria, required checks, constraints, and done definition.
+## Task packets
+- Use one AI run per implementation/delivery task. Read-only discovery may inspect local state without a branch, task, session, or remote mutation.
+- Every packet names the lane, objective, owned paths/worktree, allowed mutations, prohibited delivery actions, acceptance criteria, checks, stop conditions, and output format.
+- Default workers to read-only. Read-only workers cannot edit, commit, push, merge, delete branches/worktrees, or mutate Codememory/GitHub state. A packet that grants mutation must explicitly reclassify the worker as Implementation or Delivery and apply that lane's boundaries.
+- Workers return changed paths, command/check results, failures, assumptions, risks, and a done/not-done decision.
 
-Worker lifecycle:
-1) Check remote branch/PR state before implementation so the assigned slice still matches upstream and overlapping AI work.
-2) Recover or create Codememory task/session state for the assigned slice.
-3) Classify execution depth/risk, do targeted research, and capture the plan + validation definition before coding.
-4) If sequencing matters, preserve dependencies/parallelism in Codememory so the execution graph survives handoff or resume.
-5) Implement in its worktree with fast local iteration.
-6) Run required checks at the pre-PR gate, update Codememory outcome state, and create one focused commit for the validated slice.
-7) Open PR, post PR URL on the related issue, then stop.
+## Worker and coordinator flow
+- Read-only worker: inspect the assigned scope and return evidence.
+- Implementation worker: use the assigned worktree, run the validation policy, and stop after a focused local commit; do not open a PR.
+- Delivery worker: only with the Delivery/e2e entry signal; reconcile tracking, run PR checks, open/update the PR, and stop before merge unless the flow authorizes it.
+- The coordinator advances automatically when acceptance and checks pass, but never crosses into Delivery without its entry signal.
+- For Delivery/e2e only: check PR status/checks and overlaps, recheck `origin/main`, merge only with repository/platform protections satisfied, then clean up and sync.
+- Follow `docs/codememory-workflow.md` for tracking/recovery and `docs/validation-policy.md` for checks/review budgets.
 
-Coordinator loop (when `ox` is running):
-1) Check open PRs and run review/fix until criteria pass.
-2) Re-check `main` and overlapping PRs/branches right before merge so late upstream changes do not stale out active work.
-3) Merge PRs with required approvals/checks.
-4) Delete merged worktree/branch.
-5) Sync `main` (`git pull --rebase`) and rebase active worktrees.
+## Efficient orchestration
+- Implement directly before delegating; delegate only independent discovery, hard tradeoffs, validation, or final-risk review.
+- Keep at most one reviewer and one verifier active; do not repeat a pass on an unchanged diff.
+- When pressure rises, finish the active slice, checkpoint a compact handoff, and avoid opening continuation/review work unless a blocker requires it.
 
-If `ox` is not running, the active agent is the coordinator and should run this loop end-to-end.
-
-## Build-mode efficiency
-- Prefer direct implementation and verification before reviewer subagents.
-- If repeated shell retries are only blocked by UI-owned state, switch to the browser workflow in `docs/agent-browser.md` instead of adding more shell churn.
-- Reviewer/verifier usage should defer to the canonical review budget in `AGENTS.md` and `docs/validation-policy.md`.
-- Prefer the lightest reviewer usage that still satisfies that budget.
-- Do not repeat reviewer passes on unchanged diffs.
-- For PR merge operations, run `gh pr checks` + `gh pr view --json ...` first; use reviewer only when checks fail or code changes.
-- Keep concurrency to at most one reviewer and one verifier at a time.
-
-## Sequencing and DAG guidance
-- Use Codememory-backed sequencing only when dependencies, parallel branches of work, or likely handoffs would otherwise get lost.
-- Prefer a compact execution graph: objective, child slices, dependency edges, required checks, and current next slice.
-- Do not build a formal DAG for tiny work that can be carried safely in one short plan.
-
-## Validation matrix
-- Follow `docs/validation-policy.md` for the base gate policy and task-type defaults.
-- Add reviewer/verifier passes when scope or risk exceeds the base policy.
-- For important or behavior-heavy changes, prefer one sandboxed end-to-end validation pass over multiple weaker speculative checks.
-
-## Memory-aware orchestration
-- If `continue_process_count >= 3`, avoid new reviewer/verifier runs unless a blocker requires it.
-- Keep reviewer usage minimal under pressure: one reviewer pass per changed diff.
-- Prefer finishing active WT cards over opening new long-running continuation sessions.
-- Time-box long sessions (90-120 minutes), checkpoint, then compact or restart with a short handoff.
-- When context usage reaches about 55%, run `/compression` and continue with a compact handoff.
-
-Pressure mode defaults:
-- `low` (`continue_process_count < 3`): normal flow; up to one reviewer and one verifier concurrently.
-- `medium` (`continue_process_count` in `3..4`): one active subagent total; skip non-essential reviewer/verifier passes unless checks fail.
-- `high` (`continue_process_count >= 5`): no new reviewer/verifier runs unless blocker/severity issue exists.
+## Sequencing
+- Use Codememory-backed sequencing when dependencies, parallel branches, or handoffs would otherwise be lost.
+- Keep the graph compact: objective, child slices, dependencies, checks, and next slice. Skip formal DAGs for tiny work.
 
 ## Optional runner commands
 ```bash

@@ -15,4 +15,4 @@ Key behavior:
 - Use dedicated worktrees per task.
 - Check remote state before coding and again before merge.
 - Keep commits small and focused.
-- End cycles with `<CONTINUE-LOOP>` when tasks remain or the next execution slice is already clear.
+- Emit `<CONTINUE-LOOP>` only when the runtime needs a new turn or the cycle is intentionally paused; otherwise continue while the next safe action is clear.

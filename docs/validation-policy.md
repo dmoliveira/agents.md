@@ -1,9 +1,9 @@
 # Validation Policy
 
-Use validation at key gates so iteration stays fast without skipping quality checks. Validation is an AI-owned evidence loop, not a request for human approval: run, repair, and evaluate the named checks without pausing the authorized run for routine sign-off.
+Use validation at key gates without adding routine approval pauses. Authority and autonomy rules live in `AGENTS.md`; this page owns checks, risk, review budget, and exit criteria.
 
 ## Gate policy
-- Validation definition gate (required for non-trivial work): before implementation, record the checks that will prove the slice is done; this is internal execution state, not a user authorization checkpoint.
+- Validation definition gate (required for non-trivial work): record the checks that prove the slice is done.
 - Start gate (required): fetch/check the remote before implementation so the task still matches the latest branch and PR state.
 - For iterative or stateful products, when the repo iterative-testing mode is `auto` or `on`, follow `docs/iterative-testing-workflow.md` and prefer validating against the current running state when feasible instead of inferring behavior from files alone.
 - During implementation: run quick smoke checks only when needed to unblock risky debugging.
@@ -12,10 +12,10 @@ Use validation at key gates so iteration stays fast without skipping quality che
 - Pre-merge gate (conditional): re-run only when code changed after review or CI reported failures.
 - Final remote check (required): compare with latest `main` and overlapping PRs right before merge; update if upstream changes would stale or conflict with the current branch.
 - When the repo iterative-testing mode is `auto` or `on`, and current live terminal state is needed to validate or debug behavior, use `tmux` if available to inspect live output, keep the process attached, and send non-interactive commands into the running session.
-- Fix and rerun failed checks autonomously while the failure remains inside the assigned scope and validation budget. Stop only when repair requires credentials, scope expansion, a security/privacy decision, a repository/platform-protected approval, or an unresolved blocker; report that boundary rather than creating a routine approval request.
+- Fix and rerun failed checks inside the assigned scope and budget. Stop only for credentials, scope expansion, security/privacy, repository/platform protection, or an unresolved blocker; report the boundary.
 - For changes to `AGENTS.md`, workflow docs, or skills, add a semantic consistency check across all touched policy files: lane names, authority precedence, Codememory outage behavior, delegation ownership, validation gates, and concise-mode fallback must agree.
 
-Validation definition should be compact but explicit. Name only the checks that matter for the slice: docs validation, lint/unit/integration tests, UX smoke path, frontend/backend behavior, sandbox/live-state run, or debug harness/scripts when they materially improve confidence. Passing evidence advances the authorized slice; it does not request new human authorization.
+Keep validation definitions compact: name only checks that materially prove the slice—docs, lint/tests, UX smoke, real flow, sandbox/live-state run, or a focused harness. Passing evidence advances the authorized slice.
 
 ## Read-only and no-change gates
 
@@ -34,6 +34,7 @@ Validation definition should be compact but explicit. Name only the checks that 
 - Medium risk: 2 review/fix passes, performed as AI evidence loops unless repository/platform rules require an external approver.
 - High risk: 3-5 review/fix passes.
 - A repeat pass needs changed evidence, a failed check, or newly discovered risk; do not duplicate the same verifier/reviewer pass on an unchanged diff.
+- The count is a ceiling, not a reason to add passes; stop when checks are green and the latest changed-diff review has no blocker.
 
 ## Fast path
 - Use for docs-only or low-blast-radius changes.
@@ -43,11 +44,18 @@ Validation definition should be compact but explicit. Name only the checks that 
 ## Optional module toggle
 - Treat iterative/live-state testing as an optional repo module with modes `off`, `auto`, and `on`. See `AGENTS.md` for precedence and `docs/iterative-testing-workflow.md` for operational detail.
 
-## Typical docs validation
+## Default local docs validation
 ```bash
 git diff --check
-make wiki-sync-check
-make preflight
+```
+
+## Conditional repository readiness
+
+Run these only when the slice affects the wiki mirror or remote delivery:
+
+```bash
+make wiki-sync-check  # mirror-controlled docs
+make preflight        # authenticated GitHub/workflow/wiki readiness
 ```
 
 ## Typical Python validation

@@ -22,7 +22,7 @@ Codememory is the internal execution tracker and handoff memory.
 
 ## Execution lanes
 
-`AGENTS.md` is the canonical authority matrix. Read-only discovery may inspect local state and report findings without creating a worktree, task, session, or remote mutation. Implementation and delivery use the full tracking flow below when the backend is available; the bounded outage exception keeps eligible local work moving without a human approval checkpoint. A delegated worker is read-only unless its packet explicitly grants an implementation worktree and bounded mutation scope.
+`AGENTS.md` owns lanes and authority. This page owns Codememory commands, tracking, recovery, and closeout; read-only work and the documented outage fallback are exceptions to tracked startup. Delegated workers are read-only unless their packet grants bounded implementation scope.
 
 ## Required startup flow
 
@@ -37,7 +37,7 @@ Before meaningful work begins:
 4. If resuming a known task, run:
    - `oc resume --scope <repo-scope> --task <task_id>`
 5. If the request creates new work, create or attach a Codememory `task` before implementation; for a broader initiative, create an `epic` and link the task to it.
-6. For non-trivial implementation or delivery, capture or confirm the current execution depth (`small` / `medium` / `large`), the active plan slice, and the validation definition before coding starts. This is internal execution state, not a user validation or authorization checkpoint.
+6. For non-trivial implementation or delivery, capture the execution depth, plan slice, and validation definition before coding.
 
 If `oc current` or `oc resume` shows a valid active session bound to the current worktree, continue that flow instead of opening a parallel duplicate.
 
@@ -49,9 +49,9 @@ When an `oc` command fails because the configured backend is unavailable or unhe
 2. Do not repeatedly retry, reset a database, rewrite configuration, switch backends, or delete state automatically.
 3. Read-only discovery may continue and report its evidence.
 4. For **small/medium-depth, low/medium-risk** implementation, continue the bounded local slice in its dedicated worktree, run its validation, and optionally create the focused local commit. Mark the run `tracking-incomplete`; do not push, open/update a PR, merge, delete state, or claim durable Codememory state.
-5. For **large-depth or high-risk** work, stop with `BLOCKER:`, `EVIDENCE:`, and `NEXT:` before new mutations. Do not create an approval checkpoint or wait for a routine override.
+5. For **large-depth or high-risk** work, stop with `BLOCKER:`, `EVIDENCE:`, and `NEXT:` before new mutations.
 
-If the outage appears after implementation has already started, finish only the existing bounded slice and its read-only validation; do not broaden scope or start a new slice. A focused local commit is allowed after validation, but no push, PR, merge, cleanup, or other remote mutation is allowed until tracking is restored.
+If the outage appears after implementation has already started, only a **small/medium-depth, low/medium-risk** slice may finish its existing bounded work and validation; do not broaden scope or start a new slice. Large-depth or high-risk work freezes before further mutation and reports `BLOCKER:`, `EVIDENCE:`, and `NEXT:`. A focused local commit is allowed after eligible work validates, but no push, PR, merge, cleanup, or other remote mutation is allowed until tracking is restored.
 
 Before any later push, PR, or merge, restore the backend and reconcile the task, session, changed files, local commit, and outcome in Codememory. Delivery remains subject to repository/platform-required checks and protections.
 
@@ -92,7 +92,7 @@ Use single commands first.
    - current objective
    - chosen approach or options under consideration
    - dependencies/sequence if the work is `medium` or `large`
-   - validation definition for the slice (AI-owned execution evidence)
+   - validation definition for the slice
 5. Implement in that worktree.
 6. Record durable execution state in Codememory when available and when decisions, blockers, assumptions, sequencing, or parent-epic progress change materially. In fallback mode, preserve the same evidence in the run report and reconcile it before remote delivery.
 7. Validate.
@@ -111,7 +111,7 @@ Use single commands first.
 - Record only the durable outcome: scope reduced, approach changed, dependency uncovered, or rollback/containment requirement added.
 
 ### Validation definition
-- Name the exact checks that prove the slice is done: docs checks, lint/tests, UX smoke path, frontend/backend flow, sandbox/live-state run, or debug harness/scripts when applicable. Run and evaluate them autonomously; passing checks advance the authorized slice without pausing for human input.
+- Record the slice checks; use `docs/validation-policy.md` for the gate and review budget.
 
 ### Execution/review loop
 - Update Codememory when the plan changes, a blocker appears, or a completed slice changes the next best action.

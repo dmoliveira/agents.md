@@ -44,7 +44,7 @@ This playbook focuses on practical controls for multi-agent execution:
 3. Check Codememory context with `oc current`, `oc next`, `oc queue`, or `oc resume --scope <repo-scope> --task <task_id>`.
 4. List and pick a scoped delivery item with `gh issue list --state open --limit 20`.
 5. Review context with `gh issue view <id>` and confirm it still fits upstream.
-6. Create or attach the work to Codememory, then mark it active in GitHub.
+6. For delivery work, link the task to the relevant GitHub issue/PR; read-only work skips tracking.
 7. Execute delivery work in a dedicated worktree branch (never directly on `main`).
 
 For full command detail, use:
@@ -78,7 +78,7 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 
 ## Workflow highlights (adaptive loop + wt flow e2e) 🔁
 
-- Default execution loop: resume, classify, research, plan, plan review, define validation, execute, review/fix, commit the validated slice, update Codememory, then continue or close.
+- Default execution loop: resume, classify, research, plan (review medium/large work), define validation, execute, review/fix, commit the validated slice, update Codememory, then continue or close.
 - In this repo, asking an agent to do work "end-to-end"/"e2e" means: run that default loop inside `wt flow`, then continue through PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
 - create a dedicated worktree and branch for each feature/bug/task,
 - recover or create task/session state in Codememory before coding,

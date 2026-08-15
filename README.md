@@ -79,7 +79,8 @@ For automated fallback sync in CI, configure `FALLBACK_REPO_TOKEN` and run `make
 ## Workflow highlights (adaptive loop + wt flow e2e) 🔁
 
 - Default execution loop: resume, classify, research, plan (review medium/large work), define validation, execute, review/fix, commit the validated slice, update Codememory, then continue or close.
-- In this repo, asking an agent to do work "end-to-end"/"e2e" means: run that default loop inside `wt flow`, then continue through PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
+- Clear implementation, fix, and improvement requests run this complete delivery loop by default. Use `local-only`, `no-push`, or `no-PR` when the work must stop after local validation and commit.
+- Asking an agent to do work "end-to-end"/"e2e" is equivalent to the default: run the loop inside `wt flow`, then continue through PR, risk-based review/fix/improve, merge, worktree cleanup, and local `main` sync unless the request explicitly narrows the stop point.
 - create a dedicated worktree and branch for each feature/bug/task,
 - recover or create task/session state in Codememory before coding,
 - check remote branch and PR state before implementing so overlapping AI work is caught early,

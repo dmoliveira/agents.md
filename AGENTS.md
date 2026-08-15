@@ -18,12 +18,12 @@ Classify the request before the first mutation. Start in the narrowest lane that
 | Lane | May do | Must not do | Entry |
 | --- | --- | --- | --- |
 | **Read-only** | Inspect files, local state, SQLite, logs, branches, and remote metadata; analyze or review; delegate bounded discovery | Edit files, create worktrees/tasks/sessions, commit, push, open/merge PRs, or delete state | Default for research, audits, and review |
-| **Implementation** | Edit the assigned worktree, run checks, fix findings, and create a focused validated local commit | Push, open/update PRs, merge, or delete branches/worktrees unless delivery is explicitly authorized | A clear implementation request plus the required task/session setup |
-| **Delivery** | Push, open/update PRs, run review/fix, merge, clean up, and sync according to the requested flow | Exceed the requested repository/scope or bypass platform-required checks, reviews, or protections | An explicit delivery request or `e2e`/`end-to-end` authorization |
+| **Implementation** | Edit the assigned worktree, run checks, fix findings, and create a focused validated local commit | Push, open/update PRs, merge, or delete branches/worktrees | An explicit `local-only`, `no-push`, or `no-PR` request plus the required task/session setup |
+| **Delivery** | Push, open/update PRs, run review/fix, merge, clean up, and sync according to the requested flow | Exceed the requested repository/scope or bypass platform-required checks, reviews, or protections | A clear implementation/fix/improvement request by default, or explicit `e2e`/`end-to-end` authorization |
 
 - Routine inspection, bounded delegation, implementation edits in the assigned worktree, validation, repair, and checkpoint commits never create a human approval checkpoint. Continue autonomously while the next action is clear.
-- Stop only when ambiguity could materially change the result, a secret or browser-owned authorization is required, a security/privacy or irreversible-data risk appears, the request expands scope, a required check cannot be repaired safely within scope/budget, or delivery authority is absent. Report the blocker instead of requesting approval. A failed check is a repair signal first, not an approval boundary.
-- `e2e`/`end-to-end` authorizes the delivery actions listed in the Delivery lane and `wt flow`; still report destructive actions, honor required platform checks/reviews, and abort on scope, authorization, or validation drift.
+- Stop only when ambiguity could materially change the result, a secret or browser-owned authorization is required, a security/privacy or irreversible-data risk appears, the request expands scope, or a required check cannot be repaired safely within scope/budget. Report the blocker instead of requesting approval. A failed check is a repair signal first, not an approval boundary.
+- A clear implementation/fix/improvement request defaults to the complete `wt flow`; explicit `e2e`/`end-to-end` wording is equivalent. `local-only`, `no-push`, or `no-PR` selects the Implementation lane and prohibits remote delivery. Still report destructive actions, honor required platform checks/reviews, and abort on scope, authorization, or validation drift.
 
 ## Required lifecycle
 
@@ -32,12 +32,12 @@ Classify the request before the first mutation. Start in the narrowest lane that
 3. **Research and plan:** research only what affects the slice, preferring local patterns. Define small slices and validation before coding. `medium`/`large` work needs plan review; `large` work needs durable Codememory sequencing/dependencies.
 4. **Execute:** implement the smallest useful slice; iterate cheaply; record material decisions, blockers, assumptions, dependencies, or handoff context in Codememory.
 5. **Validate and review:** run the named checks on the full diff, apply `docs/validation-policy.md` risk budget, fix and rerun failed checks autonomously, and stop only when checks are green and the latest review has no blocker. Prefer realistic live-state validation when behavior matters.
-6. **Deliver:** commit only validated slices; separate meaningful commits from pushes; update Codememory when continuing or closing. Use `wt flow` after a validated slice for end-to-end work.
+6. **Deliver:** commit only validated slices; separate meaningful commits from pushes; update Codememory when continuing or closing. Use `wt flow` after a validated slice unless the request explicitly selects the local-only Implementation lane.
 
 ## Delivery and Codememory invariants
 
 - Features, improvements, and fixes MUST use a dedicated worktree; never deliver from `main`. Use a focused validated commit, PR-only merge, and current issue/PR status when tracking exists.
-- “End-to-end”/“e2e” authorizes the full `wt flow`: worktree + current upstream/Codememory session, validated slice, commit/push/PR, review/fix, recheck `origin/main` and overlaps, merge, close Codememory state, delete branch/worktree, and `main` rebase-sync.
+- The default delivery flow is the full `wt flow`: worktree + current upstream/Codememory session, validated slice, commit/push/PR, review/fix, recheck `origin/main` and overlaps, merge, close Codememory state, delete branch/worktree, and `main` rebase-sync. Explicit `e2e`/`end-to-end` requests use the same flow; local-only boundaries stop before remote delivery.
 - Codememory is required when available for tracked implementation/delivery; read-only work and its documented outage fallback are exceptions. GitHub owns delivery/review/merge state. Follow `docs/codememory-workflow.md` for commands, recovery, closeout, and the no-ad-hoc-todo rule.
 
 ## Validation and routing

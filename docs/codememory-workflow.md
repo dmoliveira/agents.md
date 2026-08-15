@@ -138,8 +138,8 @@ Before ending a meaningful task slice:
 1. update Codememory task state with the latest validated outcome; update its parent epic when the slice changes initiative progress
 2. record any durable learnings, blockers, dependencies, or next-slice context
 3. close the Codememory session with the correct outcome when the session is actually ending
-4. update GitHub issue/PR state when the Delivery lane is authorized
-5. continue the next slice automatically within the authorized scope, or merge only through the Delivery/e2e workflow
+4. update GitHub issue/PR state when default delivery is in scope or e2e is explicitly requested
+5. continue the next slice automatically within the default delivery scope; an explicit local-only boundary ends the slice after its validated commit, and merges still go through the protected Delivery workflow
 
 Typical commands:
 

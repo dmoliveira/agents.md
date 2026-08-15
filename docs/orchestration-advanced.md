@@ -12,10 +12,10 @@ Primary operating contract is in `AGENTS.md` (adaptive default loop + `wt flow` 
 
 ## Worker and coordinator flow
 - Read-only worker: inspect the assigned scope and return evidence.
-- Implementation worker: use the assigned worktree, run the validation policy, and stop after a focused local commit; do not open a PR.
-- Delivery worker: only with the Delivery/e2e entry signal; reconcile tracking, run PR checks, open/update the PR, and stop before merge unless the flow authorizes it.
-- The coordinator advances automatically when acceptance and checks pass, but never crosses into Delivery without its entry signal.
-- For Delivery/e2e only: check PR status/checks and overlaps, recheck `origin/main`, merge only with repository/platform protections satisfied, then clean up and sync.
+- Implementation worker: use the assigned worktree, run the validation policy, and stop after a focused local commit; use this local boundary only when the request is explicitly `local-only`, `no-push`, or `no-PR`.
+- Delivery worker: for the default implementation flow or an explicit `e2e` entry signal, reconcile tracking, run PR checks, open/update the PR, and continue through merge when repository/platform protections are satisfied.
+- The coordinator advances automatically when acceptance and checks pass. The default implementation request is already the Delivery entry signal unless it explicitly selects a local-only boundary.
+- For default Delivery/e2e flows: check PR status/checks and overlaps, recheck `origin/main`, merge only with repository/platform protections satisfied, then clean up and sync.
 - Follow `docs/codememory-workflow.md` for tracking/recovery and `docs/validation-policy.md` for checks/review budgets.
 
 ## Efficient orchestration

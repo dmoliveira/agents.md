@@ -14,7 +14,7 @@ This runbook extends the canonical adaptive loop from `AGENTS.md` for long-runni
 4. Record the active plan slice plus validation definition before coding. Add dependencies/sequence when the work is `medium` or `large`.
 5. Implement one scoped slice with fast local iteration and continue while the next safe action is clear.
 6. Run the required validation gate, update Codememory with the latest validated outcome, and create one focused commit for the validated slice.
-7. If delivery is in scope, open/update the PR, watch checks, do one final overlap check against latest `main`, merge, and clean up the worktree.
+7. For the default implementation/fix/improvement flow, open/update the PR, watch checks, do one final overlap check against latest `main`, merge, and clean up the worktree. An explicit local-only/no-push/no-PR boundary stops after the validated local commit.
 8. Sync local `main`, close/update the issue or task, then continue to the next slice.
 
 ## Fast preflight

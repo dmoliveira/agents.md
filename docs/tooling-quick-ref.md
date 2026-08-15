@@ -47,7 +47,7 @@ gh pr view <id>
 gh pr checks <id>
 ```
 
-Run PR/merge/cleanup commands only in the Delivery/e2e lane. See `docs/github-cli.md` and `docs/orchestration-advanced.md`.
+Run PR/merge/cleanup commands in the default Delivery lane or an explicit e2e flow. A `local-only`, `no-push`, or `no-PR` request excludes those commands. See `docs/github-cli.md` and `docs/orchestration-advanced.md`.
 
 ## Optional tools
 
